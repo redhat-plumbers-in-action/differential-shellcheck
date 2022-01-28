@@ -21,7 +21,7 @@ jobs:
         # uses: actions/differential-shellcheck@v1
         uses: ./
         with:
-          ignored-codes: ./.github/.diff-shellcheck-exceptions.txt
-          shell-scripts: ./.github/.diff-shellcheck-scripts.txt
+          ignored-codes: .github/.diff-shellcheck-exceptions.txt
+          shell-scripts: .github/.diff-shellcheck-scripts.txt
       
       # Output...
