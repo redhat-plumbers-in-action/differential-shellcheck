@@ -4,8 +4,8 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 . $SCRIPT_DIR/functions.sh
 
-git_base=$BASE
-git_head=$HEAD
+git_base=$INPUT_BASE
+git_head=$INPUT_HEAD
 
 # ------------ #
 #  FILE PATHS  #
@@ -19,7 +19,7 @@ git diff --name-only --diff-filter=db "$git_base".."$git_head" > ../pr-changes.t
 list_of_changes=()
 file_to_array "../pr-changes.txt" "list_of_changes" 0
 list_of_scripts=()
-file_to_array "$SCRIPTS" "list_of_scripts" 1
+file_to_array "$INPUT_SHELL_SCRIPTS" "list_of_scripts" 1
 
 # Create list of scripts for testing
 list_of_changed_scripts=()
@@ -34,7 +34,7 @@ echo "LIST_OF_SCRIPTS=${list_of_changed_scripts[*]}" >> "$GITHUB_ENV"
 
 # Get list of exceptions
 list_of_exceptions=()
-file_to_array "$CODES" "list_of_exceptions" 1
+file_to_array "$INPUT_IGNORED_CODES" "list_of_exceptions" 1
 string_of_exceptions=$(join_by , "${list_of_exceptions[@]}")
 
 echo -e "\n"

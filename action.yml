@@ -24,8 +24,3 @@ outputs:
 runs:
   using: docker
   image: Dockerfile
-  env:
-    BASE: ${{ inputs.base }}
-    HEAD: ${{ inputs.head }}
-    CODES: ${{ inputs.ignored-codes }}
-    SCRIPTS: ${{ inputs.shell-scripts }}
