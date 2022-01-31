@@ -6,6 +6,6 @@ RUN dnf -y install csdiff git ShellCheck
 RUN mkdir -p /action
 WORKDIR /action
 
-COPY src/check-shell.sh src/functions.sh ./
+COPY src/index.sh src/functions.sh ./
 
-ENTRYPOINT ["/action/check-shell.sh"]
+ENTRYPOINT ["/action/index.sh"]

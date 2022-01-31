@@ -24,3 +24,6 @@ outputs:
 runs:
   using: docker
   image: Dockerfile
+  env:
+    INPUT_IGNORED_CODES: ${{inputs.ignored-codes}}
+    INPUT_SHELL_SCRIPTS: ${{inputs.shell-scripts}}
