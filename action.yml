@@ -1,6 +1,10 @@
 name: Differential ShellCheck
 description: Differential ShellCheck
 
+branding:
+  icon: check-circle
+  color: green
+
 inputs:
   base:
     description: Repository base
