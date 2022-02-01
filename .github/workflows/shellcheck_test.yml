@@ -1,5 +1,7 @@
 name: Test Differential ShellCheck
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
@@ -18,10 +20,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}  
 
       - name: Differential ShellCheck
-        # uses: actions/differential-shellcheck@v1
         uses: ./
         with:
           ignored-codes: .github/.diff-shellcheck-exceptions.txt
           shell-scripts: .github/.diff-shellcheck-scripts.txt
-      
-      # Output...

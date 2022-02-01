@@ -22,9 +22,13 @@ To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep`
 
 ## Usage
 
+Example of running Differential ShellCheck on commits and pull requests on `main` branch.
+
 ```yml
 name: Differential ShellCheck
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
 
