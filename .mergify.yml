@@ -26,7 +26,7 @@ pull_request_rules:
     actions:
       label:
         add:
-          - 'type: source'
+          - source
 
   - name: Remove source label
     conditions:
@@ -34,7 +34,7 @@ pull_request_rules:
     actions:
       label:
         remove:
-          - 'type: source'
+          - source
           
   # --- #
 
@@ -46,7 +46,7 @@ pull_request_rules:
     actions:
       label:
         add:
-          - 'type: configuration'
+          - configuration
 
   - name: Remove configuration label
     conditions:
@@ -56,7 +56,7 @@ pull_request_rules:
     actions:
       label:
         remove:
-          - 'type: configuration'
+          - configuration
           
   # --- #
 
@@ -67,7 +67,7 @@ pull_request_rules:
     actions:
       label:
         add:
-          - 'type: documentation'
+          - documentation
 
   - name: Remove documentation label
     conditions:
@@ -76,4 +76,4 @@ pull_request_rules:
     actions:
       label:
         remove:
-          - 'type: documentation'
+          - documentation
