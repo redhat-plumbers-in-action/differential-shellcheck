@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Differential ShellCheck
-        uses: actions/differential-shellcheck@v1
+        uses: redhat-plumbers-in-action/differential-shellcheck@v1
 ```
 
 <details>
@@ -57,7 +57,7 @@ Action currently accept following options:
 # ...
 
 - name: Differential ShellCheck
-  uses: actions/differential-shellcheck@v1
+  uses: redhat-plumbers-in-action/differential-shellcheck@v1
   with:
     base: <base-sha>
     head: <head-sha>
