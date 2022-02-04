@@ -1,0 +1,53 @@
+# Source: https://github.com/release-drafter/release-drafter/blob/f551477c43766f7020024aa95f1074aeeb96a0bf/.github/release-drafter.yml
+---
+
+name-template: 'v$RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
+
+template: |
+  # What's Changed
+
+  $CHANGES
+
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
+
+categories:
+  - title: 'Breaking'
+    label: 'type: breaking'
+
+  - title: 'New'
+    label: 'type: feature'
+
+  - title: 'Bug Fixes'
+    label: 'type: bug'
+
+  - title: 'Maintenance'
+    label: 'type: maintenance'
+
+  - title: 'Documentation'
+    label: 'type: docs'
+
+  - title: 'Other changes'
+
+  - title: 'Dependency Updates'
+    label: 'type: dependencies'
+
+version-resolver:
+  major:
+    labels:
+      - 'type: breaking'
+
+  minor:
+    labels:
+      - 'type: feature'
+
+  patch:
+    labels:
+      - 'type: bug'
+      - 'type: maintenance'
+      - 'type: docs'
+      - 'type: dependencies'
+      - 'type: security'
+
+exclude-labels:
+  - 'skip-changelog'
