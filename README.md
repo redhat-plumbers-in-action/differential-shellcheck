@@ -3,7 +3,10 @@
   <h1 align="center">Differential ShellCheck</h1>
 </p>
 
-[![Test Differential ShellCheck](https://github.com/redhat-plumbers-in-action/differential-shellcheck/actions/workflows/shellcheck_test.yml/badge.svg)](https://github.com/redhat-plumbers-in-action/differential-shellcheck/actions/workflows/shellcheck_test.yml)
+[![Test Differential ShellCheck](https://github.com/redhat-plumbers-in-action/differential-shellcheck/actions/workflows/shellcheck_test.yml/badge.svg)](https://github.com/redhat-plumbers-in-action/differential-shellcheck/actions/workflows/shellcheck_test.yml) [![Mergify Status][mergify-status]][mergify]
+
+[mergify]: https://mergify.com
+[mergify-status]: https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/redhat-plumbers-in-action/differential-shellcheck&style=flat
 
 This repository hosts code for running differential ShellCheck in GitHub actions. Idea of having something like differential ShellCheck was first introduced in [@fedora-sysv/initscripts](https://github.com/fedora-sysv/initscripts). Initscripts needed some way to verify incoming PR's without getting warnings and errors about already merged and for years working code. Therefore, differential ShellCheck was born.
 
@@ -41,7 +44,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Differential ShellCheck
-        uses: actions/differential-shellcheck@v1
+        uses: redhat-plumbers-in-action/differential-shellcheck@v1
 ```
 
 <details>
@@ -57,7 +60,7 @@ Action currently accept following options:
 # ...
 
 - name: Differential ShellCheck
-  uses: actions/differential-shellcheck@v1
+  uses: redhat-plumbers-in-action/differential-shellcheck@v1
   with:
     base: <base-sha>
     head: <head-sha>

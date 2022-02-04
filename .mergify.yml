@@ -1,0 +1,79 @@
+# doc: https://docs.mergify.com
+---
+
+pull_request_rules:
+
+  - name: Automatic merge on approval & CI pass
+    conditions:
+      - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - check-success=Test Differential ShellCheck
+      - -draft
+      - label!=dont-merge
+      - -title~=(?i)wip
+      - base=main
+    actions:
+      merge:
+        method: rebase
+        rebase_fallback: none
+        
+  # --- --- Labels --- --- #
+
+  - name: Add source label
+    conditions:
+      - files~=^src/
+    actions:
+      label:
+        add:
+          - 'type: source'
+
+  - name: Remove source label
+    conditions:
+      - -files~=^src/
+    actions:
+      label:
+        remove:
+          - 'type: source'
+          
+  # --- #
+
+  - name: Add configuration label
+    conditions:
+      - or:
+          - files~=\.yml$
+          - files~=Dockerfile
+    actions:
+      label:
+        add:
+          - 'type: configuration'
+
+  - name: Remove configuration label
+    conditions:
+      - and:
+          - -files~=\.yml$
+          - -files~=Dockerfile
+    actions:
+      label:
+        remove:
+          - 'type: configuration'
+          
+  # --- #
+
+  - name: Add documentation label
+    conditions:
+      - files~=\.md$
+      - files~=\.png$
+    actions:
+      label:
+        add:
+          - 'type: documentation'
+
+  - name: Remove documentation label
+    conditions:
+      - -files~=\.md$
+      - -files~=\.png$
+    actions:
+      label:
+        remove:
+          - 'type: documentation'
