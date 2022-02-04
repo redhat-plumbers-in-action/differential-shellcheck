@@ -20,7 +20,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}  
 
       - name: Differential ShellCheck
-        uses: ./
+        uses: redhat-plumbers-in-action/differential-shellcheck@main
         with:
           ignored-codes: .github/.diff-shellcheck-exceptions.txt
           shell-scripts: .github/.diff-shellcheck-scripts.txt
