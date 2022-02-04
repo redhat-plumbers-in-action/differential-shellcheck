@@ -62,8 +62,9 @@ pull_request_rules:
 
   - name: Add documentation label
     conditions:
-      - files~=\.md$
-      - files~=\.png$
+      - or:
+          - files~=\.md$
+          - files~=\.png$
     actions:
       label:
         add:
@@ -71,8 +72,9 @@ pull_request_rules:
 
   - name: Remove documentation label
     conditions:
-      - -files~=\.md$
-      - -files~=\.png$
+      - and:
+          - -files~=\.md$
+          - -files~=\.png$
     actions:
       label:
         remove:
