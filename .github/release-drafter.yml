@@ -29,6 +29,9 @@ categories:
 
   - title: 'Other changes'
 
+  - title: 'Automation changes'
+    label: 'type: ci'
+
   - title: 'Dependency Updates'
     label: 'type: dependencies'
 
@@ -46,8 +49,11 @@ version-resolver:
       - 'type: bug'
       - 'type: maintenance'
       - 'type: documentation'
+      - 'type: ci'
       - 'type: dependencies'
       - 'type: security'
+
+  default: patch
 
 exclude-labels:
   - 'skip-changelog'
