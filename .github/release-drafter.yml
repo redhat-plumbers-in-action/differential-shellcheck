@@ -25,7 +25,7 @@ categories:
     label: 'type: maintenance'
 
   - title: 'Documentation'
-    label: 'type: docs'
+    label: 'type: documentation'
 
   - title: 'Other changes'
 
@@ -45,7 +45,7 @@ version-resolver:
     labels:
       - 'type: bug'
       - 'type: maintenance'
-      - 'type: docs'
+      - 'type: documentation'
       - 'type: dependencies'
       - 'type: security'
 
