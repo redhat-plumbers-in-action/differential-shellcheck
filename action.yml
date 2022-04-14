@@ -20,6 +20,9 @@ inputs:
   shell-scripts:
     description: List of Shell scripts proposed for validation
     required: false
+  token:
+    description: GitHub TOKEN used to upload SARIF data
+    required: false
 
 outputs:
   result: 
@@ -29,5 +32,5 @@ runs:
   using: docker
   image: Dockerfile
   env:
-    INPUT_IGNORED_CODES: ${{inputs.ignored-codes}}
-    INPUT_SHELL_SCRIPTS: ${{inputs.shell-scripts}}
+    INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
+    INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}

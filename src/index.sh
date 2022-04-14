@@ -107,4 +107,20 @@ else
   exitstatus=0
 fi
 
+if [ -n "$INPUT_TOKEN" ]; then
+  echo -e "\n"
+  echo ":::::::::::::"
+  echo -e "::: ${WHITE}SARIF${NOCOLOR} :::"
+  echo ":::::::::::::"
+  echo -e "\n"
+
+  # GIthub support absolute path, so let's remove './' from file path
+  csgrep --strip-path-prefix './' --mode=sarif ../bugs.log >> output.sarif && \
+  curl -X POST \
+    -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/sarifs" \
+    -H "Authorization: token ${INPUT_TOKEN}" \
+    -H "Accept: application/vnd.github.v3+json" \
+    -d '{"commit_sha":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_name":"differential-shellcheck"}'
+fi
+
 exit $exitstatus

@@ -5,8 +5,11 @@
 * Use [@actions/toolkit](https://github.com/actions/toolkit) and [@probot/probot](https://github.com/probot/probot) instead of currently used `bash` and `Docker`.
 * Improve usability - human readable and accessible output in form of comments, suggestions, etc.
 * More customization - whitelisting and blacklisting of error codes and scripts
-* SARIF support
 * And more...
+
+## v2.0.0
+
+* Added support for SARIF
 
 ## v1.2.0
 

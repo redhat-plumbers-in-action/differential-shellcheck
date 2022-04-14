@@ -14,7 +14,7 @@ This repository hosts code for running differential ShellCheck in GitHub actions
 
 First Differential ShellCheck gets a list of changed shell scripts based on file extensions, shebangs and script list, if provided. Then it calls [@koalaman/shellcheck](https://github.com/koalaman/shellcheck) on those scripts where it stores ShellCheck output for later use. Then it switches from `HEAD` to provided `BASE` and runs ShellCheck on the same files as before and stores output to separate file.
 
-To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep` from [@csutils/csdiff](https://github.com/csutils/csdiff). First is used `csdiff` to get a list/number of fixed and added errors. And then is used `csgrep` to output results in a nice colorized way.
+To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep` from [@csutils/csdiff](https://github.com/csutils/csdiff). First is used `csdiff` to get a list/number of fixed and added errors. And then is used `csgrep` to output results in a nice colorized way to console and optionally into GitHub GUI as security alert.
 
 ## Features
 
@@ -22,6 +22,7 @@ To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep`
 * Ability to white list specific error codes
 * Statistics about fixed and added errors
 * Colored console output
+* [SARIF support](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning) - warnings are visible in `Changed files` tab of Pull-Request
 
 ## Usage
 
@@ -45,13 +46,20 @@ jobs:
 
       - name: Differential ShellCheck
         uses: redhat-plumbers-in-action/differential-shellcheck@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ⚠️ *Please note, that `fetch-depth: 0` is required in order to run `differential-shellcheck` successfully.*
 
 <details>
-  <summary>Output example</summary>
+  <summary>Console output example</summary>
   <img src="doc/images/output-example.png" width="800" />
+</details>
+
+<details>
+  <summary>Example of output in Changed files tab</summary>
+  <img src="doc/images/sarif-output-example.png" width="800" />
 </details>
 
 ## Configuration options
@@ -68,6 +76,7 @@ Action currently accept following options:
     head: <head-sha>
     ignored-codes: <path to file with list of codes>
     shell-scripts: <path to file with list of scripts>
+    token: <GitHub token>
 
 # ...
 ```
@@ -103,6 +112,17 @@ Path to text file which holds a list of shell scripts in this repository which w
 * example: [.diff-shellcheck-scripts.txt](.github/.diff-shellcheck-scripts.txt)
 
 *Note: Every path should be absolute and placed on separate lines. Avoid spaces in list since they are counted as comment.*
+
+### token
+
+Secret GitHub token with following [characteristics](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
+
+* Token with the `security_events` scope to use this endpoint for private repositories.
+* Token with the `public_repo` scope for **public repositories only**.
+
+* default value: `undefined`
+* requirements: `optional`
+* recomended value: `secrets.GITHUB_TOKEN`
 
 ## Limitations
 
