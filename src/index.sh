@@ -11,6 +11,9 @@ git_head=$INPUT_HEAD
 #  FILE PATHS  #
 # ------------ #
 
+# Make directory /github/workspace git-save
+git config --global --add safe.directory /github/workspace
+
 # https://github.com/actions/runner/issues/342
 # get names of files from PR (excluding deleted files)
 git diff --name-only --diff-filter=db "$git_base".."$git_head" > ../pr-changes.txt
