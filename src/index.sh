@@ -60,7 +60,8 @@ echo -e "\n"
 shellcheck --format=gcc --exclude="${string_of_exceptions}" "${list_of_changed_scripts[@]}" 2> /dev/null | sed -e 's|$| <--[shellcheck]|' > ../pr-br-shellcheck.err
 
 # make destination branch
-git checkout -q -b ci_br_dest "$git_base"
+# shellcheck disable=SC2086
+git checkout -q -b ci_br_dest $git_base
 
 shellcheck --format=gcc --exclude="${string_of_exceptions}" "${list_of_changed_scripts[@]}" 2> /dev/null | sed -e 's|$| <--[shellcheck]|' > ../dest-br-shellcheck.err
 
