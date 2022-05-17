@@ -41,11 +41,15 @@ jobs:
 
     steps: 
       - name: Repository checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Differential ShellCheck
         uses: redhat-plumbers-in-action/differential-shellcheck@v1
 ```
+
+⚠️ *Please note, that `fetch-depth: 0` is required in order to run `differential-shellcheck` successfully.*
 
 <details>
   <summary>Output example</summary>
@@ -100,4 +104,4 @@ Path to text file which holds a list of shell scripts in this repository which w
 * requirements: `optional`
 * example: [.diff-shellcheck-scripts.txt](.github/.diff-shellcheck-scripts.txt)
 
-Note: _Every path should be absolute and placed on separate lines. Avoid spaces in list since they are counted as comment._
+*Note: Every path should be absolute and placed on separate lines. Avoid spaces in list since they are counted as comment.*
