@@ -1,4 +1,4 @@
-FROM fedora:rawhide
+FROM fedora:latest
 
 RUN dnf -y update
 RUN dnf -y install csdiff git ShellCheck
