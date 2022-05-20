@@ -73,7 +73,7 @@ file_to_array () {
 # $@ - source array
 # $? - return value - 0 when succes
 clean_array () {
-  [ $# -le 2 ] && return 1
+  [ $# -le 1 ] && return 1
   local output="$1"
   shift
   local input=("$@")
