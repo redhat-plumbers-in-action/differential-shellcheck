@@ -8,6 +8,13 @@
 * SARIF support
 * And more...
 
+## v1.2.0
+
+* Fix wrong check in `clean_array()`
+* Action cannot be run on `push`
+* Cleanup code from redundant variables
+* Use `fedora:latest` container image instead of `rawhide`
+
 ## v1.1.3
 
 * Update of documentation
