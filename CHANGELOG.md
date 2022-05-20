@@ -5,7 +5,24 @@
 * Use [@actions/toolkit](https://github.com/actions/toolkit) and [@probot/probot](https://github.com/probot/probot) instead of currently used `bash` and `Docker`.
 * Improve usability - human readable and accessible output in form of comments, suggestions, etc.
 * More customization - whitelisting and blacklisting of error codes and scripts
+* SARIF support
 * And more...
+
+## v1.1.3
+
+* Update of documentation
+
+## v1.1.2
+
+* Bugfixes:
+  * Make directory /github/workspace git-save
+  * Remove double quotes to avoid git empty pathspec warnings
+* Make GA tests ran on current version of repo/fork
+* Bump actions/checkout from 2 to 3
+
+## v1.1.1
+
+* Minor changes regarding internal automation
 
 ## v1.1.0
 
