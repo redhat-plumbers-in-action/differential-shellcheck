@@ -4,9 +4,6 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 . $SCRIPT_DIR/functions.sh
 
-git_base=$INPUT_BASE
-git_head=$INPUT_HEAD
-
 # ------------ #
 #  FILE PATHS  #
 # ------------ #
@@ -16,7 +13,7 @@ git config --global --add safe.directory /github/workspace
 
 # https://github.com/actions/runner/issues/342
 # get names of files from PR (excluding deleted files)
-git diff --name-only --diff-filter=db "$git_base".."$git_head" > ../pr-changes.txt
+git diff --name-only --diff-filter=db "$INPUT_BASE".."$INPUT_HEAD" > ../pr-changes.txt
 
 # Find modified shell scripts
 list_of_changes=()
@@ -61,7 +58,7 @@ shellcheck --format=gcc --exclude="${string_of_exceptions}" "${list_of_changed_s
 
 # make destination branch
 # shellcheck disable=SC2086
-git checkout -q -b ci_br_dest $git_base
+git checkout -q -b ci_br_dest $INPUT_BASE
 
 shellcheck --format=gcc --exclude="${string_of_exceptions}" "${list_of_changed_scripts[@]}" 2> /dev/null | sed -e 's|$| <--[shellcheck]|' > ../dest-br-shellcheck.err
 
@@ -74,7 +71,6 @@ echo ":::::::::::::::::::::::::"
 echo -e "::: ${WHITE}Validation Output${NOCOLOR} :::"
 echo ":::::::::::::::::::::::::"
 echo -e "\n"
-
 
 # Check output for Fixes
 csdiff --fixed "../dest-br-shellcheck.err" "../pr-br-shellcheck.err" > ../fixes.log
@@ -92,7 +88,6 @@ else
   echo "---------------------"
 fi
 echo -e "\n"
-
 
 # Check output for added bugs
 csdiff --fixed "../pr-br-shellcheck.err" "../dest-br-shellcheck.err" > ../bugs.log
