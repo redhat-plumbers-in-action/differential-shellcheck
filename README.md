@@ -25,13 +25,11 @@ To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep`
 
 ## Usage
 
-Example of running Differential ShellCheck on commits and pull requests on `main` branch.
+Example of running Differential ShellCheck on pull requests on `main` branch.
 
 ```yml
 name: Differential ShellCheck
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
 
@@ -105,3 +103,7 @@ Path to text file which holds a list of shell scripts in this repository which w
 * example: [.diff-shellcheck-scripts.txt](.github/.diff-shellcheck-scripts.txt)
 
 *Note: Every path should be absolute and placed on separate lines. Avoid spaces in list since they are counted as comment.*
+
+## Limitations
+
+* Currently `differential-shellcheck` action could be run only on Pull-Requests
