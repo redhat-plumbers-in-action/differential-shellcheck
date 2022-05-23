@@ -123,4 +123,7 @@ if [ -n "$INPUT_TOKEN" ]; then
     -d '{"commit_sha":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_name":"differential-shellcheck"}'
 fi
 
+a="a a"
+echo $a
+
 exit $exitstatus
