@@ -1,5 +1,8 @@
 #!/bin/bash
 
+a="a a"
+echo $a
+
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 . $SCRIPT_DIR/functions.sh
@@ -7,6 +10,9 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 # ------------ #
 #  FILE PATHS  #
 # ------------ #
+
+b="b b"
+echo $b
 
 # Make directory /github/workspace git-save
 git config --global --add safe.directory /github/workspace
@@ -124,6 +130,9 @@ if [ -n "$INPUT_TOKEN" ]; then
     -H "Authorization: token ${INPUT_TOKEN}" \
     -H "Accept: application/vnd.github.v3+json" \
     -d '{"commit_oid":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}'
+fi
+
+if [-z ]
 fi
 
 exit $exitstatus
