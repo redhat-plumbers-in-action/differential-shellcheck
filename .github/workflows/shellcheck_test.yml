@@ -6,6 +6,8 @@ on:
 jobs:
   shellCheck:
     runs-on: ubuntu-20.04
+    permissions:
+      security-events: write
 
     steps:   
       - name: Repository checkout

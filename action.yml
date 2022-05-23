@@ -23,6 +23,7 @@ inputs:
   token:
     description: GitHub TOKEN used to upload SARIF data
     required: false
+    default: ${{ github.token }}
 
 outputs:
   result: 

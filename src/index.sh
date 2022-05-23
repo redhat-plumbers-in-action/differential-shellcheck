@@ -1,5 +1,8 @@
 #!/bin/bash
 
+a="a a"
+echo $a
+
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 . $SCRIPT_DIR/functions.sh
@@ -7,6 +10,9 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 # ------------ #
 #  FILE PATHS  #
 # ------------ #
+
+b="b b"
+echo $b
 
 # Make directory /github/workspace git-save
 git config --global --add safe.directory /github/workspace
@@ -116,11 +122,17 @@ if [ -n "$INPUT_TOKEN" ]; then
 
   # GIthub support absolute path, so let's remove './' from file path
   csgrep --strip-path-prefix './' --mode=sarif ../bugs.log >> output.sarif && \
-  curl -X POST \
+  curl -v -X POST \
     -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/sarifs" \
     -H "Authorization: token ${INPUT_TOKEN}" \
     -H "Accept: application/vnd.github.v3+json" \
     -d '{"commit_sha":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_name":"differential-shellcheck"}'
+
+    cat output.sarif
+    echo '{"commit_sha":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_name":"differential-shellcheck"}'
+fi
+
+if [-z ]
 fi
 
 exit $exitstatus
