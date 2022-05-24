@@ -124,6 +124,9 @@ Secret GitHub token with following [characteristics](https://docs.github.com/en/
 * requirements: `optional`
 * recomended value: `secrets.GITHUB_TOKEN`
 
+*Note: This functionality is currently supported only for "native" Pull-Requests - for more see: [Permissions for the GITHUB_TOKEN](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)*
+
 ## Limitations
 
 * Currently `differential-shellcheck` action could be run only on Pull-Requests
+* Due to limitation of `GITHUB_TOKEN` for forks `differential-shellcheck` isn't able to upload SARIF findings when triggered by fork
