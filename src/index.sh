@@ -114,13 +114,16 @@ if [ -n "$INPUT_TOKEN" ]; then
   echo ":::::::::::::"
   echo -e "\n"
 
-  # GIthub support absolute path, so let's remove './' from file path
+  # GitHub support absolute path, so let's remove './' from file path
   csgrep --strip-path-prefix './' --mode=sarif ../bugs.log >> output.sarif && \
-  curl -X POST \
-    -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/sarifs" \
+  # Source: https://github.com/github/codeql-action/blob/dbe6f211e66b3aa5e9a5c4731145ed310ed54e28/lib/upload-lib.js#L104-L106
+  # Parameters: https://github.com/github/codeql-action/blob/69e09909dc219ed3374913e41c167490fc57202a/lib/upload-lib.js#L211-L224
+  # Values: https://github.com/github/codeql-action/blob/main/lib/upload-lib.test.js#L72
+  curl -X PUT \
+    -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/analysis" \
     -H "Authorization: token ${INPUT_TOKEN}" \
     -H "Accept: application/vnd.github.v3+json" \
-    -d '{"commit_sha":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_name":"differential-shellcheck"}'
+    -d '{"commit_oid":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}'
 fi
 
 exit $exitstatus
