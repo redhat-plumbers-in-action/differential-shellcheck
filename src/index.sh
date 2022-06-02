@@ -132,7 +132,4 @@ if [ -n "$INPUT_TOKEN" ]; then
     -d '{"commit_oid":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}'
 fi
 
-if [-z ]
-fi
-
 exit $exitstatus
