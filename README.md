@@ -62,6 +62,11 @@ jobs:
   <img src="doc/images/sarif-output-example.png" width="800" />
 </details>
 
+<details>
+  <summary>Example of @github-code-scanning bot review comment</summary>
+  <img src="doc/images/sarif-comment.png" width="800" />
+</details>
+
 ## Configuration options
 
 Action currently accept following options:
@@ -115,18 +120,17 @@ Path to text file which holds a list of shell scripts in this repository which w
 
 ### token
 
-Secret GitHub token with following [characteristics](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
-
-* Token with the `security_events` scope to use this endpoint for private repositories.
-* Token with the `public_repo` scope for **public repositories only**.
+Token used to upload findings in SARIF format to GitHub
 
 * default value: `undefined`
 * requirements: `optional`
 * recomended value: `secrets.GITHUB_TOKEN`
 
-*Note: This functionality is currently supported only for "native" Pull-Requests - for more see: [Permissions for the GITHUB_TOKEN](https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token)*
+Token needs to have following [characteristics](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
+
+* Token with the `security_events` scope to use this endpoint for private repositories.
+* Token with the `public_repo` scope for **public repositories only**.
 
 ## Limitations
 
 * Currently `differential-shellcheck` action could be run only on Pull-Requests
-* Due to limitation of `GITHUB_TOKEN` for forks `differential-shellcheck` isn't able to upload SARIF findings when triggered by fork

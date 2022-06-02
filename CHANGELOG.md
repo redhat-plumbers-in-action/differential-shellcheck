@@ -7,6 +7,10 @@
 * More customization - whitelisting and blacklisting of error codes and scripts
 * And more...
 
+## v2.1.0
+
+* SARIF feature now supports PRs from private forks
+
 ## v2.0.0
 
 * Added support for SARIF
