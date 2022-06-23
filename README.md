@@ -26,7 +26,7 @@ To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep`
 
 ## Usage
 
-Example of running Differential ShellCheck on pull requests on `main` branch.
+Example of running Differential ShellCheck:
 
 ```yml
 name: Differential ShellCheck
@@ -45,7 +45,7 @@ jobs:
           fetch-depth: 0
 
       - name: Differential ShellCheck
-        uses: redhat-plumbers-in-action/differential-shellcheck@v1
+        uses: redhat-plumbers-in-action/differential-shellcheck@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -75,7 +75,7 @@ Action currently accept following options:
 # ...
 
 - name: Differential ShellCheck
-  uses: redhat-plumbers-in-action/differential-shellcheck@v1
+  uses: redhat-plumbers-in-action/differential-shellcheck@v2
   with:
     base: <base-sha>
     head: <head-sha>
