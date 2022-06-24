@@ -3,9 +3,15 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   shellCheck:
     runs-on: ubuntu-20.04
+
+    permissions:
+      security-events: write
 
     steps:   
       - name: Repository checkout
