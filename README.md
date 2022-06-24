@@ -34,9 +34,15 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-20.04
+
+    permissions:
+      security-events: write
 
     steps: 
       - name: Repository checkout
@@ -124,7 +130,6 @@ Token used to upload findings in SARIF format to GitHub
 
 * default value: `undefined`
 * requirements: `optional`
-* recomended value: `secrets.GITHUB_TOKEN`
 
 Token needs to have following [characteristics](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
 
