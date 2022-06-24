@@ -7,6 +7,15 @@
 * More customization - whitelisting and blacklisting of error codes and scripts
 * And more...
 
+## v2.2.0
+
+* Add option to run in debug mode - more verbose output
+* Output optimizations - cleaner output, emojis, updated colors and spacing
+
+## v2.1.1
+
+* Small documentation changes
+
 ## v2.1.0
 
 * SARIF feature now supports PRs from private forks

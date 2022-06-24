@@ -37,17 +37,16 @@ list_of_exceptions=()
 [ -f "$INPUT_IGNORED_CODES" ] && file_to_array "$INPUT_IGNORED_CODES" "list_of_exceptions" 1
 string_of_exceptions=$(join_by , "${list_of_exceptions[@]}")
 
-echo -e "\n"
-echo ":::::::::::::::::::::"
-echo -e "::: ${WHITE}Shellcheck CI${NOCOLOR} :::"
-echo ":::::::::::::::::::::"
-echo -e "\n"
+echo -e "${MAIN_HEADING}"
 
-echo -e "${WHITE}Changed shell scripts:${NOCOLOR}"
-echo "${list_of_changed_scripts[@]}"
-echo -e "${WHITE}List of shellcheck exceptions:${NOCOLOR}"
-echo "${string_of_exceptions}"
-echo -e "\n"
+if isDebug ; then 
+  echo -e "📜 ${WHITE}Changed shell scripts${NOCOLOR}"
+  echo "${list_of_changed_scripts[@]}"
+  echo
+  echo -e "👌 ${WHITE}List of shellcheck exceptions${NOCOLOR}"
+  echo "${string_of_exceptions}"
+  echo
+fi
 
 # ------------ #
 #  SHELLCHECK  #
@@ -67,10 +66,6 @@ shellcheck --format=gcc --exclude="${string_of_exceptions}" "${list_of_changed_s
 # ------------ #
 
 exitstatus=0
-echo ":::::::::::::::::::::::::"
-echo -e "::: ${WHITE}Validation Output${NOCOLOR} :::"
-echo ":::::::::::::::::::::::::"
-echo -e "\n"
 
 # Check output for Fixes
 csdiff --fixed "../dest-br-shellcheck.err" "../pr-br-shellcheck.err" > ../fixes.log
@@ -80,14 +75,13 @@ no_fixes=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../fixes.log))
 echo "NUMBER_OF_SOLVED_ISSUES=${no_fixes:-0}" >> "$GITHUB_ENV"
 
 if [ -s ../fixes.log ]; then
-  echo -e "${GREEN}Fixed bugs:${NOCOLOR}"
+  echo -e "✅ ${GREEN}Fixed bugs${NOCOLOR}"
   csgrep ../fixes.log
-  echo "---------------------"
 else
-  echo -e "${YELLOW}No Fixes!${NOCOLOR}"
-  echo "---------------------"
+  echo -e "ℹ️ ${YELLOW}No Fixes!${NOCOLOR}"
 fi
-echo -e "\n"
+
+echo
 
 # Check output for added bugs
 csdiff --fixed "../pr-br-shellcheck.err" "../dest-br-shellcheck.err" > ../bugs.log
@@ -97,36 +91,19 @@ no_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../bugs.log))
 echo "NUMBER_OF_ADDED_ISSUES=${no_issues:-0}" >> "$GITHUB_ENV"
 
 if [ -s ../bugs.log ]; then
-  echo -e "${RED}Added bugs, NEED INSPECTION:${NOCOLOR}"
+  echo -e "✋ ${YELLOW}Added bugs, NEED INSPECTION${NOCOLOR}"
   csgrep ../bugs.log
-  echo "---------------------"
   exitstatus=1
 else
-  echo -e "${GREEN}No bugs added Yay!${NOCOLOR}"
-  echo "---------------------"
+  echo -e "🥳 ${GREEN}No bugs added Yay!${NOCOLOR}"
   exitstatus=0
 fi
 
+# SARIF upload
 if [ -n "$INPUT_TOKEN" ]; then
-  echo -e "\n"
-  echo ":::::::::::::"
-  echo -e "::: ${WHITE}SARIF${NOCOLOR} :::"
-  echo ":::::::::::::"
-  echo -e "\n"
-
+  echo
   # GitHub support absolute path, so let's remove './' from file path
-  csgrep --strip-path-prefix './' --mode=sarif ../bugs.log >> output.sarif
-
-  if [ $? -eq 0 ] && [ -s output.sarif ]; then
-    # Source: https://github.com/github/codeql-action/blob/dbe6f211e66b3aa5e9a5c4731145ed310ed54e28/lib/upload-lib.js#L104-L106
-    # Parameters: https://github.com/github/codeql-action/blob/69e09909dc219ed3374913e41c167490fc57202a/lib/upload-lib.js#L211-L224
-    # Values: https://github.com/github/codeql-action/blob/main/lib/upload-lib.test.js#L72
-    curl -X PUT \
-      -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/analysis" \
-      -H "Authorization: token ${INPUT_TOKEN}" \
-      -H "Accept: application/vnd.github.v3+json" \
-      -d '{"commit_oid":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}'
-  fi
+  csgrep --strip-path-prefix './' --mode=sarif ../bugs.log >> output.sarif && uploadSARIF
 fi
 
 exit $exitstatus

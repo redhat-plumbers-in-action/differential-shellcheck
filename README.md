@@ -23,6 +23,7 @@ To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep`
 * Statistics about fixed and added errors
 * Colored console output
 * [SARIF support](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning) - warnings are visible in `Changed files` tab of Pull-Request
+* Ability to run in verbose mode when run with [debug option](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/)
 
 ## Usage
 
