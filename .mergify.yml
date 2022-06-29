@@ -1,5 +1,5 @@
-# doc: https://docs.mergify.com
 ---
+# doc: https://docs.mergify.com
 
 pull_request_rules:
 
@@ -17,7 +17,7 @@ pull_request_rules:
       merge:
         method: rebase
         rebase_fallback: none
-        
+
   # --- --- Labels --- --- #
 
   - name: Add source label
@@ -35,7 +35,7 @@ pull_request_rules:
       label:
         remove:
           - source
-          
+
   # --- #
 
   - name: Add configuration label
@@ -57,7 +57,7 @@ pull_request_rules:
       label:
         remove:
           - configuration
-          
+
   # --- #
 
   - name: Add documentation label
@@ -79,3 +79,21 @@ pull_request_rules:
       label:
         remove:
           - documentation
+
+  # --- #
+
+  - name: Add test label
+    conditions:
+      - files~=^test/
+    actions:
+      label:
+        add:
+          - test
+
+  - name: Remove test label
+    conditions:
+      - -files~=^test/
+    actions:
+      label:
+        remove:
+          - test

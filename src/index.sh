@@ -24,9 +24,9 @@ list_of_scripts=()
 # Create list of scripts for testing
 list_of_changed_scripts=()
 for file in "${list_of_changes[@]}"; do
-  is_it_script "$file" "${list_of_scripts[@]}" && list_of_changed_scripts+=("./${file}") && continue
-  check_extension "$file" && list_of_changed_scripts+=("./${file}") && continue
-  check_shebang "$file" && list_of_changed_scripts+=("./${file}")
+  is_script_listed "$file" "${list_of_scripts[@]}" && list_of_changed_scripts+=("./${file}") && continue
+  is_shell_extension "$file" && list_of_changed_scripts+=("./${file}") && continue
+  has_shebang "$file" && list_of_changed_scripts+=("./${file}")
 done
 
 # Expose list_of_changed_scripts[*] for use inside GA workflow
@@ -39,7 +39,7 @@ string_of_exceptions=$(join_by , "${list_of_exceptions[@]}")
 
 echo -e "${MAIN_HEADING}"
 
-if isDebug ; then 
+if is_debug ; then 
   echo -e "📜 ${WHITE}Changed shell scripts${NOCOLOR}"
   echo "${list_of_changed_scripts[@]}"
   echo

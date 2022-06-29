@@ -1,3 +1,5 @@
+---
+
 name: Differential ShellCheck
 description: Differential ShellCheck
 
@@ -25,12 +27,12 @@ inputs:
     required: false
 
 outputs:
-  result: 
+  result:
     description: Result of Differential ShellCheck
 
 runs:
   using: docker
-  image: ghcr.io://differential-shellcheck:latest
+  image: Dockerfile
   env:
     INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
     INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}

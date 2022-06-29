@@ -3,7 +3,7 @@
 # $1 - <string> absolute path to file
 # $@ - <array of strings> list of strings to compare with
 # $? - return value - 0 when succes
-is_it_script () {
+is_script_listed () {
   [ $# -le 1 ] && return 1
   local file="$1"
   shift
@@ -16,7 +16,7 @@ is_it_script () {
 # https://stackoverflow.com/a/6926061
 # $1 - <string> absolute path to file
 # $? - return value - 0 when succes
-check_extension () {
+is_shell_extension () {
   [ $# -le 0 ] && return 1
   local file="$1"
 
@@ -31,7 +31,7 @@ check_extension () {
 # https://unix.stackexchange.com/a/406939
 # $1 - <string> absolute path to file
 # $? - return value - 0 when succes
-check_shebang () {
+has_shebang () {
   [ $# -le 0 ] && return 1
   local file="$1"
 
@@ -39,9 +39,11 @@ check_shebang () {
     case $line in
       "#!/bin/bash") return 0;;
       "#!/bin/sh") return 0;;
-      *) return 1
+      *) return 2
     esac
   fi
+
+  return 3
 }
 
 # Function to prepare string from array of strings where first argument specify one character separator
@@ -88,7 +90,7 @@ clean_array () {
 }
 
 # Function to check if action is run in Debug mode
-isDebug () {
+is_debug () {
   [[ "${RUNNER_DEBUG}" -eq 1 ]] && return 0 || return 1
 }
 
@@ -97,7 +99,7 @@ isDebug () {
 # Parameters: https://github.com/github/codeql-action/blob/69e09909dc219ed3374913e41c167490fc57202a/lib/upload-lib.js#L211-L224
 # Values: https://github.com/github/codeql-action/blob/main/lib/upload-lib.test.js#L72
 uploadSARIF () {
-  isDebug && local verbose=--verbose
+  is_debug && local verbose=--verbose
 
   curl_args=(
     "${verbose:---silent}"
@@ -110,7 +112,7 @@ uploadSARIF () {
 
   if curl "${curl_args[@]}" &> curl_std ; then
     echo -e "✅ ${GREEN}SARIF report was successfully uploaded to GitHub${NOCOLOR}"
-    isDebug && cat curl_std
+    is_debug && cat curl_std
   else
     echo -e "❌ ${RED}Fail to upload SARIF to GitHub${NOCOLOR}"
     cat curl_std
