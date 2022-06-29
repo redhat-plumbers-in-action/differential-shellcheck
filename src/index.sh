@@ -65,14 +65,10 @@ shellcheck --format=gcc --exclude="${string_of_exceptions}" "${list_of_changed_s
 #  VALIDATION  #
 # ------------ #
 
-exitstatus=0
+exit_status=0
 
 # Check output for Fixes
 csdiff --fixed "../dest-br-shellcheck.err" "../pr-br-shellcheck.err" > ../fixes.log
-
-# Expose number of solved issues for use inside GA workflow
-no_fixes=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../fixes.log))
-echo "NUMBER_OF_SOLVED_ISSUES=${no_fixes:-0}" >> "$GITHUB_ENV"
 
 if [ -s ../fixes.log ]; then
   echo -e "✅ ${GREEN}Fixed bugs${NOCOLOR}"
@@ -86,17 +82,13 @@ echo
 # Check output for added bugs
 csdiff --fixed "../pr-br-shellcheck.err" "../dest-br-shellcheck.err" > ../bugs.log
 
-# Expose number of added issues for use inside GA workflow
-no_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../bugs.log))
-echo "NUMBER_OF_ADDED_ISSUES=${no_issues:-0}" >> "$GITHUB_ENV"
-
 if [ -s ../bugs.log ]; then
   echo -e "✋ ${YELLOW}Added bugs, NEED INSPECTION${NOCOLOR}"
   csgrep ../bugs.log
-  exitstatus=1
+  exit_status=1
 else
   echo -e "🥳 ${GREEN}No bugs added Yay!${NOCOLOR}"
-  exitstatus=0
+  exit_status=0
 fi
 
 # SARIF upload
@@ -106,4 +98,6 @@ if [ -n "$INPUT_TOKEN" ]; then
   csgrep --strip-path-prefix './' --mode=sarif ../bugs.log >> output.sarif && uploadSARIF
 fi
 
-exit $exitstatus
+summary >> "$GITHUB_STEP_SUMMARY"
+
+exit $exit_status

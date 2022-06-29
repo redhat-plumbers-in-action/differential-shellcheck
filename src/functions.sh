@@ -113,6 +113,31 @@ uploadSARIF () {
   fi
 }
 
+summary () {
+  local fixed_issues
+  fixed_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../fixes.log))
+
+  local added_issues
+  added_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../bugs.log))
+
+  echo -e "\
+### Differential ShellCheck 🐚
+
+Changed scripts: \`${#list_of_changed_scripts[@]}\`
+
+|                             | ❌ Added | ✅ Fixed |
+|:---------------------------:|:-------:|:-------:|
+| ⚠️ [Errors / Warnings / Notes](https://github.com/${GITHUB_REPOSITORY}/pull/${GITHUB_REF//merge}/files) |  **${added_issues:-0}**  |  **${fixed_issues:-0}**  |
+
+#### Useful links
+
+- [Differential ShellCheck Documentation](https://github.com/redhat-plumbers-in-action/differential-shellcheck#readme)
+- [ShellCheck Documentation](https://github.com/koalaman/shellcheck#readme)
+
+---
+_ℹ️ When you have an issue with GitHub action please try to run it in [debug mode](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/) and submit an [issue](https://github.com/redhat-plumbers-in-action/differential-shellcheck/issues/new)._"
+}
+
 # Logging aliases, use echo -e to use them
 export MAIN_HEADING="\
 \n\n:::::::::::::::::::::::::::::::\n\
