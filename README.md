@@ -21,9 +21,10 @@ To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep`
 * Shell scripts auto-detection based on shebangs (`!#/bin/sh` or `!#/bin/bash`) and file extensions (`.sh`)
 * Ability to white list specific error codes
 * Statistics about fixed and added errors
-* Colored console output
+* Colored console output with emojis
 * [SARIF support](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning) - warnings are visible in `Changed files` tab of Pull-Request
 * Ability to run in verbose mode when run with [debug option](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/)
+* Results displayed as [job summaries](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/)
 
 ## Usage
 
