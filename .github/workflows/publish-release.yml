@@ -1,5 +1,5 @@
-# Source: https://github.com/release-drafter/release-drafter/blob/master/.github/workflows/release.yml
 ---
+# Source: https://github.com/release-drafter/release-drafter/blob/master/.github/workflows/release.yml
 
 name: Release
 on:
@@ -7,9 +7,16 @@ on:
     tags:
       - v*.*.*
 
+permissions:
+  contents: read
+
 jobs:
   release:
+    name: New release
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout

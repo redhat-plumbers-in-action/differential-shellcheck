@@ -1,3 +1,5 @@
+---
+
 name: Containers
 
 on:
@@ -6,12 +8,12 @@ on:
   push:
     branches: [ main ]
     paths:
-      - container/**
+      - test/Dockerfile
       - .github/workflows/container.yml
   pull_request:
     branches: [ main ]
     paths:
-      - container/**
+      - test/Dockerfile
       - .github/workflows/container.yml
   workflow_dispatch:
 
@@ -35,8 +37,7 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - { dockerfile: 'action.Dockerfile', tag: 'differential-shellcheck' }
-          - { dockerfile: 'test.Dockerfile', tag: 'bats-kcov' }
+          - { dockerfile: 'test/Dockerfile', tag: 'test' }
 
     steps:
       - uses: actions/checkout@v3
@@ -54,6 +55,6 @@ jobs:
       - name: Build and Push Container
         uses: docker/build-push-action@v3
         with:
-          file: container/${{ matrix.config.dockerfile }}
+          file: ${{ matrix.config.dockerfile }}
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.config.tag }}:latest
           push: ${{ github.event_name == 'push' ||  github.event_name == 'schedule' }}

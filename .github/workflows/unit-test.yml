@@ -1,0 +1,58 @@
+---
+
+name: Unit Tests
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+# permissions:
+#   contents: read
+
+jobs:
+  test:
+    name: Test suite
+    runs-on: ubuntu-latest
+    container: ghcr.io/redhat-plumbers-in-action/differential-shellcheck/test:latest
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Unit tests - Bats
+        run: |
+          bash --version
+          bats --version
+          echo -e "\n\n--- Bats unit tests ---\n"
+          bash -c "time bats  --print-output-on-failure --formatter tap test"
+
+  coverage:
+    name: Test coverage
+    runs-on: ubuntu-latest
+    container: ghcr.io/redhat-plumbers-in-action/differential-shellcheck/test:latest
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Test coverage - Kcov
+        run: |
+          set -x
+          bash --version
+          bats --version
+          kcov --version
+          kcov \
+            --clean \
+            --include-path . \
+            --exclude-path test/bats \
+            --exclude-path test/test_helper \
+            coverage/ \
+            bats test/*.bats
+
+      - name: Codecov
+        uses: codecov/codecov-action@v3
