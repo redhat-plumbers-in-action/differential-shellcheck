@@ -58,7 +58,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-⚠️ *Please note, that `fetch-depth: 0` is required in order to run `differential-shellcheck` successfully.*
+> **Note**: _`fetch-depth: 0` is required in order to run `differential-shellcheck` successfully._
 
 <details>
   <summary>Console output example</summary>
@@ -124,7 +124,7 @@ Path to text file which holds a list of shell scripts in this repository which w
 * requirements: `optional`
 * example: [.diff-shellcheck-scripts.txt](.github/.diff-shellcheck-scripts.txt)
 
-*Note: Every path should be absolute and placed on separate lines. Avoid spaces in list since they are counted as comment.*
+> **Note**: _Every path should be absolute and placed on separate lines. Avoid spaces in list since they are counted as comment._
 
 ### token
 
