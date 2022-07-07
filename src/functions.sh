@@ -13,14 +13,18 @@ is_it_script () {
 }
 
 # Function to check if given file has .sh extension
-# https://stackoverflow.com/a/407229
+# https://stackoverflow.com/a/6926061
 # $1 - <string> absolute path to file
 # $? - return value - 0 when succes
 check_extension () {
   [ $# -le 0 ] && return 1
   local file="$1"
 
-  [ "${file: -3}" == ".sh" ] && return 0 || return 2
+  case $file in
+    *.sh) return 0;;
+    *.bash) return 0;;
+    *) return 2
+  esac
 }
 
 # Function to check if given file contain shell shebang (bash or sh)
