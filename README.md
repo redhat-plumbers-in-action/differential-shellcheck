@@ -18,7 +18,7 @@ To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep`
 
 ## Features
 
-* Shell scripts auto-detection based on shebangs (`!#/bin/sh` or `!#/bin/bash`) and file extensions (`.sh`)
+* Shell scripts auto-detection based on shebangs (`!#/bin/sh` or `!#/bin/bash`) and file extensions (`.sh`, `.bash`)
 * Ability to white list specific error codes
 * Statistics about fixed and added errors
 * Colored console output with emojis
