@@ -124,6 +124,9 @@ summary () {
   local added_issues
   added_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../bugs.log))
 
+  local pull_number=${GITHUB_REF##refs\/}
+  pull_number=${pull_number%%\/merge}
+
   echo -e "\
 ### Differential ShellCheck 🐚
 
@@ -131,7 +134,7 @@ Changed scripts: \`${#list_of_changed_scripts[@]}\`
 
 |                             | ❌ Added | ✅ Fixed |
 |:---------------------------:|:-------:|:-------:|
-| ⚠️ [Errors / Warnings / Notes](https://github.com/${GITHUB_REPOSITORY}/pull/${GITHUB_REF//merge}/files) |  **${added_issues:-0}**  |  **${fixed_issues:-0}**  |
+| ⚠️ [Errors / Warnings / Notes](https://github.com/${GITHUB_REPOSITORY}/${pull_number}/files) |  **${added_issues:-0}**  |  **${fixed_issues:-0}**  |
 
 #### Useful links
 
