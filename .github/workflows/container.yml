@@ -2,18 +2,21 @@ name: Containers
 
 on:
   schedule:
-    -  cron: '0 6 * * *'
+    -  cron: 0 6 * * *
   push:
     branches: [ main ]
     paths:
-      - 'container/**'
-      - '.github/workflows/container.yml'
+      - container/**
+      - .github/workflows/container.yml
   pull_request:
     branches: [ main ]
     paths:
-      - 'container/**'
-      - '.github/workflows/container.yml'
+      - container/**
+      - .github/workflows/container.yml
   workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
 
 permissions:
   packages: write
@@ -23,15 +26,17 @@ jobs:
   push_to_registry:
     name: Build and push containers
     runs-on: ubuntu-latest
+
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.config.dockerfile }}
       cancel-in-progress: true
+
     strategy:
       fail-fast: false
       matrix:
         config:
-          - { dockerfile: 'action.Dockerfile', tag: 'differential-shellcheck:latest'}
-          - { dockerfile: 'test.Dockerfile', tag: 'bats-kcov:latest' }
+          - { dockerfile: 'action.Dockerfile', tag: 'differential-shellcheck' }
+          - { dockerfile: 'test.Dockerfile', tag: 'bats-kcov' }
 
     steps:
       - uses: actions/checkout@v3
@@ -42,7 +47,7 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -50,5 +55,5 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           file: container/${{ matrix.config.dockerfile }}
-          tags: differential-shellcheck/${{ matrix.config.tag }}
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.config.tag }}:latest
           push: ${{ github.event_name == 'push' ||  github.event_name == 'schedule' }}
