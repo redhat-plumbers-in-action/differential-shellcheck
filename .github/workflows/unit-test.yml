@@ -7,14 +7,15 @@ on:
   push:
     branches: [ main ]
 
-# permissions:
-#   contents: read
+permissions:
+  contents: read
+  packages: read
 
 jobs:
   test:
     name: Test suite
     runs-on: ubuntu-latest
-    container: ghcr.io/redhat-plumbers-in-action/differential-shellcheck/test:latest
+    container: ghcr.io/${{ github.repository }}/test:latest
 
     steps:
       - name: Repository checkout
@@ -22,25 +23,7 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Unit tests - Bats
-        run: |
-          bash --version
-          bats --version
-          echo -e "\n\n--- Bats unit tests ---\n"
-          bash -c "time bats  --print-output-on-failure --formatter tap test"
-
-  coverage:
-    name: Test coverage
-    runs-on: ubuntu-latest
-    container: ghcr.io/redhat-plumbers-in-action/differential-shellcheck/test:latest
-
-    steps:
-      - name: Repository checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Test coverage - Kcov
+      - name: Run tests using Kcov
         run: |
           set -x
           bash --version
