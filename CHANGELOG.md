@@ -9,10 +9,12 @@
 
 ## v2.2.0
 
-* Add option to run in debug mode - more verbose output
+* Added option to run in debug mode - more verbose output
 * Output optimizations - cleaner output, emojis, updated colors and spacing
 * Support for job summaries
-* Add support for `.bash` extensions
+* Added support for `.bash` extensions
+* Added unit tests and code coverage
+* Added codebase linter
 
 ## v2.1.1
 
