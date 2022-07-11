@@ -1,7 +1,8 @@
-FROM fedora:latest
+FROM fedora:36
 
-RUN dnf -y update
-RUN dnf -y install csdiff git ShellCheck
+RUN dnf -y update \
+    && dnf -y install csdiff git ShellCheck \
+    && dnf clean all
 
 RUN mkdir -p /action
 WORKDIR /action

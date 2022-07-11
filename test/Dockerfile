@@ -1,4 +1,5 @@
-FROM fedora:latest
+FROM fedora:36
 
-RUN dnf -y update
-RUN dnf -y install kcov bats
+RUN dnf -y update \
+    && dnf -y install git kcov bats \
+    && dnf clean all

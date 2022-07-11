@@ -1,0 +1,6 @@
+---
+
+failure-threshold: warning
+
+ignored:
+  - DL3041
