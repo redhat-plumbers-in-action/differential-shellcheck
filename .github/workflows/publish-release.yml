@@ -1,47 +1,27 @@
 ---
-# Source: https://github.com/release-drafter/release-drafter/blob/master/.github/workflows/release.yml
 
-name: Release
+name: GitHub Tag Update
+
 on:
-  push:
-    tags:
-      - v*.*.*
+  release:
+    types: [ published, edited ]
 
 permissions:
   contents: read
 
 jobs:
-  release:
-    name: New release
+  actions-tagger:
     runs-on: ubuntu-latest
 
     permissions:
       contents: write
 
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Update tag
+        uses: Actions-R-Us/actions-tagger@v2
         with:
-          fetch-depth: 0
-
-      - name: Version
-        id: version
-        run: |
-          tag=${GITHUB_REF/refs\/tags\//}
-          version=${tag#v}
-          major=${version%%.*}
-          echo "::set-output name=tag::${tag}"
-          echo "::set-output name=version::${version}"
-          echo "::set-output name=major::${major}"
-
-      - uses: release-drafter/release-drafter@v5
-        with:
-          version: ${{ steps.version.outputs.version }}
-          publish: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: force update major tag
-        run: |
-          git tag v${{ steps.version.outputs.major }} ${{ steps.version.outputs.tag }} -f
-          git push origin refs/tags/v${{ steps.version.outputs.major }} -f
+          publish_latest_tag: true
+          token: ${{ secrets.GITHUB_TOKEN }}
