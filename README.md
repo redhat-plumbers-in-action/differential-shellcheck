@@ -67,7 +67,7 @@ jobs:
           fetch-depth: 0
 
       - name: Differential ShellCheck
-        uses: redhat-plumbers-in-action/differential-shellcheck@v2
+        uses: redhat-plumbers-in-action/differential-shellcheck@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -97,7 +97,7 @@ Action currently accept following options:
 # ...
 
 - name: Differential ShellCheck
-  uses: redhat-plumbers-in-action/differential-shellcheck@v2
+  uses: redhat-plumbers-in-action/differential-shellcheck@latest
   with:
     base: <base-sha>
     head: <head-sha>
