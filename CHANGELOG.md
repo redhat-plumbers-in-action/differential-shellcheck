@@ -7,13 +7,10 @@
 * More customization - whitelisting and blacklisting of error codes and scripts
 * And more...
 
-## v2.3.2
+## v2.3.1 ... v2.3.3
 
 * Fix release automation
-
-## v2.3.1
-
-* Fix release automation
+* Action should now work as before, but faster
 
 ## v2.3.0
 
