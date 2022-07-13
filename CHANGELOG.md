@@ -7,6 +7,10 @@
 * More customization - whitelisting and blacklisting of error codes and scripts
 * And more...
 
+## v2.3.2
+
+* Fix release automation
+
 ## v2.3.1
 
 * Fix release automation
