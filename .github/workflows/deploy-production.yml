@@ -20,8 +20,7 @@ jobs:
       fail-fast: false
       matrix:
         images:
-          - container-build-target: final_production
-            container-image-id-prefix: ""
+          - container-image-id-prefix: ""
             deployment-environment-identifier: Production
             image-id: production
 
@@ -56,14 +55,13 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${{ github.sha }}
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}test
-          target: "${{ matrix.images.container-build-target }}"
 
       - name: Edit an action.yml file for test local build
         if: github.event_name == 'pull_request'
         run: |
           sed -i "s/differential-shellcheck:.*/differential-shellcheck:${{ matrix.images.container-image-id-prefix }}${GITHUB_SHA}'/g" action.yml
 
-      - name: Run Test Cases - ${{ matrix.images.image-id }}
+      - name: Run Action with new code - ${{ matrix.images.image-id }}
         if: github.event_name == 'pull_request'
         shell: bash
         run: |
@@ -104,7 +102,6 @@ jobs:
           push: true
           tags: |
             ${{env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}latest
-          target: "${{ matrix.images.container-build-target }}"
 
       - name: Update deployment status
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}

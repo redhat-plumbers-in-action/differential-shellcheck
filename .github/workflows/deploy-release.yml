@@ -24,8 +24,7 @@ jobs:
       fail-fast: false
       matrix:
         images:
-          - container-build-target: final
-            container-image-id-prefix: ""
+          - container-image-id-prefix: ""
             deployment-environment-identifier: Release
             image-id: standard
 
@@ -86,7 +85,6 @@ jobs:
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}latest
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}v2
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${{ env.RELEASE_VERSION }}
-          target: "${{ matrix.images.container-build-target }}"
 
       - name: Update deployment status
         uses: bobheadxi/deployments@v1
