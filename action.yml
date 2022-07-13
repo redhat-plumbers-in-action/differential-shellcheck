@@ -32,7 +32,7 @@ outputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/differential-shellcheck/differential-shellcheck:v2.3.0
+  image: docker://ghcr.io/differential-shellcheck/differential-shellcheck:v2.3.1
   env:
     INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
     INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}
