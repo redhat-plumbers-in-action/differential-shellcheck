@@ -1,6 +1,6 @@
 ---
 
-name: Containers
+name: Deploy Test
 
 on:
   push:
@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   push_to_registry:
-    name: Build and push containers
+    name: Deploy Docker Image - Test
     runs-on: ubuntu-latest
 
     concurrency:
@@ -37,6 +37,7 @@ jobs:
         config:
           - dockerfile: test/Dockerfile
             tag: test
+            deployment-environment-identifier: Test
 
     timeout-minutes: 60
 
@@ -54,9 +55,28 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Start deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ matrix.config.deployment-environment-identifier }}
+
       - name: Build and Push Container
         uses: docker/build-push-action@v3
         with:
           file: ${{ matrix.config.dockerfile }}
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.config.tag }}:latest
           push: ${{ github.event_name == 'push' ||  github.event_name == 'schedule' }}
+
+      - name: Update deployment status
+        uses: bobheadxi/deployments@v1
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env: ${{ steps.deployment.outputs.env }}
+          env_url: https://github.com/${{ github.repository }}/releases/tag/${{ env.RELEASE_VERSION }}
