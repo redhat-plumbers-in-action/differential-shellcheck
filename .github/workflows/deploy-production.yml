@@ -1,0 +1,118 @@
+---
+# Inspired by: https://github.com/github/super-linter/blob/main/.github/workflows/deploy-production.yml
+
+name: Deploy Production
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build:
+    name: Deploy Docker Image - Development
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        images:
+          - container-build-target: final_production
+            container-image-id-prefix: ""
+            deployment-environment-identifier: Production
+            image-id: production
+
+    timeout-minutes: 60
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Get current date
+        run: |
+          echo "Appending the build date contents to GITHUB_ENV..."
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "${GITHUB_ENV}"
+
+      - name: Setup BuildX
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image - ${{ matrix.images.image-id }}
+        if: github.event_name == 'pull_request'
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          build-args: |
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            BUILD_REVISION=${{ github.sha }}
+            BUILD_VERSION=${{ github.sha }}
+          load: true
+          push: false
+          tags: |
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}test
+          target: "${{ matrix.images.container-build-target }}"
+
+      - name: Edit an action.yml file for test local build
+        if: github.event_name == 'pull_request'
+        run: |
+          sed -i "s/differential-shellcheck:.*/differential-shellcheck:${{ matrix.images.container-image-id-prefix }}${GITHUB_SHA}'/g" action.yml
+
+      - name: Run Test Cases - ${{ matrix.images.image-id }}
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          docker run \
+          -v "${GITHUB_WORKSPACE}:/tmp/diff" \
+          "${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${GITHUB_SHA}"
+
+      # On merge to main ...
+
+      - name: Login to GitHub Container Registry
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Start deployment
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: ${{ matrix.images.deployment-environment-identifier }}
+
+      - name: Build Docker image - ${{ matrix.images.image-id }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: ./Dockerfile
+          build-args: |
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            BUILD_REVISION=${{ github.sha }}
+            BUILD_VERSION=${{ github.sha }}
+          load: false
+          push: true
+          tags: |
+            ${{env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}latest
+          target: "${{ matrix.images.container-build-target }}"
+
+      - name: Update deployment status
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        uses: bobheadxi/deployments@v1
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env: ${{ steps.deployment.outputs.env }}
+          env_url: https://github.com/${{ github.repository }}
