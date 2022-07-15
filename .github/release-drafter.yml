@@ -22,7 +22,9 @@ categories:
     label: 'type: bugfix'
 
   - title: 'Maintenance'
-    label: 'type: maintenance'
+    labels:
+      - 'type: maintenance'
+      - 'type: performance'
 
   - title: 'Documentation'
     label: 'type: documentation'
@@ -34,6 +36,7 @@ categories:
 
   - title: 'Dependency Updates'
     label: 'type: dependencies'
+    collapse-after: 5
 
 version-resolver:
   major:
