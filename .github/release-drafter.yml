@@ -22,7 +22,7 @@ categories:
     label: 'type: bugfix'
 
   - title: 'Maintenance'
-    labels: 
+    labels:
       - 'type: maintenance'
       - 'type: performance'
 
