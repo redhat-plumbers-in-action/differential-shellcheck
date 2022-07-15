@@ -22,8 +22,9 @@ categories:
     label: 'type: bugfix'
 
   - title: 'Maintenance'
-    label: 'type: maintenance'
-    label: 'type: performance'
+    labels: 
+      - 'type: maintenance'
+      - 'type: performance'
 
   - title: 'Documentation'
     label: 'type: documentation'
