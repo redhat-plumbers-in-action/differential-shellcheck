@@ -36,6 +36,7 @@ categories:
 
   - title: 'Dependency Updates'
     label: 'type: dependencies'
+    collapse-after: 5
 
 version-resolver:
   major:
