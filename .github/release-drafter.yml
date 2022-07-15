@@ -23,6 +23,7 @@ categories:
 
   - title: 'Maintenance'
     label: 'type: maintenance'
+    label: 'type: performance'
 
   - title: 'Documentation'
     label: 'type: documentation'
