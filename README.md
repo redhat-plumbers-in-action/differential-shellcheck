@@ -81,12 +81,14 @@ jobs:
 
 <details>
   <summary>Example of output in Changed files tab</summary>
-  <img src="doc/images/sarif-output-example.png" width="800" />
+  <img src="doc/images/sarif-output-example-light.png#gh-light-mode-only" width="800" />
+  <img src="doc/images/sarif-output-example-dark.png#gh-dark-mode-only" width="800" />
 </details>
 
 <details>
   <summary>Example of @github-code-scanning bot review comment</summary>
-  <img src="doc/images/sarif-comment.png" width="800" />
+  <img src="doc/images/sarif-comment-light.png#gh-light-mode-only" width="800" />
+  <img src="doc/images/sarif-comment-dark.png#gh-dark-mode-only" width="800" />
 </details>
 
 ### Real life examples of usage
