@@ -1,0 +1,7 @@
+# syntax - https://github.com/redhat-plumbers-in-action/advanced-issue-labeler#policy
+# <name of label>: [<list of keywords>]
+---
+
+policy:
+  bug 🐛: ['Bug Report']
+  RFE 🎁: ['Feature Request']

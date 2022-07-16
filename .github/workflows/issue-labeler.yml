@@ -1,0 +1,42 @@
+---
+
+name: Issue labeler
+on:
+  issues:
+    types: [ opened ]
+
+permissions:
+  contents: read
+
+jobs:
+  label-component:
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    strategy:
+      matrix:
+        template: [ issue-template.yml ]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Parse issue form
+        uses: stefanbuck/github-issue-parser@v2
+        id: issue-parser
+        with:
+          template-path: .github/ISSUE_TEMPLATE/${{ matrix.template }}
+
+      - name: Set labels based on type input
+        uses: redhat-plumbers-in-action/advanced-issue-labeler@v1
+        with:
+          issue-form: ${{ steps.issue-parser.outputs.jsonString }}
+          section: type
+          block-list: |
+            other
+          token: ${{ secrets.GITHUB_TOKEN }}
