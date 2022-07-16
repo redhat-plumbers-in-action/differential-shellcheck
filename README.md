@@ -89,6 +89,10 @@ jobs:
   <img src="doc/images/sarif-comment.png" width="800" />
 </details>
 
+### Real life examples of usage
+
+- [`fedora-sysv/initscripts`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/fedora-sysv/initscripts%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/fedora-sysv/initscripts?style=social)](https://github.com/fedora-sysv/initscripts)
+
 ## Configuration options
 
 Action currently accept following options:
