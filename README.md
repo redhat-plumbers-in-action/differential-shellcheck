@@ -91,7 +91,7 @@ jobs:
 
 ### Real life examples of usage
 
-- [`fedora-sysv/initscripts`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/fedora-sysv/initscripts%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/fedora-sysv/initscripts?style=social)](https://github.com/fedora-sysv/initscripts)
+* [`fedora-sysv/initscripts`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/fedora-sysv/initscripts%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/fedora-sysv/initscripts?style=social)](https://github.com/fedora-sysv/initscripts)
 
 ## Configuration options
 
