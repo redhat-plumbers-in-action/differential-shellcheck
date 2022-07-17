@@ -76,19 +76,25 @@ jobs:
 
 <details>
   <summary>Console output example</summary>
-  <img src="doc/images/output-example.png" width="800" />
+  <p align="center">
+    <img src="doc/images/output-example.png" width="800" />
+  </p>
 </details>
 
 <details>
   <summary>Example of output in Changed files tab</summary>
-  <img src="doc/images/sarif-output-example-light.png#gh-light-mode-only" width="800" />
-  <img src="doc/images/sarif-output-example-dark.png#gh-dark-mode-only" width="800" />
+  <p align="center">
+    <img src="doc/images/sarif-output-example-light.png#gh-light-mode-only" width="600" />
+    <img src="doc/images/sarif-output-example-dark.png#gh-dark-mode-only" width="600" />
+  </p>
 </details>
 
 <details>
   <summary>Example of @github-code-scanning bot review comment</summary>
-  <img src="doc/images/sarif-comment-light.png#gh-light-mode-only" width="800" />
-  <img src="doc/images/sarif-comment-dark.png#gh-dark-mode-only" width="800" />
+  <p align="center">
+    <img src="doc/images/sarif-comment-light.png#gh-light-mode-only" width="600" />
+    <img src="doc/images/sarif-comment-dark.png#gh-dark-mode-only" width="600" />
+  </p>
 </details>
 
 ### Real life examples of usage
