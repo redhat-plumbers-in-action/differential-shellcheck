@@ -1,8 +1,9 @@
 # shellcheck shell=bash
-# Function to check whether input param is on list of shell scripts
-# $1 - <string> absolute path to file
+
+# Function to check whether the input param is on the list of shell scripts
+# $1 - <string> absolute path to a file
 # $@ - <array of strings> list of strings to compare with
-# $? - return value - 0 when succes
+# $? - return value - 0 on success
 is_script_listed () {
   [ $# -le 1 ] && return 1
   local file="$1"
@@ -12,10 +13,10 @@ is_script_listed () {
   [[ " ${scripts[*]} " =~ " ${file} " ]] && return 0 || return 2
 }
 
-# Function to check if given file has .sh extension
+# Function to check whether the given file has the .{,ba}sh extension
 # https://stackoverflow.com/a/6926061
-# $1 - <string> absolute path to file
-# $? - return value - 0 when succes
+# $1 - <string> absolute path to a file
+# $? - return value - 0 on success
 is_shell_extension () {
   [ $# -le 0 ] && return 1
   local file="$1"
@@ -27,10 +28,10 @@ is_shell_extension () {
   esac
 }
 
-# Function to check if given file contain shell shebang (bash or sh)
+# Function to check whether the given file contains a shell shebang (bash or sh)
 # https://unix.stackexchange.com/a/406939
-# $1 - <string> absolute path to file
-# $? - return value - 0 when succes
+# $1 - <string> absolute path to a file
+# $? - return value - 0 on success
 has_shebang () {
   [ $# -le 0 ] && return 1
   local file="$1"
@@ -46,10 +47,11 @@ has_shebang () {
   return 3
 }
 
-# Function to prepare string from array of strings where first argument specify one character separator
+# Function to concatenate an array of strings where the first argument
+# specifies the separator
 # https://stackoverflow.com/a/17841619
-# $1 - <char> Character used to join elements of array
-# $@ - <array of string> list of strings
+# $1 - <char> character used to join the elements of the array
+# $@ - <array of strings> list of strings
 # return value - string
 join_by () {
   local IFS="$1"
@@ -59,25 +61,25 @@ join_by () {
 
 # Function to get rid of comments represented by '#'
 # $1 - file path
-# $2 - name of variable where will be stored result array
-# $3 - value 1|0 - does file content inline comments?
-# $? - return value - 0 when succes
+# $2 - name of a variable where the result array will be stored
+# $3 - value 1|0 - does the file contain inline comments?
+# $? - return value - 0 on success
 file_to_array () {
   [ $# -le 2 ] && return 1
   local output=()
 
-  [ "$3" -eq 0 ] && readarray output < <(grep -v "^#.*" "$1")                         # fetch array with lines from file while excluding '#' comments  
-  [ "$3" -eq 1 ] && readarray output < <(cut -d ' ' -f 1 < <(grep -v "^#.*" "$1"))    # fetch array with lines from file while excluding '#' comments
+  [ "$3" -eq 0 ] && readarray output < <(grep -v "^#.*" "$1")                         # fetch the array with lines from the file while excluding '#' comments
+  [ "$3" -eq 1 ] && readarray output < <(cut -d ' ' -f 1 < <(grep -v "^#.*" "$1"))    # fetch the array with lines from the file while excluding '#' comments
   clean_array "$2" "${output[@]}" && return 0
 }
 
-# Function to get rid of spaces and new lines from array elements
+# Function to trim spaces and new lines from array elements
 # https://stackoverflow.com/a/9715377
 # https://stackoverflow.com/a/19347380
 # https://unix.stackexchange.com/a/225517
-# $1 - name of variable where will be stored result array
+# $1 - name of a variable where the result array will be stored
 # $@ - source array
-# $? - return value - 0 when succes
+# $? - return value - 0 on success
 clean_array () {
   [ $# -le 1 ] && return 1
   local output="$1"
@@ -89,12 +91,12 @@ clean_array () {
   done
 }
 
-# Function to check if action is run in Debug mode
+# Function to check if the action is run in a Debug mode
 is_debug () {
   [[ "${RUNNER_DEBUG}" -eq 1 ]] && return 0 || return 1
 }
 
-# Function to upload SARIF report to GitHub
+# Function to upload the SARIF report to GitHub
 # Source: https://github.com/github/codeql-action/blob/dbe6f211e66b3aa5e9a5c4731145ed310ed54e28/lib/upload-lib.js#L104-L106
 # Parameters: https://github.com/github/codeql-action/blob/69e09909dc219ed3374913e41c167490fc57202a/lib/upload-lib.js#L211-L224
 # Values: https://github.com/github/codeql-action/blob/main/lib/upload-lib.test.js#L72
@@ -114,7 +116,7 @@ uploadSARIF () {
     echo -e "✅ ${GREEN}SARIF report was successfully uploaded to GitHub${NOCOLOR}"
     is_debug && cat curl_std
   else
-    echo -e "❌ ${RED}Fail to upload SARIF to GitHub${NOCOLOR}"
+    echo -e "❌ ${RED}Failed to upload the SARIF report to GitHub${NOCOLOR}"
     cat curl_std
   fi
 }
@@ -144,7 +146,7 @@ Changed scripts: \`${#list_of_changed_scripts[@]}\`
 - [ShellCheck Documentation](https://github.com/koalaman/shellcheck#readme)
 
 ---
-_ℹ️ When you have an issue with GitHub action please try to run it in [debug mode](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/) and submit an [issue](https://github.com/redhat-plumbers-in-action/differential-shellcheck/issues/new)._"
+_ℹ️ If you have an issue with this GitHub action, please try to run it in the [debug mode](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/) and submit an [issue](https://github.com/redhat-plumbers-in-action/differential-shellcheck/issues/new)._"
 }
 
 # Logging aliases, use echo -e to use them

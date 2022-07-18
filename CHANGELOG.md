@@ -4,7 +4,7 @@
 
 * Use [@actions/toolkit](https://github.com/actions/toolkit) and [@probot/probot](https://github.com/probot/probot) instead of currently used `bash` and `Docker`.
 * Improve usability - human readable and accessible output in form of comments, suggestions, etc.
-* More customization - whitelisting and blacklisting of error codes and scripts
+* More customization - allowlisting and denylisting of error codes and scripts
 * And more...
 
 ## v2.3.1 ... v2.3.3
