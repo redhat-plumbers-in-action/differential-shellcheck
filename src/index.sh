@@ -72,7 +72,7 @@ exit_status=0
 csdiff --fixed "../dest-br-shellcheck.err" "../pr-br-shellcheck.err" > ../fixes.log
 
 if [ -s ../fixes.log ]; then
-  echo -e "✅ ${GREEN}Fixed bugs:${NOCOLOR}"
+  echo -e "✅ ${GREEN}Fixed bugs${NOCOLOR}"
   csgrep ../fixes.log
 else
   echo -e "ℹ️ ${YELLOW}No Fixes!${NOCOLOR}"
@@ -84,7 +84,7 @@ echo
 csdiff --fixed "../pr-br-shellcheck.err" "../dest-br-shellcheck.err" > ../bugs.log
 
 if [ -s ../bugs.log ]; then
-  echo -e "✋ ${YELLOW}Added bugs, NEEDS INSPECTION:${NOCOLOR}"
+  echo -e "✋ ${YELLOW}Added bugs, NEEDS INSPECTION${NOCOLOR}"
   csgrep ../bugs.log
   exit_status=1
 else
