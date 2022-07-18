@@ -22,22 +22,22 @@
 
 <!-- -->
 
-This repository hosts code for running differential ShellCheck in GitHub actions. Idea of having something like differential ShellCheck was first introduced in [@fedora-sysv/initscripts](https://github.com/fedora-sysv/initscripts). Initscripts needed some way to verify incoming PR's without getting warnings and errors about already merged and for years working code. Therefore, differential ShellCheck was born.
+This repository hosts code for running differential ShellCheck in GitHub actions. Idea of having something like a differential ShellCheck was first introduced in [@fedora-sysv/initscripts](https://github.com/fedora-sysv/initscripts). Initscripts needed some way to verify incoming PRs without getting warnings and errors about already merged and for years working code. Therefore, differential ShellCheck was born.
 
 ## How does it work
 
-First Differential ShellCheck gets a list of changed shell scripts based on file extensions, shebangs and script list, if provided. Then it calls [@koalaman/shellcheck](https://github.com/koalaman/shellcheck) on those scripts where it stores ShellCheck output for later use. Then it switches from `HEAD` to provided `BASE` and runs ShellCheck on the same files as before and stores output to separate file.
+First Differential ShellCheck gets a list of changed shell scripts based on file extensions, shebangs and script list, if provided. Then it calls [@koalaman/shellcheck](https://github.com/koalaman/shellcheck) on those scripts where it stores ShellCheck output for later use. Then it switches from `HEAD` to provided `BASE` and runs ShellCheck on the same files as before and stores output to a separate file.
 
-To evaluate results Differential ShellCheck uses utilities `csdiff` and `csgrep` from [@csutils/csdiff](https://github.com/csutils/csdiff). First is used `csdiff` to get a list/number of fixed and added errors. And then is used `csgrep` to output results in a nice colorized way to console and optionally into GitHub GUI as security alert.
+To evaluate results, Differential ShellCheck uses utilities `csdiff` and `csgrep` from [@csutils/csdiff](https://github.com/csutils/csdiff). First `csdiff` is used to get a list/number of fixed and added errors. And then `csgrep` is used to output the results in a nice colorized way to console and optionally into GitHub GUI as a security alert.
 
 ## Features
 
 * Shell scripts auto-detection based on shebangs (`!#/bin/sh` or `!#/bin/bash`) and file extensions (`.sh`, `.bash`)
-* Ability to white list specific error codes
+* Ability to allowlist specific error codes
 * Statistics about fixed and added errors
 * Colored console output with emojis
-* [SARIF support](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning) - warnings are visible in `Changed files` tab of Pull-Request
-* Ability to run in verbose mode when run with [debug option](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/)
+* [SARIF support](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning) - warnings are visible in the `Changed files` tab of the Pull-Request
+* Ability to run in a verbose mode when run with [debug option](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/)
 * Results displayed as [job summaries](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/)
 
 ## Usage
@@ -103,7 +103,7 @@ jobs:
 
 ## Configuration options
 
-Action currently accept following options:
+Action currently accepts following options:
 
 ```yml
 # ...
@@ -122,7 +122,7 @@ Action currently accept following options:
 
 ### base
 
-`SHA` of commit which will be used as base when performing differential ShellCheck.
+`SHA` of commit which will be used as the base when performing differential ShellCheck.
 
 * default value: `github.event.pull_request.base.sha`
 * requirements: `optional`
@@ -136,7 +136,7 @@ Action currently accept following options:
 
 ### ignored-codes
 
-Path to text file which holds a list of ShellCheck codes which should be excluded from validation.
+Path to a text file which holds a list of ShellCheck codes which should be excluded from validation.
 
 * default value: `undefined`
 * requirements: `optional`
@@ -144,26 +144,26 @@ Path to text file which holds a list of ShellCheck codes which should be exclude
 
 ### shell-scripts
 
-Path to text file which holds a list of shell scripts in this repository which would not for some reason picked up by shell script auto-detection routine.
+Path to a text file which holds a list of shell scripts which would not, otherwise, be automatically picked by the shell script auto-detection routine.
 
 * default value: `undefined`
 * requirements: `optional`
 * example: [.diff-shellcheck-scripts.txt](.github/.diff-shellcheck-scripts.txt)
 
-> **Note**: _Every path should be absolute and placed on separate lines. Avoid spaces in list since they are counted as comment._
+> **Note**: _Every path should be absolute and placed on a separate line. Avoid spaces in the list since they are interpreted as comments._
 
 ### token
 
-Token used to upload findings in SARIF format to GitHub
+Token used to upload findings in SARIF format to GitHub.
 
 * default value: `undefined`
 * requirements: `optional`
 
-Token needs to have following [characteristics](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
+Token needs to have the following [characteristics](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
 
 * Token with the `security_events` scope to use this endpoint for private repositories.
 * Token with the `public_repo` scope for **public repositories only**.
 
 ## Limitations
 
-* Currently `differential-shellcheck` action could be run only on Pull-Requests
+* Currently `differential-shellcheck` action can be run only on Pull-Requests.
