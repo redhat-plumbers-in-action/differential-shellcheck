@@ -59,6 +59,7 @@ jobs:
 
     permissions:
       security-events: write
+      pull-requests: write
 
     steps: 
       - name: Repository checkout

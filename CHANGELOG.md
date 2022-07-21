@@ -7,6 +7,15 @@
 * More customization - allowlisting and denylisting of error codes and scripts
 * And more...
 
+## v2.3.5
+
+* Update permissions in examples
+
+## v2.3.4
+
+* Fix typos, grammar mistakes and reword some sentences
+* Update image examples to support light/dark modes
+
 ## v2.3.1 ... v2.3.3
 
 * Fix release automation
