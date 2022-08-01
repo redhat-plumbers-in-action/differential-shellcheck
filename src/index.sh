@@ -96,7 +96,10 @@ fi
 if [ -n "$INPUT_TOKEN" ]; then
   echo
   # GitHub requires an absolute path, so let's remove the './' prefix from it.
-  csgrep --strip-path-prefix './' --mode=sarif ../bugs.log >> output.sarif && uploadSARIF
+  csgrep --strip-path-prefix './' --mode=sarif ../bugs.log | \
+    # csgrep reports 'csdiff' as the tool that has generated the reports, so
+    # change it to 'ShellCheck' instead.
+    sed 's/"csdiff"/"ShellCheck"/' >> output.sarif && uploadSARIF
 fi
 
 summary >> "$GITHUB_STEP_SUMMARY"
