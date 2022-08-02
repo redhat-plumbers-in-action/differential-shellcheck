@@ -32,7 +32,9 @@ To evaluate results, Differential ShellCheck uses utilities `csdiff` and `csgrep
 
 ## Features
 
-* Shell scripts auto-detection based on shebangs (`!#/bin/sh` or `!#/bin/bash`) and file extensions (`.sh`, `.bash`)
+* Shell scripts auto-detection based on shebangs, shellcheck directives and file extensions
+  * supported shell interpreters are: `sh`, `ash`, `bash`, `dash`, `ksh` and `bats`
+  * supported shebangs are: `#!/bin/`, `#!/usr/bin/`, `#!/usr/local/bin/`, `#!/bin/env␣`, `#!/usr/bin/env␣` and `#!/usr/local/bin/env␣` ; e.g. `#!/bin/env␣bash`
 * Ability to allowlist specific error codes
 * Statistics about fixed and added errors
 * Colored console output with emojis
@@ -55,7 +57,7 @@ permissions:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     permissions:
       security-events: write

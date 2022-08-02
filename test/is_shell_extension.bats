@@ -21,10 +21,62 @@ setup () {
   assert_failure 2
 }
 
+@test "is_shell_extension() - .ash" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  run is_shell_extension "1.ash"
+  assert_success
+
+  run is_shell_extension
+  assert_failure 1
+
+  run is_shell_extension "blah"
+  assert_failure 2
+}
+
 @test "is_shell_extension() - .bash" {
   source "$PROJECT_ROOT/src/functions.sh"
 
   run is_shell_extension "1.bash"
+  assert_success
+
+  run is_shell_extension
+  assert_failure 1
+
+  run is_shell_extension "blah"
+  assert_failure 2
+}
+
+@test "is_shell_extension() - .dash" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  run is_shell_extension "1.dash"
+  assert_success
+
+  run is_shell_extension
+  assert_failure 1
+
+  run is_shell_extension "blah"
+  assert_failure 2
+}
+
+@test "is_shell_extension() - .ksh" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  run is_shell_extension "1.ksh"
+  assert_success
+
+  run is_shell_extension
+  assert_failure 1
+
+  run is_shell_extension "blah"
+  assert_failure 2
+}
+
+@test "is_shell_extension() - .bats" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  run is_shell_extension "1.bats"
   assert_success
 
   run is_shell_extension

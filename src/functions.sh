@@ -13,7 +13,7 @@ is_script_listed () {
   [[ " ${scripts[*]} " =~ " ${file} " ]] && return 0 || return 2
 }
 
-# Function to check whether the given file has the .{,ba}sh extension
+# Function to check whether the given file has the .{,a,ba,da,k}sh and .bats extension
 # https://stackoverflow.com/a/6926061
 # $1 - <string> absolute path to a file
 # $? - return value - 0 on success
@@ -23,12 +23,17 @@ is_shell_extension () {
 
   case $file in
     *.sh) return 0;;
+    *.ash) return 0;;
     *.bash) return 0;;
+    *.dash) return 0;;
+    *.ksh) return 0;;
+    *.bats) return 0;;
     *) return 2
   esac
 }
 
-# Function to check whether the given file contains a shell shebang (bash or sh)
+# Function to check whether the given file contains a shell shebang
+# - supported interpreters are {,a,ba,da,k}sh and bats including shellcheck directive
 # https://unix.stackexchange.com/a/406939
 # $1 - <string> absolute path to a file
 # $? - return value - 0 on success
@@ -37,11 +42,26 @@ has_shebang () {
   local file="$1"
 
   if IFS= read -r line < "./${file}" ; then
-    case $line in
-      "#!/bin/bash") return 0;;
-      "#!/bin/sh") return 0;;
-      *) return 2
-    esac
+    local shebang_regexp="^\s*((\#|\!)|(\#\s*\!)|(\!\s*\#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?interpreter\b"
+    local shellcheck_regexp="\s*\#\s*shellcheck\s+shell=interpreter\s*"
+
+    # shell shebangs detection
+    [[ $line =~ ${shebang_regexp//interpreter/sh} ]] && return 0
+    [[ $line =~ ${shebang_regexp//interpreter/ash} ]] && return 0
+    [[ $line =~ ${shebang_regexp//interpreter/bash} ]] && return 0
+    [[ $line =~ ${shebang_regexp//interpreter/dash} ]] && return 0
+    [[ $line =~ ${shebang_regexp//interpreter/ksh} ]] && return 0
+    [[ $line =~ ${shebang_regexp//interpreter/bats} ]] && return 0
+
+    # ShellCheck shell detection
+    [[ $line =~ ${shellcheck_regexp//interpreter/sh} ]] && return 0
+    [[ $line =~ ${shellcheck_regexp//interpreter/ash} ]] && return 0
+    [[ $line =~ ${shellcheck_regexp//interpreter/bash} ]] && return 0
+    [[ $line =~ ${shellcheck_regexp//interpreter/dash} ]] && return 0
+    [[ $line =~ ${shellcheck_regexp//interpreter/ksh} ]] && return 0
+    [[ $line =~ ${shellcheck_regexp//interpreter/bats} ]] && return 0
+
+    return 2
   fi
 
   return 3
