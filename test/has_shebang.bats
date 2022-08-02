@@ -8,60 +8,222 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
-@test "has_shebang() - #!/bin/sh" {
+@test "has_shebang() - #!/bin/{,a,ba,da,k}sh & #!/bin/bats" {
   source "$PROJECT_ROOT/src/functions.sh"
 
-  echo -e "#!/bin/sh\n\nshell" > shell.sh
-  echo -e "shell" > file.txt
-  touch empty.txt
+  local interpreters=(
+    '#!/bin/'{,a,ba,da,k}sh
+    '#!/bin/bats'
+  )
 
-  run has_shebang "shell.sh"
-  assert_success
-
-  run has_shebang
-  assert_failure 1
-
-  run has_shebang "file.txt"
-  assert_failure 2
-
-  run has_shebang "empty.txt"
-  assert_failure 3
+  for i in "${interpreters[@]}"; do
+    echo -e "$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
 }
 
-@test "has_shebang() - #!/bin/bash" {
+@test "has_shebang() - #!/usr/bin/{,a,ba,da,k}sh & #!/usr/bin/bats" {
   source "$PROJECT_ROOT/src/functions.sh"
 
-  echo -e "#!/bin/bash\n\nbash" > shell.sh
-  echo -e "bash" > file.txt
-  touch empty.txt
+  local interpreters=(
+    '#!/usr/bin/'{,a,ba,da,k}sh
+    '#!/usr/bin/bats'
+  )
 
-  run has_shebang "shell.sh"
-  assert_success
+  for i in "${interpreters[@]}"; do
+    echo -e "$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
+}
 
-  run has_shebang
-  assert_failure 1
+@test "has_shebang() - #!/usr/local/bin/{,a,ba,da,k}sh & #!/usr/local/bin/bats" {
+  source "$PROJECT_ROOT/src/functions.sh"
 
-  run has_shebang "file.txt"
-  assert_failure 2
+  local interpreters=(
+    '#!/usr/local/bin/'{,a,ba,da,k}sh
+    '#!/usr/local/bin/bats'
+  )
 
-  run has_shebang "empty.txt"
-  assert_failure 3
+  for i in "${interpreters[@]}"; do
+    echo -e "$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
+}
+
+@test "has_shebang() - #!/bin/env {,a,ba,da,k}sh & #!/bin/env bats" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  local interpreters=(
+    '#!/bin/env '{,a,ba,da,k}sh
+    '#!/bin/env bats'
+  )
+
+  for i in "${interpreters[@]}"; do
+    echo -e "$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
+}
+
+@test "has_shebang() - #!/usr/bin/env {,a,ba,da,k}sh & #!/usr/bin/env bats" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  local interpreters=(
+    '#!/usr/bin/env '{,a,ba,da,k}sh
+    '#!/usr/bin/env bats'
+  )
+
+  for i in "${interpreters[@]}"; do
+    echo -e "$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
+}
+
+@test "has_shebang() - #!/usr/local/bin/env {,a,ba,da,k}sh & #!/usr/local/bin/env bats" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  local interpreters=(
+    '#!/usr/local/bin/env '{,a,ba,da,k}sh
+    '#!/usr/local/bin/env bats'
+  )
+
+  for i in "${interpreters[@]}"; do
+    echo -e "$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
+}
+
+# Source: https://stackoverflow.com/a/17409966
+@test "has_shebang() - SPACES" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  local space_bin=(
+    ' # ! /bin/'{,a,ba,da,k}sh' '
+    ' # ! /bin/bats '
+  )
+  local space_usr_bin=(
+    ' # ! /usr/bin/'{,a,ba,da,k}sh' '
+    ' # ! /usr/bin/bats '
+  )
+  local space_usr_local_bin=(
+    ' # ! /usr/local/bin/'{,a,ba,da,k}sh' '
+    ' # ! /usr/local/bin/bats '
+  )
+  local space_bin_env=(
+    ' # ! /bin/env '{,a,ba,da,k}sh' '
+    ' # ! /bin/env bats '
+  )
+  local space_usr_bin_env=(
+    ' # ! /usr/bin/env '{,a,ba,da,k}sh' '
+    ' # ! /usr/bin/env bats '
+  )
+  local space_usr_local_bin_env=(
+    ' # ! /usr/local/bin/env '{,a,ba,da,k}sh' '
+    ' # ! /usr/local/bin/env bats '
+  )
+
+  for i in "${!space_bin[@]}"; do
+    echo -e "${space_bin[i]}\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+
+    echo -e "${space_usr_bin[i]}\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+
+    echo -e "${space_usr_local_bin[i]}\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+
+    echo -e "${space_bin_env[i]}\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+
+    echo -e "${space_usr_bin_env[i]}\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+
+    echo -e "${space_usr_local_bin_env[i]}\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
+}
+
+@test "has_shebang() - PARAMETERS" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  local interpreters=(
+    '#!/bin/'{,a,ba,da,k}sh'  --something-something  -s something'
+    '#!/bin/bats  --something-something  -s something'
+  )
+
+  for i in "${interpreters[@]}"; do
+    echo -e "$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
+}
+
+@test "has_shebang() - FORGOTTEN OR SWITCHED" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  local templates=( {'!','#','#!','# !','!#','! #'}'/bin/sh' )
+
+  for i in "${templates[@]}"; do
+    echo -e "$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
 }
 
 @test "has_shebang() - TYPO" {
   source "$PROJECT_ROOT/src/functions.sh"
 
-  echo -e "#!/bin/bashees" > shell.sh
+  echo -e '#!/bin/bashees\n\nshell' > script
 
-  run has_shebang "shell.sh"
+  run has_shebang "script"
   assert_failure 2
 
-  echo -e "#!/bin/s" > shell.sh
+  echo -e '#!/bin/s\n\nshell' > script
 
-  run has_shebang "shell.sh"
+  run has_shebang "script"
   assert_failure 2
 }
 
+@test "has_shebang() - INPUTS" {
+  source "$PROJECT_ROOT/src/functions.sh"
+
+  run has_shebang
+  assert_failure 1
+
+  echo -e "shell" > file.txt
+  run has_shebang "file.txt"
+  assert_failure 2
+
+  touch empty.txt
+  run has_shebang "empty.txt"
+  assert_failure 3
+}
+
 teardown () {
-  rm -f shell.sh file.txt empty.txt
+  rm -f script file.txt empty.txt
 }

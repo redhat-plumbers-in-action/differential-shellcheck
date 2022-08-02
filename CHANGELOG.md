@@ -7,6 +7,17 @@
 * More customization - allowlisting and denylisting of error codes and scripts
 * And more...
 
+## v2.4.0
+
+* Support for `ash`, `dash`, `ksh` and `bats` shell interpreters
+* Improve autodetection of shell scripts
+  * Support for detection based on shellcheck directive ; e.g. `# shellcheck shell=bash`
+  * Support for generally used shebang prefixes like: `#!/usr/bin`, `#!/usr/local/bin`, `#!/bin/env␣`, `#!/usr/bin/env␣` and `#!/usr/local/bin/env␣` ; e.g. `#!/bin/env␣bash`
+
+## v2.3.6
+
+* Fix tool name in SARIF reports
+
 ## v2.3.5
 
 * Update permissions in examples
