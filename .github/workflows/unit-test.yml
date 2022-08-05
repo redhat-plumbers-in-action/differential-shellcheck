@@ -37,5 +37,21 @@ jobs:
             coverage/ \
             bats test/*.bats
 
-      - name: Codecov
+      - name: Codecov - 1st attempt
         uses: codecov/codecov-action@v3
+        id: upload_code_coverage_report
+        continue-on-error: true
+        with:
+          fail_ci_if_error: true
+
+      - name: Wait on failure 1
+        if: steps.upload_code_coverage_report.outcome == 'failure'
+        run: |
+          sleep 120s
+
+      - name: Codecov - 2nd attempt
+        if: steps.upload_code_coverage_report.outcome == 'failure'
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          verbose: true
