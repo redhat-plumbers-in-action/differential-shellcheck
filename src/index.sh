@@ -8,8 +8,8 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 #  FILE PATHS  #
 # ------------ #
 
-# Make directory /github/workspace git-save
-git config --global --add safe.directory /github/workspace
+# Make directory $GITHUB_WORKSPACE (/github/workspace) git-save
+git config --global --add safe.directory "${GITHUB_WORKSPACE}"
 
 # https://github.com/actions/runner/issues/342
 # Get the names of files from the PR (excluding deleted files)

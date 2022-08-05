@@ -3,8 +3,6 @@
 
 name: Deploy Production
 on:
-  pull_request:
-    branches: [ main ]
   push:
     branches: [ main ]
 
@@ -39,37 +37,6 @@ jobs:
 
       - name: Setup BuildX
         uses: docker/setup-buildx-action@v2
-
-      - name: Build Docker image - ${{ matrix.images.image-id }}
-        if: github.event_name == 'pull_request'
-        uses: docker/build-push-action@v3
-        with:
-          context: .
-          file: ./Dockerfile
-          build-args: |
-            BUILD_DATE=${{ env.BUILD_DATE }}
-            BUILD_REVISION=${{ github.sha }}
-            BUILD_VERSION=${{ github.sha }}
-          load: true
-          push: false
-          tags: |
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}test
-
-      - name: Edit an action.yml file for test local build
-        if: github.event_name == 'pull_request'
-        run: |
-          sed -i "s/differential-shellcheck:.*/differential-shellcheck:${{ matrix.images.container-image-id-prefix }}${GITHUB_SHA}'/g" action.yml
-
-      - name: Run Action with new code - ${{ matrix.images.image-id }}
-        if: github.event_name == 'pull_request'
-        shell: bash
-        run: |
-          docker run \
-          -v "${GITHUB_WORKSPACE}:/tmp/diff" \
-          "${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${GITHUB_SHA}"
-
-      # On merge to main ...
 
       - name: Login to GitHub Container Registry
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}

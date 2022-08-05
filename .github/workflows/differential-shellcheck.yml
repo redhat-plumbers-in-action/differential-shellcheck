@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 jobs:
-  shellCheck:
+  lint:
     name: Test latest changes
     runs-on: ubuntu-latest
 
@@ -23,7 +23,13 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Differential ShellCheck
+      # Replace docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:vX.Y.Z with Dockerfile
+      - name: Edit an action.yml file to test current changes
+        if: github.event_name == 'pull_request'
+        run: |
+          sed -i "s/docker:\/\/ghcr\.io\/redhat-plumbers-in-action\/differential-shellcheck.*/Dockerfile/g" action.yml
+
+      - name: Differential ShellCheck - test current changes
         uses: ./
         with:
           ignored-codes: .github/.diff-shellcheck-exceptions.txt
