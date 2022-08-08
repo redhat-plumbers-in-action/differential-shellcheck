@@ -17,3 +17,11 @@ updates:
     labels:
       - 'type: dependencies'
       - 'docker'
+
+  - package-ecosystem: gitsubmodule
+    directory: /
+    schedule:
+      interval: weekly
+    labels:
+      - 'type: dependencies'
+      - 'git-submodule'
