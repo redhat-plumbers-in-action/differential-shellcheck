@@ -32,6 +32,4 @@ jobs:
       - name: Differential ShellCheck - test current changes
         uses: ./
         with:
-          ignored-codes: .github/.diff-shellcheck-exceptions.txt
-          shell-scripts: .github/.diff-shellcheck-scripts.txt
           token: ${{ secrets.GITHUB_TOKEN }}
