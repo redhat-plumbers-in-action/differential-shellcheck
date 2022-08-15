@@ -22,6 +22,10 @@ inputs:
   shell-scripts:
     description: List of Shell scripts proposed for validation
     required: false
+  severity:
+    description: Specify minimum severity of errors to consider. Valid values in order of severity are error, warning, info and style. The default is style.
+    default: style
+    required: false
   token:
     description: GitHub TOKEN used to upload SARIF data
     required: false
