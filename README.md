@@ -118,6 +118,7 @@ Action currently accepts following options:
     head: <head-sha>
     ignored-codes: <path to file with list of codes>
     shell-scripts: <path to file with list of scripts>
+    severity: <minimal severity level>
     token: <GitHub token>
 
 # ...
@@ -143,7 +144,6 @@ Path to a text file which holds a list of ShellCheck codes which should be exclu
 
 * default value: `undefined`
 * requirements: `optional`
-* example: [.diff-shellcheck-exceptions.txt](.github/.diff-shellcheck-exceptions.txt)
 
 ### shell-scripts
 
@@ -151,9 +151,15 @@ Path to a text file which holds a list of shell scripts which would not, otherwi
 
 * default value: `undefined`
 * requirements: `optional`
-* example: [.diff-shellcheck-scripts.txt](.github/.diff-shellcheck-scripts.txt)
 
 > **Note**: _Every path should be absolute and placed on a separate line. Avoid spaces in the list since they are interpreted as comments._
+
+### severity
+
+Minimal severity level of detected errors that will be reported. Valid values in order of severity are `error`, `warning`, `info` and `style`.
+
+* default value: `style`
+* requirements: `optional`
 
 ### token
 
