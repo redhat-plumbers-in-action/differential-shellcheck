@@ -151,6 +151,7 @@ Path to a text file which holds a list of shell scripts which would not, otherwi
 
 * default value: `undefined`
 * requirements: `optional`
+* example: [.differential-shellcheck-scripts.txt](.github/.differential-shellcheck-scripts.txt)
 
 > **Note**: _Every path should be absolute and placed on a separate line. Avoid spaces in the list since they are interpreted as comments._
 

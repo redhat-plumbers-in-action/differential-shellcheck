@@ -1,0 +1,2 @@
+# Shell scripts tracker. Following scripts will be explicitly lint by differential-shellcheck.
+# Avoid spaces in the list since they are counted as a comment
