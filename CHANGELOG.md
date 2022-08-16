@@ -1,11 +1,8 @@
 # Changelog
 
-## NEXT
+## v2.5.0
 
-* Use [@actions/toolkit](https://github.com/actions/toolkit) and [@probot/probot](https://github.com/probot/probot) instead of currently used `bash` and `Docker`.
-* Improve usability - human readable and accessible output in form of comments, suggestions, etc.
-* More customization - allowlisting and denylisting of error codes and scripts
-* And more...
+* Add support for severity option, supported values are: `error`, `warning`, `info` and `style`
 
 ## v2.4.0
 
