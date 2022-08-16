@@ -32,4 +32,5 @@ jobs:
       - name: Differential ShellCheck - test current changes
         uses: ./
         with:
+          shell-scripts: .github/.differential-shellcheck-scripts.txt
           token: ${{ secrets.GITHUB_TOKEN }}
