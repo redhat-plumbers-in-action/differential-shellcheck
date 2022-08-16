@@ -82,7 +82,7 @@ exit_status=0
 csdiff --fixed "../dest-br-shellcheck.err" "../pr-br-shellcheck.err" > ../fixes.log
 
 if [ -s ../fixes.log ]; then
-  echo -e "✅ ${GREEN}Fixed bugs${NOCOLOR}"
+  echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
   csgrep ../fixes.log
 else
   echo -e "ℹ️ ${YELLOW}No Fixes!${NOCOLOR}"
@@ -90,15 +90,15 @@ fi
 
 echo
 
-# Check output for added bugs
-csdiff --fixed "../pr-br-shellcheck.err" "../dest-br-shellcheck.err" > ../bugs.log
+# Check output for added defects
+csdiff --fixed "../pr-br-shellcheck.err" "../dest-br-shellcheck.err" > ../defects.log
 
-if [ -s ../bugs.log ]; then
-  echo -e "✋ ${YELLOW}Added bugs, NEEDS INSPECTION${NOCOLOR}"
-  csgrep ../bugs.log
+if [ -s ../defects.log ]; then
+  echo -e "✋ ${YELLOW}Added defects, NEEDS INSPECTION${NOCOLOR}"
+  csgrep ../defects.log
   exit_status=1
 else
-  echo -e "🥳 ${GREEN}No bugs added. Yay!${NOCOLOR}"
+  echo -e "🥳 ${GREEN}No defects added. Yay!${NOCOLOR}"
   exit_status=0
 fi
 
@@ -106,7 +106,7 @@ fi
 if [ -n "$INPUT_TOKEN" ]; then
   echo
   # GitHub requires an absolute path, so let's remove the './' prefix from it.
-  csgrep --strip-path-prefix './' --mode=sarif ../bugs.log | \
+  csgrep --strip-path-prefix './' --mode=sarif ../defects.log | \
     # csgrep reports 'csdiff' as the tool that has generated the reports, so
     # change it to 'ShellCheck' instead.
     sed 's/"csdiff"/"ShellCheck"/' >> output.sarif && uploadSARIF
