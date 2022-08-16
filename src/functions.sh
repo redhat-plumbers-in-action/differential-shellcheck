@@ -146,7 +146,7 @@ summary () {
   fixed_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../fixes.log))
 
   local added_issues
-  added_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../bugs.log))
+  added_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../defects.log))
 
   local pull_number=${GITHUB_REF##refs\/}
   pull_number=${pull_number%%\/merge}
