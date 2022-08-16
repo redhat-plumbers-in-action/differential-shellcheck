@@ -111,6 +111,21 @@ clean_array () {
   done
 }
 
+# Function to execute shellcheck command with all relevant options
+execute_shellcheck () {
+  local shellcheck_args=(
+    --format=gcc
+    --severity="${INPUT_SEVERITY}"
+    --exclude="${string_of_exceptions}"
+    "${list_of_changed_scripts[@]}"
+  )
+
+  local output
+  output=$(shellcheck "${shellcheck_args[@]}" 2> /dev/null | sed -e 's|$| <--[shellcheck]|')
+
+  echo "${output}"
+}
+
 # Function to check if the action is run in a Debug mode
 is_debug () {
   [[ "${RUNNER_DEBUG}" -eq 1 ]] && return 0 || return 1
@@ -123,7 +138,7 @@ is_debug () {
 uploadSARIF () {
   is_debug && local verbose=--verbose
 
-  curl_args=(
+  local curl_args=(
     "${verbose:---silent}"
     -X PUT
     -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/analysis"

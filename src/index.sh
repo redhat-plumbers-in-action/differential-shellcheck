@@ -11,7 +11,6 @@ declare \
   INPUT_BASE \
   INPUT_HEAD \
   INPUT_IGNORED_CODES \
-  INPUT_SEVERITY \
   INPUT_SHELL_SCRIPTS
 
 # ------------ #
@@ -64,13 +63,13 @@ fi
 
 # The sed part ensures that cstools will recognize the output as being produced
 # by ShellCheck and not GCC.
-shellcheck --format=gcc --exclude="${string_of_exceptions}"  --severity="${INPUT_SEVERITY}" "${list_of_changed_scripts[@]}" 2> /dev/null | sed -e 's|$| <--[shellcheck]|' > ../pr-br-shellcheck.err
+execute_shellcheck > ../pr-br-shellcheck.err
 
 # Check the destination branch
 # shellcheck disable=SC2086
 git checkout --force -q -b ci_br_dest $INPUT_BASE
 
-shellcheck --format=gcc --exclude="${string_of_exceptions}" --severity="${INPUT_SEVERITY}" "${list_of_changed_scripts[@]}" 2> /dev/null | sed -e 's|$| <--[shellcheck]|' > ../dest-br-shellcheck.err
+execute_shellcheck > ../dest-br-shellcheck.err
 
 # ------------ #
 #  VALIDATION  #
