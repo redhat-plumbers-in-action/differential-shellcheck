@@ -116,7 +116,7 @@ Action currently accepts following options:
   with:
     base: <base-sha>
     head: <head-sha>
-    ignored-codes: <path to file with list of codes>
+    ignored-codes: <path to file with list of codes>    # <-- Deprecated option
     shell-scripts: <path to file with list of scripts>
     severity: <minimal severity level>
     token: <GitHub token>
@@ -144,6 +144,8 @@ Path to a text file which holds a list of ShellCheck codes which should be exclu
 
 * default value: `undefined`
 * requirements: `optional`
+
+> **Note**: _This option is now deprecated, please consider using `.shellcheckrc` instead._
 
 ### shell-scripts
 

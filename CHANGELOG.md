@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.5.1
+
+* `ignored-codes` option is now marked as deprecated and may be removed in future major release. Please consider using `.shellcheckrc` instead.
+
 ## v2.5.0
 
 * Add support for severity option, supported values are: `error`, `warning`, `info` and `style`
