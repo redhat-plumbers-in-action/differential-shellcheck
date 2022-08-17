@@ -18,6 +18,7 @@ inputs:
     default: ${{ github.event.pull_request.head.sha }}
   ignored-codes:
     description: List of ShellCheck codes which should be excluded from validation
+    deprecationMessage: This option is now deprecated, please consider using `.shellcheckrc` instead.
     required: false
   shell-scripts:
     description: List of Shell scripts proposed for validation
