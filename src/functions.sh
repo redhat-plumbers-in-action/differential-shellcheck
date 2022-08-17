@@ -111,10 +111,49 @@ clean_array () {
   done
 }
 
+# Evaluate if variable contains true value
+# https://github.com/fedora-sysv/initscripts/blob/main/etc/rc.d/init.d/functions#L634-L642
+# $1 - variable possibly containing boolean value
+# $? - return value - 0 on success
+is_true() {
+    [[ $# -le 0 ]] && return 1
+
+    case "$1" in
+      [tT] | [yY] | [yY][eE][sS] | [oO][nN] | [tT][rR][uU][eE] | 1)
+        return 0
+        ;;
+
+      *)
+        return 1
+        ;;
+    esac
+}
+
+# Evaluate if variable contains false value
+# https://github.com/fedora-sysv/initscripts/blob/main/etc/rc.d/init.d/functions#L644-L652
+# $1 - variable possibly containing boolean value
+# $? - return value - 0 on success
+is_false() {
+    [[ $# -le 0 ]] && return 1
+
+    case "$1" in
+      [fF] | [nN] | [nN][oO] | [oO][fF][fF] | [fF][aA][lL][sS][eE] | 0)
+        return 0
+        ;;
+
+      *)
+        return 1
+        ;;
+    esac
+}
+
 # Function to execute shellcheck command with all relevant options
 execute_shellcheck () {
+  is_true "${INPUT_EXTERNAL_SOURCES}" && local external_sources=--external-sources
+
   local shellcheck_args=(
     --format=gcc
+    "${external_sources:-}"
     --severity="${INPUT_SEVERITY}"
     --exclude="${string_of_exceptions}"
     "${list_of_changed_scripts[@]}"
@@ -128,7 +167,12 @@ execute_shellcheck () {
 
 # Function to check if the action is run in a Debug mode
 is_debug () {
-  [[ "${RUNNER_DEBUG}" -eq 1 ]] && return 0 || return 1
+  local result
+  result=$(is_true "${RUNNER_DEBUG}")
+
+  # shellcheck disable=SC2086
+  # return require numeric value
+  return ${result}
 }
 
 # Function to upload the SARIF report to GitHub

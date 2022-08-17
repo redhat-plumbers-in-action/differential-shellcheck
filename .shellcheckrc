@@ -1,7 +1,2 @@
 # Enable all optional checks.
 enable=all
-
-# Follow source statements even when the file is not specified as input.
-# By default, shellcheck will only follow files specified on the command line (plus /dev/null).
-# This option allows following any file the script may source.
-external-sources=true
