@@ -23,6 +23,12 @@ inputs:
   shell-scripts:
     description: List of Shell scripts proposed for validation
     required: false
+  external-sources:
+    description: |
+      Enable following of source statements even when the file is not specified as input. By default, shellcheck will only follow files specified on the command line (plus /dev/null).
+      This option allows following any file the script may source. This option may also be enabled using external-sources=true in .shellcheckrc. This flag takes precedence.
+    default: 'true'
+    required: false
   severity:
     description: Specify minimum severity of errors to consider. Valid values in order of severity are error, warning, info and style. The default is style.
     default: style
@@ -41,3 +47,4 @@ runs:
   env:
     INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
     INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}
+    INPUT_EXTERNAL_SOURCES: ${{ inputs.external-sources }}
