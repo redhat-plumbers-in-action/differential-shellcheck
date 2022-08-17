@@ -9,7 +9,7 @@ setup () {
 }
 
 @test "is_false() - good values" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local v1="false"
   local v2=0
@@ -22,7 +22,7 @@ setup () {
 }
 
 @test "is_false() - bad values" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local v0=
   local v1="true"

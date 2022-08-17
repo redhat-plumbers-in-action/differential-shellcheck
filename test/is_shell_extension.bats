@@ -9,7 +9,7 @@ setup () {
 }
 
 @test "is_shell_extension() - .sh" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run is_shell_extension "1.sh"
   assert_success
@@ -22,7 +22,7 @@ setup () {
 }
 
 @test "is_shell_extension() - .ash" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run is_shell_extension "1.ash"
   assert_success
@@ -35,7 +35,7 @@ setup () {
 }
 
 @test "is_shell_extension() - .bash" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run is_shell_extension "1.bash"
   assert_success
@@ -48,7 +48,7 @@ setup () {
 }
 
 @test "is_shell_extension() - .dash" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run is_shell_extension "1.dash"
   assert_success
@@ -61,7 +61,7 @@ setup () {
 }
 
 @test "is_shell_extension() - .ksh" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run is_shell_extension "1.ksh"
   assert_success
@@ -74,7 +74,7 @@ setup () {
 }
 
 @test "is_shell_extension() - .bats" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run is_shell_extension "1.bats"
   assert_success

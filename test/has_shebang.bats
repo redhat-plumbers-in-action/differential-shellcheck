@@ -9,7 +9,7 @@ setup () {
 }
 
 @test "has_shebang() - #!/bin/{,a,ba,da,k}sh & #!/bin/bats" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local interpreters=(
     '#!/bin/'{,a,ba,da,k}sh
@@ -25,7 +25,7 @@ setup () {
 }
 
 @test "has_shebang() - #!/usr/bin/{,a,ba,da,k}sh & #!/usr/bin/bats" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local interpreters=(
     '#!/usr/bin/'{,a,ba,da,k}sh
@@ -41,7 +41,7 @@ setup () {
 }
 
 @test "has_shebang() - #!/usr/local/bin/{,a,ba,da,k}sh & #!/usr/local/bin/bats" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local interpreters=(
     '#!/usr/local/bin/'{,a,ba,da,k}sh
@@ -57,7 +57,7 @@ setup () {
 }
 
 @test "has_shebang() - #!/bin/env {,a,ba,da,k}sh & #!/bin/env bats" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local interpreters=(
     '#!/bin/env '{,a,ba,da,k}sh
@@ -73,7 +73,7 @@ setup () {
 }
 
 @test "has_shebang() - #!/usr/bin/env {,a,ba,da,k}sh & #!/usr/bin/env bats" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local interpreters=(
     '#!/usr/bin/env '{,a,ba,da,k}sh
@@ -89,7 +89,7 @@ setup () {
 }
 
 @test "has_shebang() - #!/usr/local/bin/env {,a,ba,da,k}sh & #!/usr/local/bin/env bats" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local interpreters=(
     '#!/usr/local/bin/env '{,a,ba,da,k}sh
@@ -106,7 +106,7 @@ setup () {
 
 # Source: https://stackoverflow.com/a/17409966
 @test "has_shebang() - SPACES" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local space_bin=(
     ' # ! /bin/'{,a,ba,da,k}sh' '
@@ -167,7 +167,7 @@ setup () {
 }
 
 @test "has_shebang() - PARAMETERS" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local interpreters=(
     '#!/bin/'{,a,ba,da,k}sh'  --something-something  -s something'
@@ -183,7 +183,7 @@ setup () {
 }
 
 @test "has_shebang() - FORGOTTEN OR SWITCHED" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local templates=( {'!','#','#!','# !','!#','! #'}'/bin/sh' )
 
@@ -196,7 +196,7 @@ setup () {
 }
 
 @test "has_shebang() - TYPO" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   echo -e '#!/bin/bashees\n\nshell' > script
 
@@ -210,7 +210,7 @@ setup () {
 }
 
 @test "has_shebang() - INPUTS" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run has_shebang
   assert_failure 1

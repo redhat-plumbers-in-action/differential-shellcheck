@@ -9,7 +9,7 @@ setup () {
 }
 
 @test "file_to_array() - arguments" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   touch file.txt
 
@@ -21,7 +21,7 @@ setup () {
 
 # !FIXME
 # @test "file_to_array() - empty file" {
-#   source "$PROJECT_ROOT/src/functions.sh"
+#   source "${PROJECT_ROOT}/src/functions.sh"
 
 #   touch file.txt
 
@@ -32,7 +32,7 @@ setup () {
 # }
 
 @test "file_to_array() - in-line comments" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   echo -e "\
 # comment
@@ -49,7 +49,7 @@ Something3" > file.txt
 
 # !FIXME
 # @test "file_to_array() - no in-line comments" {
-#   source "$PROJECT_ROOT/src/functions.sh"
+#   source "${PROJECT_ROOT}/src/functions.sh"
 
 #   echo -e "\
 # # comment

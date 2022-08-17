@@ -9,7 +9,7 @@ setup () {
 }
 
 @test "is_debug() - RUNNER_DEBUG=" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   RUNNER_DEBUG=
 
@@ -18,7 +18,7 @@ setup () {
 }
 
 @test "is_shell_extension() - RUNNER_DEBUG=1" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   RUNNER_DEBUG=1
 

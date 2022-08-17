@@ -9,7 +9,7 @@ setup () {
 }
 
 @test "join_by() - ','" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run join_by "," "1.sh" "2.sh" "3.sh"
   assert_output "1.sh,2.sh,3.sh"
@@ -22,7 +22,7 @@ setup () {
 }
 
 @test "join_by() - ' '" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run join_by " " "1.sh" "2.sh" "3.sh"
   assert_output "1.sh 2.sh 3.sh"
@@ -35,7 +35,7 @@ setup () {
 }
 
 @test "join_by() - ''" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run join_by "" "1.sh" "2.sh" "3.sh"
   assert_output "1.sh2.sh3.sh"
