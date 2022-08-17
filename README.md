@@ -118,6 +118,7 @@ Action currently accepts following options:
     head: <head-sha>
     ignored-codes: <path to file with list of codes>    # <-- Deprecated option
     shell-scripts: <path to file with list of scripts>
+    external-sources: <true or false>
     severity: <minimal severity level>
     token: <GitHub token>
 
@@ -156,6 +157,13 @@ Path to a text file which holds a list of shell scripts which would not, otherwi
 * example: [.differential-shellcheck-scripts.txt](.github/.differential-shellcheck-scripts.txt)
 
 > **Note**: _Every path should be absolute and placed on a separate line. Avoid spaces in the list since they are interpreted as comments._
+
+### external-sources
+
+Enable following of source statements even when the file is not specified as input. By default, [ShellCheck](https://github.com/koalaman/shellcheck/blob/master/shellcheck.1.md) will only follow files specified on the command line (plus `/dev/null`). This option allows following any file the script may source. This option may also be enabled using `external-sources=true` in `.shellcheckrc`.
+
+* default value: `true`
+* requirements: `optional`
 
 ### severity
 

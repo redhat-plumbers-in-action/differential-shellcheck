@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.0
+
+* Add option `external-sources` and enable it by default
+
 ## v2.5.1
 
 * `ignored-codes` option is now marked as deprecated and may be removed in future major release. Please consider using `.shellcheckrc` instead.
