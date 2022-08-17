@@ -3,6 +3,8 @@
 ## v3.0.0
 
 * Add option `external-sources` and enable it by default
+* Add option to set ShellCheck output format using option `format` ; Supported formats are `tty`, `gcc`, `checkstyle`, `diff`, `json1`, `json` and `quiet`.
+* Make default console output format `tty` instead of `gcc`
 
 ## v2.5.1
 

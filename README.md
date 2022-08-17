@@ -120,6 +120,7 @@ Action currently accepts following options:
     shell-scripts: <path to file with list of scripts>
     external-sources: <true or false>
     severity: <minimal severity level>
+    format: <output format of ShellCheck>
     token: <GitHub token>
 
 # ...
@@ -170,6 +171,13 @@ Enable following of source statements even when the file is not specified as inp
 Minimal severity level of detected errors that will be reported. Valid values in order of severity are `error`, `warning`, `info` and `style`.
 
 * default value: `style`
+* requirements: `optional`
+
+### format
+
+Specify the output format of [ShellCheck](https://github.com/koalaman/shellcheck/blob/master/shellcheck.1.md#formats), which prints its results in the standard output (in console). Supported formats are `tty`, `gcc`, `checkstyle`, `diff`, `json1`, `json` and `quiet`.
+
+* default value: `tty`
 * requirements: `optional`
 
 ### token

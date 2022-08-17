@@ -33,6 +33,10 @@ inputs:
     description: Specify minimum severity of errors to consider. Valid values in order of severity are error, warning, info and style. The default is style.
     default: style
     required: false
+  format:
+    description: Specify the output format of ShellCheck, which prints its results in the standard output (in console).
+    default: tty
+    required: false
   token:
     description: GitHub TOKEN used to upload SARIF data
     required: false

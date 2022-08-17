@@ -148,11 +148,12 @@ is_false() {
 }
 
 # Function to execute shellcheck command with all relevant options
+# $1 - value of ShellCheck output format
 execute_shellcheck () {
   is_true "${INPUT_EXTERNAL_SOURCES}" && local external_sources=--external-sources
 
   local shellcheck_args=(
-    --format=gcc
+    --format="${1:-"gcc"}"
     "${external_sources:-}"
     --severity="${INPUT_SEVERITY}"
     --exclude="${string_of_exceptions}"

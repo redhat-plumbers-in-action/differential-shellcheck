@@ -9,6 +9,7 @@ declare \
   GITHUB_STEP_SUMMARY \
   GITHUB_WORKSPACE \
   INPUT_BASE \
+  INPUT_FORMAT \
   INPUT_HEAD \
   INPUT_IGNORED_CODES \
   INPUT_SHELL_SCRIPTS
@@ -64,12 +65,14 @@ fi
 # The sed part ensures that cstools will recognize the output as being produced
 # by ShellCheck and not GCC.
 execute_shellcheck > ../pr-br-shellcheck.err
+execute_shellcheck "${INPUT_FORMAT}" > ../pr-br-shellcheck-pretty.err
 
 # Check the destination branch
 # shellcheck disable=SC2086
 git checkout --force -q -b ci_br_dest $INPUT_BASE
 
 execute_shellcheck > ../dest-br-shellcheck.err
+execute_shellcheck "${INPUT_FORMAT}" > ../dest-br-shellcheck-pretty.err
 
 # ------------ #
 #  VALIDATION  #
@@ -79,10 +82,11 @@ exit_status=0
 
 # Check output for Fixes
 csdiff --fixed "../dest-br-shellcheck.err" "../pr-br-shellcheck.err" > ../fixes.log
+csdiff --fixed "../dest-br-shellcheck-pretty.err" "../pr-br-shellcheck-pretty.err" > ../fixes-pretty.log
 
-if [ -s ../fixes.log ]; then
+if [[ -s ../fixes-pretty.log ]]; then
   echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
-  csgrep ../fixes.log
+  csgrep --color ../fixes-pretty.log
 else
   echo -e "ℹ️ ${YELLOW}No Fixes!${NOCOLOR}"
 fi
@@ -91,10 +95,11 @@ echo
 
 # Check output for added defects
 csdiff --fixed "../pr-br-shellcheck.err" "../dest-br-shellcheck.err" > ../defects.log
+csdiff --fixed "../pr-br-shellcheck-pretty.err" "../dest-br-shellcheck-pretty.err" > ../defects-pretty.log
 
-if [ -s ../defects.log ]; then
+if [[ -s ../defects-pretty.log ]]; then
   echo -e "✋ ${YELLOW}Added defects, NEEDS INSPECTION${NOCOLOR}"
-  csgrep ../defects.log
+  csgrep --color ../defects-pretty.log
   exit_status=1
 else
   echo -e "🥳 ${GREEN}No defects added. Yay!${NOCOLOR}"
