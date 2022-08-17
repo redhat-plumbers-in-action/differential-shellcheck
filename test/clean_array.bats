@@ -9,7 +9,7 @@ setup () {
 }
 
 @test "clean_array() - arguments" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local cleaned_array=()
   run clean_array
@@ -23,7 +23,7 @@ setup () {
 }
 
 @test "clean_array()" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   local cleaned_array=()
   local el1=$(echo -e "Something1 \n")

@@ -9,7 +9,7 @@ setup () {
 }
 
 @test "is_script_listed()" {
-  source "$PROJECT_ROOT/src/functions.sh"
+  source "${PROJECT_ROOT}/src/functions.sh"
 
   run is_script_listed "1.sh" "1.sh" "2.sh" "3.sh"
   assert_success
