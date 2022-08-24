@@ -4,7 +4,7 @@
   <h1 align="center">Differential ShellCheck</h1>
 </p>
 
-[![GitHub Marketplace][market-status]][market] [![Lint Code Base][linter-status]][linter] [![Unit Tests][test-status]][test] [![codecov](https://codecov.io/gh/redhat-plumbers-in-action/differential-shellcheck/branch/main/graph/badge.svg?token=9E9K03DRX5)](https://codecov.io/gh/redhat-plumbers-in-action/differential-shellcheck) [![Mergify Status][mergify-status]][mergify]
+[![GitHub Marketplace][market-status]][market] [![Lint Code Base][linter-status]][linter] [![Unit Tests][test-status]][test] [![codecov][codecov-status]][codecov] [![Mergify Status][mergify-status]][mergify]
 
 <!-- Status links -->
 
@@ -16,6 +16,9 @@
 
 [test]: https://github.com/redhat-plumbers-in-action/differential-shellcheck/actions/workflows/unit-test.yml
 [test-status]: https://github.com/redhat-plumbers-in-action/differential-shellcheck/actions/workflows/unit-test.yml/badge.svg
+
+[codecov]: https://codecov.io/gh/redhat-plumbers-in-action/differential-shellcheck
+[codecov-status]: https://codecov.io/gh/redhat-plumbers-in-action/differential-shellcheck/branch/main/graph/badge.svg?token=9E9K03DRX5
 
 [mergify]: https://mergify.com
 [mergify-status]: https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/redhat-plumbers-in-action/differential-shellcheck&style=flat
@@ -56,7 +59,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
 
     permissions:
@@ -101,6 +104,14 @@ jobs:
 </details>
 
 ### Real life examples of usage
+
+* [`systemd/systemd`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/systemd/systemd%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/systemd?style=social)](https://github.com/systemd/systemd)
+
+* [`util-linux/util-linux`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/util-linux/util-linux%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/util-linux/util-linux?style=social)](https://github.com/util-linux/util-linux)
+
+* [`systemd/mkosi`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/systemd/mkosi%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/mkosi?style=social)](https://github.com/systemd/mkosi)
+
+* [`kdudka/predator`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/kdudka/predator%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/kdudka/predator?style=social)](https://github.com/kdudka/predator)
 
 * [`fedora-sysv/initscripts`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/fedora-sysv/initscripts%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/fedora-sysv/initscripts?style=social)](https://github.com/fedora-sysv/initscripts)
 
