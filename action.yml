@@ -43,7 +43,7 @@ outputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:v2.5.1
+  image: docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:v3.0.1
   env:
     INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
     INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}

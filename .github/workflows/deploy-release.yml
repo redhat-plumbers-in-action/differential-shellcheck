@@ -80,10 +80,10 @@ jobs:
             BUILD_VERSION=${{ github.sha }}
           load: false
           push: true
-          # !FIXME - Avoid using hardcoded `v2`
+          # !FIXME - Avoid using hardcoded `v3`
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}latest
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}v2
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}v3
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${{ env.RELEASE_VERSION }}
 
       - name: Update deployment status
