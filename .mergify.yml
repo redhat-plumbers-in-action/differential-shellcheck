@@ -8,7 +8,7 @@ pull_request_rules:
       - "#approved-reviews-by>=1"
       - "#review-requested=0"
       - "#changes-requested-reviews-by=0"
-      - check-success=Test Differential ShellCheck
+      - check-success=Test latest changes
       - -draft
       - label!=dont-merge
       - -title~=(?i)wip
