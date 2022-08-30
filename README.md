@@ -66,7 +66,7 @@ jobs:
       security-events: write
       pull-requests: write
 
-    steps: 
+    steps:
       - name: Repository checkout
         uses: actions/checkout@v3
         with:
