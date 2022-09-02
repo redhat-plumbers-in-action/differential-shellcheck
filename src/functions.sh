@@ -34,18 +34,33 @@ is_shell_extension () {
 
 # Function to check whether the given file contains a shell shebang
 # - supported interpreters are {,a,ba,da,k}sh and bats including shellcheck directive
+# - also supports emacs and vi/vim file types specifications
 # https://unix.stackexchange.com/a/406939
+# emacs: https://www.gnu.org/software/emacs/manual/html_node/emacs/Choosing-Modes.html
+# vi/vim: http://vimdoc.sourceforge.net/htmldoc/options.html#modeline
 # $1 - <string> absolute path to a file
 # $? - return value - 0 on success
 has_shebang () {
-  [ $# -le 0 ] && return 1
+  [[ $# -le 0 ]] && return 1
   local file="$1"
 
+  # shell shebangs detection
   if head -n1 "${file}" | grep -E '^\s*((\#|\!)|(\#\s*\!)|(\!\s*\#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
     return 0
   fi
 
-  if grep -E '\s*\#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+  # ShellCheck shell directive detection
+  if grep -E '^\s*\#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+    return 0
+  fi
+
+  # Emacs mode detection
+  if grep -E '^\s*\#\s+-\*-\s+(sh|ash|bash|dash|ksh|bats)\s+-\*-\s*' "${file}"; then
+    return 0
+  fi
+
+  # Vi and Vim modeline filetype detection
+  if grep -E '^\s*\#\s+vim?:\s+(set\s+)?(ft|filetype)=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
     return 0
   fi
 

@@ -18,7 +18,7 @@ setup () {
 
   for i in "${interpreters[@]}"; do
     echo -e "$i\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -34,7 +34,7 @@ setup () {
 
   for i in "${interpreters[@]}"; do
     echo -e "$i\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -50,7 +50,7 @@ setup () {
 
   for i in "${interpreters[@]}"; do
     echo -e "$i\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -66,7 +66,7 @@ setup () {
 
   for i in "${interpreters[@]}"; do
     echo -e "$i\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -82,7 +82,7 @@ setup () {
 
   for i in "${interpreters[@]}"; do
     echo -e "$i\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -98,7 +98,7 @@ setup () {
 
   for i in "${interpreters[@]}"; do
     echo -e "$i\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -135,32 +135,32 @@ setup () {
 
   for i in "${!space_bin[@]}"; do
     echo -e "${space_bin[i]}\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
 
     echo -e "${space_usr_bin[i]}\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
 
     echo -e "${space_usr_local_bin[i]}\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
 
     echo -e "${space_bin_env[i]}\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
 
     echo -e "${space_usr_bin_env[i]}\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
 
     echo -e "${space_usr_local_bin_env[i]}\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -176,7 +176,7 @@ setup () {
 
   for i in "${interpreters[@]}"; do
     echo -e "$i\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -189,7 +189,7 @@ setup () {
 
   for i in "${templates[@]}"; do
     echo -e "$i\n\nshell" > script
-    
+
     run has_shebang "script"
     assert_success
   done
@@ -238,6 +238,94 @@ setup () {
   touch empty.txt
   run has_shebang "empty.txt"
   assert_failure 2
+}
+
+@test "has_shebang() - emacs file types specification" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+
+  local emacs=(
+    '# -*- sh -*-'
+    '   # -*- sh -*-'
+    '   # -*-  sh  -*-'
+    ' #  -*-  sh  -*- ... ...'
+  )
+  local emacs_incorrect=(
+    ' -*- sh -*-'
+    '# -*-  -*-'
+    '# -*- sh -*'
+    '# - * - sh - * - '
+  )
+
+  for i in "${!emacs[@]}"; do
+    echo -e "${emacs[i]}\n\nshell" > script
+
+    run has_shebang "script"
+    assert_success
+
+    echo -e "${emacs_incorrect[i]}\n\nshell" > script
+
+    run has_shebang "script"
+    assert_failure 2
+  done
+}
+
+@test "has_shebang() - vi/vim file types specification" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+
+  local vi=(
+    '# vi: ft=sh'
+    ' # vi:  ft=sh ... ...'
+    '# vi: filetype=sh'
+    ' # vi:  filetype=sh ... ...'
+    '# vi: set filetype=sh'
+    ' # vi:  set filetype=sh ... ...'
+  )
+  local vim=(
+    '# vim: ft=sh'
+    ' # vim:  ft=sh ... ...'
+    '# vim: filetype=sh'
+    ' # vim:  filetype=sh ... ...'
+    '# vim: set filetype=sh'
+    ' # vim:  set filetype=sh ... ...'
+  )
+  local vi_incorrect=(
+    ' # vi : ft=sh'
+    ' # vi:  ft = sh'
+    ' # vi : filetype=sh'
+    ' # vi:  filetype = sh'
+    ' # vi : set filetype=sh'
+    ' # vi:  set filetype = shell'
+  )
+  local vim_incorrect=(
+    ' # vim : ft=sh'
+    ' # vim:  ft = sh'
+    ' # vim : filetype=sh'
+    ' # vim:  filetype = sh'
+    ' # vim : set filetype=sh'
+    ' # vim:  set filetype = shell'
+  )
+
+  for i in "${!vi[@]}"; do
+    echo -e "${vi[i]}\n\nshell" > script
+
+    run has_shebang "script"
+    assert_success
+
+    echo -e "${vi_incorrect[i]}\n\nshell" > script
+
+    run has_shebang "script"
+    assert_failure 2
+
+    echo -e "${vim[i]}\n\nshell" > script
+
+    run has_shebang "script"
+    assert_success
+
+    echo -e "${vim_incorrect[i]}\n\nshell" > script
+
+    run has_shebang "script"
+    assert_failure 2
+  done
 }
 
 teardown () {

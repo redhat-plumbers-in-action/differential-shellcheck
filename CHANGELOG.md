@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.1.0
+
+* Autodetection: add support for `emacs` and `vi/vim` file types specifications
+  * `emacs` - `# -*- sh -*-`
+  * `vi`    - `# vi: (set)? (ft|filetype)=sh`
+  * `vim`   - `# vim: (set)? (ft|filetype)=sh`
+* Further improved autodetection of shell scripts based on shebangs and ShellCheck directives
+
 ## v3.0.0
 
 * Add option `external-sources` and enable it by default
@@ -16,7 +24,7 @@
 
 * Support for `ash`, `dash`, `ksh` and `bats` shell interpreters
 * Improve autodetection of shell scripts
-  * Support for detection based on shellcheck directive ; e.g. `# shellcheck shell=bash`
+  * Support for detection based on ShellCheck directive ; e.g. `# shellcheck shell=bash`
   * Support for generally used shebang prefixes like: `#!/usr/bin`, `#!/usr/local/bin`, `#!/bin/env␣`, `#!/usr/bin/env␣` and `#!/usr/local/bin/env␣` ; e.g. `#!/bin/env␣bash`
 
 ## v2.3.6

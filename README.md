@@ -35,9 +35,12 @@ To evaluate results, Differential ShellCheck uses utilities `csdiff` and `csgrep
 
 ## Features
 
-* Shell scripts auto-detection based on shebangs, shellcheck directives and file extensions
+* Shell scripts auto-detection based on shebangs, ShellCheck directives, file extensions and more
   * supported shell interpreters are: `sh`, `ash`, `bash`, `dash`, `ksh` and `bats`
   * supported shebangs are: `#!/bin/`, `#!/usr/bin/`, `#!/usr/local/bin/`, `#!/bin/env␣`, `#!/usr/bin/env␣` and `#!/usr/local/bin/env␣` ; e.g. `#!/bin/env␣bash`
+  * support for ShellCheck directives ; e.g. `# shellcheck shell=bash`
+  * support for [`emacs` modes specifications](https://www.gnu.org/software/emacs/manual/html_node/emacs/Choosing-Modes.html) ; e.g. `# -*- sh -*-`
+  * support for [`vi/vim` modeline specifications](http://vimdoc.sourceforge.net/htmldoc/options.html#modeline) ; e.g. `# vi: set filetype=sh`, `# vim: ft=sh`
 * Ability to allowlist specific error codes
 * Statistics about fixed and added errors
 * Colored console output with emojis
