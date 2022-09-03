@@ -221,7 +221,7 @@ setup () {
 
   touch empty.txt
   run has_shebang "empty.txt"
-  assert_failure 3
+  assert_failure 2
 }
 
 teardown () {
