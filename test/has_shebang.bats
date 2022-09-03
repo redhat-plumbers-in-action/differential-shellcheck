@@ -204,7 +204,7 @@ setup () {
   )
 
   for i in "${interpreters[@]}"; do
-    echo -e "#!/bin/mywrapper\n# shellcheck shell=$i\n\nshell" > script
+    echo -e "#!/bin/mywrapper\n# shellcheck shell=${i}\n\nshell" > script
     
     run has_shebang "script"
     assert_success
