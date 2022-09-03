@@ -41,30 +41,15 @@ has_shebang () {
   [ $# -le 0 ] && return 1
   local file="$1"
 
-  if IFS= read -r line < "./${file}" ; then
-    local shebang_regexp="^\s*((\#|\!)|(\#\s*\!)|(\!\s*\#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?interpreter\b"
-    local shellcheck_regexp="\s*\#\s*shellcheck\s+shell=interpreter\s*"
-
-    # shell shebangs detection
-    [[ $line =~ ${shebang_regexp//interpreter/sh} ]] && return 0
-    [[ $line =~ ${shebang_regexp//interpreter/ash} ]] && return 0
-    [[ $line =~ ${shebang_regexp//interpreter/bash} ]] && return 0
-    [[ $line =~ ${shebang_regexp//interpreter/dash} ]] && return 0
-    [[ $line =~ ${shebang_regexp//interpreter/ksh} ]] && return 0
-    [[ $line =~ ${shebang_regexp//interpreter/bats} ]] && return 0
-
-    # ShellCheck shell detection
-    [[ $line =~ ${shellcheck_regexp//interpreter/sh} ]] && return 0
-    [[ $line =~ ${shellcheck_regexp//interpreter/ash} ]] && return 0
-    [[ $line =~ ${shellcheck_regexp//interpreter/bash} ]] && return 0
-    [[ $line =~ ${shellcheck_regexp//interpreter/dash} ]] && return 0
-    [[ $line =~ ${shellcheck_regexp//interpreter/ksh} ]] && return 0
-    [[ $line =~ ${shellcheck_regexp//interpreter/bats} ]] && return 0
-
-    return 2
+  if head -n1 "${file}" | grep -E '^\s*((\#|\!)|(\#\s*\!)|(\!\s*\#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
+    return 0
   fi
 
-  return 3
+  if grep -E '\s*\#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+    return 0
+  fi
+
+  return 2
 }
 
 # Function to concatenate an array of strings where the first argument
