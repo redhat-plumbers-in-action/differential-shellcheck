@@ -195,6 +195,22 @@ setup () {
   done
 }
 
+@test "has_shebang() - SHELL DIRECTIVE" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+
+  local interpreters=(
+    {,a,ba,da,k}sh
+    'bats'
+  )
+
+  for i in "${interpreters[@]}"; do
+    echo -e "#!/bin/$i\n# shellcheck shell=$i\n\nshell" > script
+    
+    run has_shebang "script"
+    assert_success
+  done
+}
+
 @test "has_shebang() - TYPO" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
