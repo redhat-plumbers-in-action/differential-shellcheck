@@ -3,7 +3,7 @@
 
 pull_request_rules:
 
-  - name: Automatic merge on approval & CI pass
+  - name: Automatic merge (squash) on approval & CI pass
     conditions:
       - "#approved-reviews-by>=1"
       - "#review-requested=0"
@@ -11,6 +11,22 @@ pull_request_rules:
       - check-success=Test latest changes
       - -draft
       - label!=dont-merge
+      - "label!=merge-strategy: rebase"
+      - -title~=(?i)wip
+      - base=main
+    actions:
+      merge:
+        method: squash
+
+  - name: Automatic merge (rebase) on approval & CI pass
+    conditions:
+      - "#approved-reviews-by>=1"
+      - "#review-requested=0"
+      - "#changes-requested-reviews-by=0"
+      - check-success=Test latest changes
+      - -draft
+      - label!=dont-merge
+      - "label=merge-strategy: rebase"
       - -title~=(?i)wip
       - base=main
     actions:
