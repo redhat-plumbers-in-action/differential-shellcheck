@@ -65,10 +65,6 @@ jobs:
   lint:
     runs-on: ubuntu-latest
 
-    permissions:
-      security-events: write
-      pull-requests: write
-
     steps:
       - name: Repository checkout
         uses: actions/checkout@v3
@@ -114,13 +110,13 @@ jobs:
 
 * [`systemd/systemd`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/systemd/systemd%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/systemd?style=social)](https://github.com/systemd/systemd)
 
+* [`89luca89/distrobox`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/89luca89/distrobox%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/89luca89/distrobox?style=social)](https://github.com/89luca89/distrobox)
+
 * [`util-linux/util-linux`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/util-linux/util-linux%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/util-linux/util-linux?style=social)](https://github.com/util-linux/util-linux)
 
+* [`logrotate/logrotate`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/logrotate/logrotate%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/logrotate/logrotate?style=social)](https://github.com/logrotate/logrotate)
+
 * [`systemd/mkosi`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/systemd/mkosi%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/mkosi?style=social)](https://github.com/systemd/mkosi)
-
-* [`kdudka/predator`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/kdudka/predator%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/kdudka/predator?style=social)](https://github.com/kdudka/predator)
-
-* [`fedora-sysv/initscripts`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/fedora-sysv/initscripts%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/fedora-sysv/initscripts?style=social)](https://github.com/fedora-sysv/initscripts)
 
 ## Configuration options
 
@@ -199,7 +195,7 @@ Token used to upload findings in SARIF format to GitHub.
 
 Token needs to have the following [characteristics](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
 
-* Token with the `security_events` scope to use this endpoint for private repositories.
+* Token with the `security_events: write` scope to use this endpoint for private repositories.
 * Token with the `public_repo` scope for **public repositories only**.
 
 ## Limitations
