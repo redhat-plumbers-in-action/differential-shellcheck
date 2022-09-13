@@ -5,12 +5,12 @@
 # $@ - <array of strings> list of strings to compare with
 # $? - return value - 0 on success
 is_script_listed () {
-  [ $# -le 1 ] && return 1
+  [[ $# -le 1 ]] && return 1
   local file="$1"
   shift
   local scripts=("$@")
 
-  [[ " ${scripts[*]} " =~ " ${file} " ]] && return 0 || return 2
+  [[ "${scripts[*]}" =~ ${file} ]] && return 0 || return 2
 }
 
 # Function to check whether the given file has the .{,a,ba,da,k}sh and .bats extension
@@ -18,7 +18,7 @@ is_script_listed () {
 # $1 - <string> absolute path to a file
 # $? - return value - 0 on success
 is_shell_extension () {
-  [ $# -le 0 ] && return 1
+  [[ $# -le 0 ]] && return 1
   local file="$1"
 
   case $file in
@@ -85,11 +85,11 @@ join_by () {
 # $3 - value 1|0 - does the file contain inline comments?
 # $? - return value - 0 on success
 file_to_array () {
-  [ $# -le 2 ] && return 1
+  [[ $# -le 2 ]] && return 1
   local output=()
 
-  [ "$3" -eq 0 ] && readarray output < <(grep -v "^#.*" "$1")                         # fetch the array with lines from the file while excluding '#' comments
-  [ "$3" -eq 1 ] && readarray output < <(cut -d ' ' -f 1 < <(grep -v "^#.*" "$1"))    # fetch the array with lines from the file while excluding '#' comments
+  [[ "$3" -eq 0 ]] && readarray output < <(grep -v "^#.*" "$1")                         # fetch the array with lines from the file while excluding '#' comments
+  [[ "$3" -eq 1 ]] && readarray output < <(cut -d ' ' -f 1 < <(grep -v "^#.*" "$1"))    # fetch the array with lines from the file while excluding '#' comments
   clean_array "$2" "${output[@]}" && return 0
 }
 
@@ -101,7 +101,7 @@ file_to_array () {
 # $@ - source array
 # $? - return value - 0 on success
 clean_array () {
-  [ $# -le 1 ] && return 1
+  [[ $# -le 1 ]] && return 1
   local output="$1"
   shift
   local input=("$@")
