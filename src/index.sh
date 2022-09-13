@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
-. $SCRIPT_DIR/functions.sh
+. "${SCRIPT_DIR}/functions.sh"
 
 declare \
   GITHUB_ENV \
@@ -22,20 +22,20 @@ git config --global --add safe.directory "${GITHUB_WORKSPACE}"
 
 # https://github.com/actions/runner/issues/342
 # Get the names of files from the PR (excluding deleted files)
-git diff --name-only --diff-filter=db "$INPUT_BASE".."$INPUT_HEAD" > ../pr-changes.txt
+git diff --name-only --diff-filter=db "${INPUT_BASE}".."${INPUT_HEAD}" > ../pr-changes.txt
 
 # Find modified shell scripts
 list_of_changes=()
 file_to_array "../pr-changes.txt" "list_of_changes" 0
 list_of_scripts=()
-[ -f "$INPUT_SHELL_SCRIPTS" ] && file_to_array "$INPUT_SHELL_SCRIPTS" "list_of_scripts" 1
+[[ -f "${INPUT_SHELL_SCRIPTS}" ]] && file_to_array "${INPUT_SHELL_SCRIPTS}" "list_of_scripts" 1
 
 # Create a list of scripts for testing
 list_of_changed_scripts=()
 for file in "${list_of_changes[@]}"; do
-  is_script_listed "$file" "${list_of_scripts[@]}" && list_of_changed_scripts+=("./${file}") && continue
-  is_shell_extension "$file" && list_of_changed_scripts+=("./${file}") && continue
-  has_shebang "$file" && list_of_changed_scripts+=("./${file}")
+  is_script_listed "${file}" "${list_of_scripts[@]}" && list_of_changed_scripts+=("./${file}") && continue
+  is_shell_extension "${file}" && list_of_changed_scripts+=("./${file}") && continue
+  has_shebang "${file}" && list_of_changed_scripts+=("./${file}")
 done
 
 # Expose list_of_changed_scripts[*] for use within the GA workflow
@@ -43,7 +43,7 @@ echo "LIST_OF_SCRIPTS=${list_of_changed_scripts[*]}" >> "$GITHUB_ENV"
 
 # Get a list of exceptions
 list_of_exceptions=()
-[ -f "$INPUT_IGNORED_CODES" ] && file_to_array "$INPUT_IGNORED_CODES" "list_of_exceptions" 1
+[[ -f "${INPUT_IGNORED_CODES}" ]] && file_to_array "${INPUT_IGNORED_CODES}" "list_of_exceptions" 1
 string_of_exceptions=$(join_by , "${list_of_exceptions[@]}")
 
 echo -e "${MAIN_HEADING}"
@@ -80,7 +80,7 @@ exit_status=0
 # Check output for Fixes
 csdiff --fixed "../dest-br-shellcheck.err" "../pr-br-shellcheck.err" > ../fixes.log
 
-if [ -s ../fixes.log ]; then
+if [[ -s ../fixes.log ]]; then
   echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
   csgrep ../fixes.log
 else
@@ -92,7 +92,7 @@ echo
 # Check output for added defects
 csdiff --fixed "../pr-br-shellcheck.err" "../dest-br-shellcheck.err" > ../defects.log
 
-if [ -s ../defects.log ]; then
+if [[ -s ../defects.log ]]; then
   echo -e "✋ ${YELLOW}Added defects, NEEDS INSPECTION${NOCOLOR}"
   csgrep ../defects.log
   exit_status=1
@@ -102,7 +102,7 @@ else
 fi
 
 # SARIF upload
-if [ -n "$INPUT_TOKEN" ]; then
+if [[ -n "${INPUT_TOKEN}" ]]; then
   echo
   # GitHub requires an absolute path, so let's remove the './' prefix from it.
   csgrep --strip-path-prefix './' --mode=sarif ../defects.log | \
@@ -111,6 +111,6 @@ if [ -n "$INPUT_TOKEN" ]; then
     sed 's/"csdiff"/"ShellCheck"/' >> output.sarif && uploadSARIF
 fi
 
-summary >> "$GITHUB_STEP_SUMMARY"
+summary >> "${GITHUB_STEP_SUMMARY}"
 
-exit $exit_status
+exit "${exit_status}"
