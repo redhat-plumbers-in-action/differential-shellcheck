@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.1
+
+* Documentation updates (`.shellcheckrc`, examples, etc.)
+
 ## v3.1.0
 
 * Autodetection: add support for `emacs` and `vi/vim` file types specifications
