@@ -118,6 +118,8 @@ jobs:
 
 * [`systemd/mkosi`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/systemd/mkosi%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/mkosi?style=social)](https://github.com/systemd/mkosi)
 
+* more examples - [here](https://github.com/redhat-plumbers-in-action/differential-shellcheck/network/dependents?package_id=UGFja2FnZS0yOTkzNjMxNzI2)
+
 ## Configuration options
 
 Action currently accepts following options:
