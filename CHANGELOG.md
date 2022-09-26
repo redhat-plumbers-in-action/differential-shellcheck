@@ -3,6 +3,7 @@
 ## v3.1.1
 
 * Documentation updates (`.shellcheckrc`, examples, etc.)
+* Skip checking of symbolic links
 
 ## v3.1.0
 

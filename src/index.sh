@@ -33,6 +33,7 @@ list_of_scripts=()
 # Create a list of scripts for testing
 list_of_changed_scripts=()
 for file in "${list_of_changes[@]}"; do
+  is_symlink "${file}" && continue
   is_script_listed "${file}" "${list_of_scripts[@]}" && list_of_changed_scripts+=("./${file}") && continue
   is_shell_extension "${file}" && list_of_changed_scripts+=("./${file}") && continue
   has_shebang "${file}" && list_of_changed_scripts+=("./${file}")
