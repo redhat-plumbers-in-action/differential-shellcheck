@@ -47,6 +47,9 @@ list_of_exceptions=()
 [[ -f "${INPUT_IGNORED_CODES}" ]] && file_to_array "${INPUT_IGNORED_CODES}" "list_of_exceptions" 1
 string_of_exceptions=$(join_by , "${list_of_exceptions[@]}")
 
+echo -e "${VERSIONS_HEADING}"
+show_versions
+
 echo -e "${MAIN_HEADING}"
 
 if is_debug ; then 

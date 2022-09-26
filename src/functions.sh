@@ -240,7 +240,24 @@ Changed scripts: \`${#list_of_changed_scripts[@]}\`
 _ℹ️ If you have an issue with this GitHub action, please try to run it in the [debug mode](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/) and submit an [issue](https://github.com/redhat-plumbers-in-action/differential-shellcheck/issues/new)._"
 }
 
+show_versions() {
+  local shellcheck
+  local csutils
+
+  shellcheck=$(shellcheck --version | grep "version:")
+  csutils=$(csdiff --version)
+
+  echo -e "\
+ShellCheck: ${shellcheck//'version: '/}
+csutils: ${csutils}"
+}
+
 # Logging aliases, use echo -e to use them
+export VERSIONS_HEADING="\
+\n\n:::::::::::::::::::::\n\
+::: ${WHITE}Used Versions${NOCOLOR} :::\n\
+:::::::::::::::::::::\n"
+
 export MAIN_HEADING="\
 \n\n:::::::::::::::::::::::::::::::\n\
 ::: ${WHITE}Differential ShellCheck${NOCOLOR} :::\n\
