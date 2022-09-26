@@ -108,11 +108,16 @@ fi
 # SARIF upload
 if [[ -n "${INPUT_TOKEN}" ]]; then
   echo
+
   # GitHub requires an absolute path, so let's remove the './' prefix from it.
-  csgrep --strip-path-prefix './' --mode=sarif ../defects.log | \
-    # csgrep reports 'csdiff' as the tool that has generated the reports, so
-    # change it to 'ShellCheck' instead.
-    sed 's/"csdiff"/"ShellCheck"/' >> output.sarif && uploadSARIF
+  # TODO: Don't hardcode ShellCheck version
+  csgrep \
+    --strip-path-prefix './' \
+    --mode=sarif \
+    --set-scan-prop='tool:ShellCheck' \
+    --set-scan-prop='tool-version:0.8.0' \
+    --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
+    '../defects.log' >> output.sarif && uploadSARIF
 fi
 
 summary >> "${GITHUB_STEP_SUMMARY}"
