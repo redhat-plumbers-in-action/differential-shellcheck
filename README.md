@@ -4,7 +4,9 @@
   <h1 align="center">Differential ShellCheck</h1>
 </p>
 
-[![GitHub Marketplace][market-status]][market] [![Lint Code Base][linter-status]][linter] [![Unit Tests][test-status]][test] [![codecov][codecov-status]][codecov] [![Mergify Status][mergify-status]][mergify]
+[![GitHub Marketplace][market-status]][market] [![Lint Code Base][linter-status]][linter] [![Unit Tests][test-status]][test]
+
+![OSSF-Scorecard Score][scorecard-status] [![OpenSSF Best Practices][best-practices-status]][best-practices] [![codecov][codecov-status]][codecov]  [![Mergify Status][mergify-status]][mergify]
 
 <!-- Status links -->
 
@@ -19,6 +21,11 @@
 
 [codecov]: https://codecov.io/gh/redhat-plumbers-in-action/differential-shellcheck
 [codecov-status]: https://codecov.io/gh/redhat-plumbers-in-action/differential-shellcheck/branch/main/graph/badge.svg?token=9E9K03DRX5
+
+[scorecard-status]: https://img.shields.io/ossf-scorecard/github.com/redhat-plumbers-in-action/differential-shellcheck?label=OSSF-Scorecard%20Score
+
+[best-practices]: https://bestpractices.coreinfrastructure.org/projects/6540
+[best-practices-status]: https://bestpractices.coreinfrastructure.org/projects/6540/badge
 
 [mergify]: https://mergify.com
 [mergify-status]: https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/redhat-plumbers-in-action/differential-shellcheck&style=flat
