@@ -67,6 +67,18 @@ has_shebang () {
   return 2
 }
 
+# Function to test if given file is symbolic link
+# $1 - <string> path to a file
+# $? - return value - 0 on success
+is_symlink () {
+  [[ $# -le 0 ]] && return 1
+  local file="$1"
+
+  [[ -L "${file}" ]] && return 0
+
+  return 2
+}
+
 # Function to concatenate an array of strings where the first argument
 # specifies the separator
 # https://stackoverflow.com/a/17841619
