@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.2.0
+
+* `csdiff` - `2.6.0 -> 2.7.0`
+  * Added support for SARIF severity levels
+
 ## v3.1.1
 
 * Documentation updates (`.shellcheckrc`, examples, etc.)
