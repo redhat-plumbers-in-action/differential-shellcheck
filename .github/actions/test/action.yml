@@ -1,0 +1,20 @@
+---
+
+name: Differential ShellCheck - Unit Tests
+description: Unit Tests
+
+runs:
+  using: docker
+  image: Dockerfile
+  entrypoint: |
+    set -x
+      bash --version
+      bats --version
+      kcov --version
+      kcov \
+        --clean \
+        --include-path . \
+        --exclude-path test/bats \
+        --exclude-path test/test_helper \
+        coverage/ \
+        bats test/*.bats

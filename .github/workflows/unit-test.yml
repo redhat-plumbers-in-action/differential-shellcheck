@@ -9,12 +9,37 @@ on:
 
 permissions:
   contents: read
-  packages: read
 
 jobs:
+  changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+
+    outputs:
+      test-image: ${{ steps.filter.outputs.test-image }}
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            test-image:
+              - 'test/Dockerfile'
+
   test:
+    needs: changes
+    if: ${{ needs.changes.outputs.test-image == 'false' }}
     name: Test suite
     runs-on: ubuntu-latest
+
+    permissions:
+      packages: read
+
     container: ghcr.io/${{ github.repository }}/test:latest
 
     steps:
@@ -36,6 +61,43 @@ jobs:
             --exclude-path test/test_helper \
             coverage/ \
             bats test/*.bats
+
+      - name: Codecov - 1st attempt
+        uses: codecov/codecov-action@v3
+        id: upload_code_coverage_report
+        continue-on-error: true
+        with:
+          fail_ci_if_error: true
+
+      - name: Wait on failure 1
+        if: steps.upload_code_coverage_report.outcome == 'failure'
+        run: |
+          sleep 120s
+
+      - name: Codecov - 2nd attempt
+        if: steps.upload_code_coverage_report.outcome == 'failure'
+        uses: codecov/codecov-action@v3
+        with:
+          fail_ci_if_error: true
+          verbose: true
+
+  test-local:
+    needs: changes
+    if: ${{ needs.changes.outputs.test-image == 'true' }}
+    name: Test suite - Local changes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      - name: Run tests using Kcov
+        uses: ./.github/actions/test
 
       - name: Codecov - 1st attempt
         uses: codecov/codecov-action@v3
