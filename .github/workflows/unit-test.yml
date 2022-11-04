@@ -15,27 +15,50 @@ jobs:
   test:
     name: Test suite
     runs-on: ubuntu-latest
-    container: ghcr.io/${{ github.repository }}/test:latest
+
+    # container: ghcr.io/differential-shellcheck/test:latest
+
+    # steps:
+    #   - name: Repository checkout
+    #     uses: actions/checkout@v3
+    #     with:
+    #       submodules: recursive
+
+    #   - name: Run tests using Kcov
+    #     run: |
+    #       set -x
+    #       bash --version
+    #       bats --version
+    #       kcov --version
+    #       kcov \
+    #         --clean \
+    #         --include-path . \
+    #         --exclude-path test/bats \
+    #         --exclude-path test/test_helper \
+    #         coverage/ \
+    #         bats test/*.bats
 
     steps:
       - name: Repository checkout
         uses: actions/checkout@v3
         with:
           submodules: recursive
-
-      - name: Run tests using Kcov
+      
+      - name: Build test container using local changes
+        shell: bash
         run: |
-          set -x
-          bash --version
-          bats --version
-          kcov --version
-          kcov \
-            --clean \
-            --include-path . \
-            --exclude-path test/bats \
-            --exclude-path test/test_helper \
-            coverage/ \
-            bats test/*.bats
+          make build-test
+
+      - name: Run tests locally using container
+        shell: bash
+        run: |
+          make check
+
+      - name: Get test coverage
+        shell: bash
+        run: |
+          make coverage
+          ls -Rla
 
       - name: Codecov - 1st attempt
         uses: codecov/codecov-action@v3
@@ -55,3 +78,8 @@ jobs:
         with:
           fail_ci_if_error: true
           verbose: true
+
+      - name: Cleaning
+        shell: bash
+        run: |
+          make clean
