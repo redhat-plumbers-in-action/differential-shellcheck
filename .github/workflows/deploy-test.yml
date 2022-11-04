@@ -8,12 +8,6 @@ on:
     paths:
       - test/Dockerfile
       - .github/workflows/container.yml
-  pull_request:
-    branches: [ main ]
-    paths:
-      - test/Dockerfile
-      - .github/workflows/container.yml
-  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -68,7 +62,7 @@ jobs:
         with:
           file: ${{ matrix.config.dockerfile }}
           tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.config.tag }}:latest
-          push: ${{ github.event_name == 'push' ||  github.event_name == 'schedule' }}
+          push: true
 
       - name: Update deployment status
         uses: bobheadxi/deployments@v1
