@@ -1,5 +1,11 @@
 # Changelog
 
+## v3.3.0
+
+* Container images now based on Fedora 37
+* `ShellCheck` - `0.7.2 -> 0.8.0`
+* Show versions of ShellCheck and csutils in logs
+
 ## v3.2.0
 
 * `csdiff` - `2.6.0 -> 2.7.0`
