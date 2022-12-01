@@ -26,13 +26,13 @@ jobs:
       packages: write
 
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.config.dockerfile }}
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.images.dockerfile }}
       cancel-in-progress: true
 
     strategy:
       fail-fast: false
       matrix:
-        config:
+        images:
           - dockerfile: test/Dockerfile
             tag: test
             deployment-environment-identifier: Test
@@ -42,6 +42,11 @@ jobs:
     steps:
       - name: Repository checkout
         uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+
+      - name: Get current date
+        run: |
+          echo "Appending the build date contents to GITHUB_ENV..."
+          echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "${GITHUB_ENV}"
 
       - name: Set up Docker
         uses: docker/setup-buildx-action@8c0edbc76e98fa90f69d9a2c020dcb50019dc325
@@ -59,14 +64,21 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: ${{ matrix.config.deployment-environment-identifier }}
+          env: ${{ matrix.images.deployment-environment-identifier }}
 
       - name: Build and Push Container
         uses: docker/build-push-action@c56af957549030174b10d6867f20e78cfd7debc5
         with:
-          file: ${{ matrix.config.dockerfile }}
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.config.tag }}:latest
+          context: .
+          file: ${{ matrix.images.dockerfile }}
+          build-args: |
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            BUILD_REVISION=${{ github.sha }}
+            BUILD_VERSION=${{ github.sha }}
+          load: false
           push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.images.tag }}:latest
 
       - name: Update deployment status
         uses: bobheadxi/deployments@9d4477fdaa4120020cd10ab7e97f68c801422e73
@@ -77,4 +89,4 @@ jobs:
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
           env: ${{ steps.deployment.outputs.env }}
-          env_url: https://github.com/${{ github.repository }}/releases/tag/${{ env.RELEASE_VERSION }}
+          env_url: https://github.com/${{ github.repository }}
