@@ -1,12 +1,12 @@
-FROM fedora:36
+FROM fedora:37
 
 # --- Version Pinning --- #
 
-ARG fedora="36"
+ARG fedora="37"
 ARG arch="x86_64"
 
 ARG version_csdiff="2.7.0-1"
-ARG version_shellcheck="0.7.2-5"
+ARG version_shellcheck="0.8.0-3"
 
 ARG rpm_csdiff="csdiff-${version_csdiff}.fc${fedora}.${arch}.rpm"
 
