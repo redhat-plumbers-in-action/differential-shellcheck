@@ -19,12 +19,12 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
         with:
           fetch-depth: 0
 
       - name: Lint Code Base
-        uses: github/super-linter@v4
+        uses: github/super-linter@bb2d833b08b6c288608686672b93a8a4589cdc49
         env:
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
