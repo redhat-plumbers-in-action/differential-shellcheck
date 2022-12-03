@@ -85,7 +85,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-> **Note**: _`fetch-depth: 0` is required in order to run `differential-shellcheck` successfully._
+> **Warning**: _`fetch-depth: 0` is required in order to run `differential-shellcheck` successfully._
 
 <details>
   <summary>Console output example</summary>
@@ -116,15 +116,15 @@ jobs:
 
 ### Real life examples of usage
 
+* [`rbenv/rbenv`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/rbenv/rbenv%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/rbenv/rbenv?style=social)](https://github.com/rbenv/rbenv)
+
 * [`systemd/systemd`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/systemd/systemd%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/systemd?style=social)](https://github.com/systemd/systemd)
 
+* [`cockpit-project/cockpit`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/cockpit-project/cockpit%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/cockpit-project/cockpit?style=social)](https://github.com/cockpit-project/cockpit)
+
+* [`flatpak/flatpak`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/flatpak/flatpak%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/flatpak/flatpak?style=social)](https://github.com/flatpak/flatpak)
+
 * [`89luca89/distrobox`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/89luca89/distrobox%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/89luca89/distrobox?style=social)](https://github.com/89luca89/distrobox)
-
-* [`util-linux/util-linux`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/util-linux/util-linux%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/util-linux/util-linux?style=social)](https://github.com/util-linux/util-linux)
-
-* [`logrotate/logrotate`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/logrotate/logrotate%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/logrotate/logrotate?style=social)](https://github.com/logrotate/logrotate)
-
-* [`systemd/mkosi`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/systemd/mkosi%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/mkosi?style=social)](https://github.com/systemd/mkosi)
 
 * more examples - [here](https://github.com/redhat-plumbers-in-action/differential-shellcheck/network/dependents?package_id=UGFja2FnZS0yOTkzNjMxNzI2)
 
@@ -170,7 +170,7 @@ Path to a text file which holds a list of ShellCheck codes which should be exclu
 * default value: `undefined`
 * requirements: `optional`
 
-> **Note**: _This option is now deprecated, please consider using `.shellcheckrc` instead._
+> **Warning**: _This option is now deprecated, please consider using `.shellcheckrc` instead._
 
 ### shell-scripts
 
@@ -180,7 +180,7 @@ Path to a text file which holds a list of shell scripts which would not, otherwi
 * requirements: `optional`
 * example: [.differential-shellcheck-scripts.txt](.github/.differential-shellcheck-scripts.txt)
 
-> **Note**: _Every path should be absolute and placed on a separate line. Avoid spaces in the list since they are interpreted as comments._
+> **Warning**: _Every path should be absolute and placed on a separate line. Avoid spaces in the list since they are interpreted as comments._
 
 ### external-sources
 
