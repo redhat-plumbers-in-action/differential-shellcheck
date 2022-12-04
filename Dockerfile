@@ -1,4 +1,4 @@
-FROM fedora:37
+FROM fedora@sha256:f99efcddc4dd6736d8a88cc1ab6722098ec1d77dbf7aed9a7a514fc997ca08e0
 
 # --- Version Pinning --- #
 
