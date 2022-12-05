@@ -12,9 +12,6 @@ jobs:
   label-component:
     runs-on: ubuntu-latest
 
-    permissions:
-      issues: write
-
     strategy:
       matrix:
         template: [ issue-template.yml ]
