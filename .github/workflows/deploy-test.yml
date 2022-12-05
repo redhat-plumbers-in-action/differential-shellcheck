@@ -7,7 +7,7 @@ on:
     branches: [ main ]
     paths:
       - test/Dockerfile
-      - .github/workflows/container.yml
+      - .github/workflows/deploy-test.yml
 
 env:
   REGISTRY: ghcr.io
