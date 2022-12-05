@@ -13,13 +13,16 @@ env:
   REGISTRY: ghcr.io
 
 permissions:
-  packages: write
   contents: read
 
 jobs:
   push_to_registry:
     name: Deploy Docker Image - Test
     runs-on: ubuntu-latest
+
+    permissions:
+      deployments: write
+      packages: write
 
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.config.dockerfile }}
