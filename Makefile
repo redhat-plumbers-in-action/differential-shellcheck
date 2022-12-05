@@ -1,5 +1,4 @@
 # Docker is default tool for running containers
-# https://www.unix.com/programming/118420-makefile-ifeq-not-working.html
 CONTAINER_TOOL := docker
 
 all: build-test check
@@ -56,7 +55,7 @@ check-docker:
 clean:
 	$(CONTAINER_TOOL) container rm -f diff-shellcheck-test
 	rm -rf coverage/
-# clean-podman could be used indepemdently
+# clean-podman could be used independently
 clean-podman: CONTAINER_TOOL = podman
 clean-podman: clean
 
