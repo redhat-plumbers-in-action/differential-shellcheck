@@ -37,7 +37,7 @@ jobs:
     name: Test suite
     runs-on: ubuntu-latest
 
-    container: ghcr.io/differential-shellcheck/test:latest
+    container: ghcr.io/redhat-plumbers-in-action/differential-shellcheck/test:latest
 
     permissions:
       packages: read
