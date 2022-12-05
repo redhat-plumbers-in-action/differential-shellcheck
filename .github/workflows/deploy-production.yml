@@ -9,10 +9,17 @@ on:
 env:
   REGISTRY: ghcr.io
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: Deploy Docker Image - Development
     runs-on: ubuntu-latest
+
+    permissions:
+      deployments: write
+      packages: write
 
     strategy:
       fail-fast: false
