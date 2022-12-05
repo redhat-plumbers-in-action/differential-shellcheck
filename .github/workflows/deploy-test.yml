@@ -13,6 +13,7 @@ env:
   REGISTRY: ghcr.io
 
 permissions:
+  packages: write
   contents: read
 
 jobs:
