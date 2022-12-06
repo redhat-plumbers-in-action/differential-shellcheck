@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 setup_file () {
   load 'test_helper/common-setup'
   _common_setup
