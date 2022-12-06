@@ -214,4 +214,4 @@ Token needs to have the following [characteristics](https://docs.github.com/en/r
 
 ---
 
-Useful documents: _[CHANGELOG](docs/CHANGELOG.md)_ _[ARCHITECTURE](docs/ARCHITECTURE.md)_ _[CONTRIBUTING](docs/CONTRIBUTING.md)_ _[CODE_OF_CONDUCT](docs/CODE_OF_CONDUCT.md)_ _[SECURITY](docs/SECURITY.md)_ _[LICENSE](LICENSE)_
+Useful documents: _[CHANGELOG](docs/CHANGELOG.md)_ | _[ARCHITECTURE](docs/ARCHITECTURE.md)_ | _[CONTRIBUTING](docs/CONTRIBUTING.md)_ | _[CODE_OF_CONDUCT](docs/CODE_OF_CONDUCT.md)_ | _[SECURITY](docs/SECURITY.md)_ | _[LICENSE](LICENSE)_
