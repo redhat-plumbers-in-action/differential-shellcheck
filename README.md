@@ -90,7 +90,7 @@ jobs:
 <details>
   <summary>Console output example</summary>
   <p align="center">
-    <img src="doc/images/output-example.png" width="800" />
+    <img src="docs/images/output-example.png" width="800" />
   </p>
 </details>
 
@@ -98,8 +98,8 @@ jobs:
   <summary>Example of output in Changed files tab</summary>
   <p align="center">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="doc/images/sarif-output-example-dark.png">
-      <img src="doc/images/sarif-output-example-light.png" width="600" />
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/sarif-output-example-dark.png">
+      <img src="docs/images/sarif-output-example-light.png" width="600" />
     </picture>
   </p>
 </details>
@@ -108,8 +108,8 @@ jobs:
   <summary>Example of @github-code-scanning bot review comment</summary>
   <p align="center">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="doc/images/sarif-comment-dark.png">
-      <img src="doc/images/sarif-comment-light.png" width="600" />
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/sarif-comment-dark.png">
+      <img src="docs/images/sarif-comment-light.png" width="600" />
     </picture>
   </p>
 </details>
@@ -214,4 +214,4 @@ Token needs to have the following [characteristics](https://docs.github.com/en/r
 
 ---
 
-Useful documents: _[CHANGELOG](doc/CHANGELOG.md)_ _[ARCHITECTURE](doc/ARCHITECTURE.md)_ _[CONTRIBUTING](doc/CONTRIBUTING.md)_ _[CODE_OF_CONDUCT](doc/CODE_OF_CONDUCT.md)_ _[SECURITY](doc/SECURITY.md)_ _[LICENSE](LICENSE)_
+Useful documents: _[CHANGELOG](docs/CHANGELOG.md)_ _[ARCHITECTURE](docs/ARCHITECTURE.md)_ _[CONTRIBUTING](docs/CONTRIBUTING.md)_ _[CODE_OF_CONDUCT](docs/CODE_OF_CONDUCT.md)_ _[SECURITY](docs/SECURITY.md)_ _[LICENSE](LICENSE)_
