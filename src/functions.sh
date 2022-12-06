@@ -1,4 +1,5 @@
 # shellcheck shell=bash
+# SPDX-License-Identifier: GPL-3.0-or-later
 
 # Function to check whether the input param is on the list of shell scripts
 # $1 - <string> absolute path to a file
