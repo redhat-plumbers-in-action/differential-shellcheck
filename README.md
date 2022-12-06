@@ -211,3 +211,7 @@ Token needs to have the following [characteristics](https://docs.github.com/en/r
 ## Limitations
 
 * Currently `differential-shellcheck` action can be run only on Pull-Requests.
+
+---
+
+Useful documents: _[CHANGELOG](doc/CHANGELOG.md)_ _[ARCHITECTURE](doc/ARCHITECTURE.md)_ _[CONTRIBUTING](doc/CONTRIBUTING.md)_ _[CODE_OF_CONDUCT](doc/CODE_OF_CONDUCT.md)_ _[SECURITY](doc/SECURITY.md)_ _[LICENSE](LICENSE)_
