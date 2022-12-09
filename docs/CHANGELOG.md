@@ -5,10 +5,12 @@
 * Container images now based on Fedora 37
 * `ShellCheck` - `0.7.2 -> 0.8.0`
 * Show versions of ShellCheck and csutils in logs
+* `csutils` - `2.7.0 -> 2.8.0`
+  * Added ability to overwrite scan tool properties - `csgrep --set-scan-prop`
 
 ## v3.2.0
 
-* `csdiff` - `2.6.0 -> 2.7.0`
+* `csutils` - `2.6.0 -> 2.7.0`
   * Added support for SARIF severity levels
 
 ## v3.1.1
