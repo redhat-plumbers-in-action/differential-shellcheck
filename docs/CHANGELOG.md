@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.0
+
+* Tag `latest` is no longer available. Use major tags instead (e.g. `v3` or `v4`).
+
 ## v3.3.0
 
 * Container images now based on Fedora 37
