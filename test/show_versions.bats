@@ -14,5 +14,5 @@ setup () {
   run show_versions
   assert_output \
 "ShellCheck: 0.8.0
-csutils: 2.7.0"
+csutils: 2.8.0"
 }
