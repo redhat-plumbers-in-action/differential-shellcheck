@@ -18,6 +18,12 @@ jobs:
       pull-requests: write
 
     steps:
+      # Let's have this log of GitHub context for further development and debugging
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
       - name: Repository checkout
         uses: actions/checkout@755da8c3cf115ac066823e79a1e1788f8940201b
         with:
