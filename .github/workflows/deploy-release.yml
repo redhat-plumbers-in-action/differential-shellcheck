@@ -67,6 +67,7 @@ jobs:
             echo "RELEASE_VERSION=${{ github.event.inputs.release_version }}" \
             >> "${GITHUB_ENV}"
           fi
+          echo "MAJOR_VERSION=${RELEASE_VERSION%%.*}" >> "${GITHUB_ENV}"
 
       - name: Start deployment
         uses: bobheadxi/deployments@9d4477fdaa4120020cd10ab7e97f68c801422e73
@@ -87,10 +88,9 @@ jobs:
             BUILD_VERSION=${{ github.sha }}
           load: false
           push: true
-          # !FIXME - Avoid using hardcoded `v3`
           tags: |
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}latest
-            ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}v3
+            ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${{ env.MAJOR_VERSION }}
             ${{ env.REGISTRY }}/${{ github.repository }}:${{ matrix.images.container-image-id-prefix }}${{ env.RELEASE_VERSION }}
 
       - name: Update deployment status
