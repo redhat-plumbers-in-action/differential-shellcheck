@@ -14,11 +14,21 @@ declare \
 # ------------ #
 
 # Make directory $GITHUB_WORKSPACE (/github/workspace) git-save
-git config --global --add safe.directory "${GITHUB_WORKSPACE}"
+git config --global --add safe.directory "${GITHUB_WORKSPACE?"❓ Variable GITHUB_WORKSPACE doesn't exist"}"
+
+# Chose correct BASE and HEAD commit for scan
+pick_base_and_head_hash || exit 1
+
+# Make sure we have correct BASE even when force-push was used
+# source: https://stackoverflow.com/a/69893210/10221282
+# !FIXME: It doesn't seems to work. Seems like action/checkout doesn't fetch all commits, so if we want to support force-pushes we probaly need to do it manually
+# if ! git merge-base --is-ancestor "${BASE}" "${HEAD}" &>/dev/null && [[ "${INPUT_TRIGGERING_EVENT}" = "push" ]]; then
+#   BASE=$(git merge-base "${GITHUB_REF}" "${HEAD}")
+# fi
 
 # https://github.com/actions/runner/issues/342
-# Get the names of files from the PR (excluding deleted files)
-git diff --name-only --diff-filter=db "${INPUT_BASE}".."${INPUT_HEAD}" > ../pr-changes.txt
+# Get the names of files from range of commits (excluding deleted files)
+git diff --name-only --diff-filter=db "${BASE}".."${HEAD}" > ../pr-changes.txt
 
 # Find modified shell scripts
 list_of_changes=()
@@ -67,7 +77,7 @@ execute_shellcheck > ../pr-br-shellcheck.err
 
 # Check the destination branch
 # shellcheck disable=SC2086
-git checkout --force -q -b ci_br_dest $INPUT_BASE
+git checkout --force -q -b ci_br_dest ${BASE}
 
 execute_shellcheck > ../dest-br-shellcheck.err
 

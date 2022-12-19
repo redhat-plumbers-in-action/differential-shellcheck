@@ -2,27 +2,51 @@
 ---
 
 name: Differential ShellCheck
-description: Differential ShellCheck
+description: GitHub Action for performing differential scans using ShellCheck linter.
 
 branding:
   icon: check-circle
   color: green
 
 inputs:
+  triggering-event:
+    description: The name of the event that triggered the workflow run. Supported values are (pull_request | push | manual).
+    required: false
+    default: ${{ github.event_name }}
+
   base:
-    description: Repository base
-    required: true
-    default: ${{ github.event.pull_request.base.sha }}
+    description: Hash of base commit. This input is used when triggering-event is set to "manual".
+    required: false
+    default: ""
   head:
-    description: Head of changes
-    required: true
+    description: Hash of head commit. This input is used when triggering-event is set to "manual".
+    required: false
+    default: ""
+
+  pull-request-base:
+    description: Hash of top commit on base branch. This input is used when triggering-event is set to "pull_request".
+    required: false
+    default: ${{ github.event.pull_request.base.sha }}
+  pull-request-head:
+    description: Hash of latest commit in Pull Request. This input is used when triggering-event is set to "pull_request".
+    required: false
     default: ${{ github.event.pull_request.head.sha }}
+
+  push-event-base:
+    description: Hash of the last commit before push. This input is used when triggering-event is set to "push".
+    required: false
+    default: ${{ github.event.before }}
+  push-event-head:
+    description: Hash of the last commit after push. This input is used when triggering-event is set to "push".
+    required: false
+    default: ${{ github.event.after }}
+
   ignored-codes:
-    description: List of ShellCheck codes which should be excluded from validation
+    description: List of ShellCheck codes which should be excluded from validation.
     deprecationMessage: This option is now deprecated, please consider using `.shellcheckrc` instead.
     required: false
   shell-scripts:
-    description: List of Shell scripts proposed for validation
+    description: List of Shell scripts proposed for validation.
     required: false
   external-sources:
     description: |
@@ -34,18 +58,24 @@ inputs:
     description: Specify minimum severity of errors to consider. Valid values in order of severity are error, warning, info and style. The default is style.
     default: style
     required: false
+
   token:
-    description: GitHub TOKEN used to upload SARIF data
+    description: GitHub TOKEN used to upload SARIF data.
     required: false
 
 outputs:
   result:
-    description: Result of Differential ShellCheck
+    description: Result of Differential ShellCheck.
 
 runs:
   using: docker
   image: docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:v3.3.1
   env:
+    INPUT_TRIGGERING_EVENT: ${{ inputs.triggering-event }}
+    INPUT_PULL_REQUEST_BASE: ${{ inputs.pull-request-base }}
+    INPUT_PULL_REQUEST_HEAD: ${{ inputs.pull-request-head }}
+    INPUT_PUSH_EVENT_BASE: ${{ inputs.push-event-base }}
+    INPUT_PUSH_EVENT_HEAD: ${{ inputs.push-event-head }}
     INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
     INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}
     INPUT_EXTERNAL_SOURCES: ${{ inputs.external-sources }}
