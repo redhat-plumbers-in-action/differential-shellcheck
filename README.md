@@ -153,14 +153,14 @@ Action currently accepts following options:
 
 `SHA` of commit which will be used as the base when performing differential ShellCheck.
 
-* default value: `github.event.pull_request.base.sha`
+* default value: `""`
 * requirements: `optional`
 
 ### head
 
 `SHA` of commit which refers to `HEAD`.
 
-* default value: `github.event.pull_request.head.sha`
+* default value: `""`
 * requirements: `optional`
 
 ### ignored-codes

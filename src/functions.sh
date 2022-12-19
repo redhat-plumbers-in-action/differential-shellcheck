@@ -1,6 +1,37 @@
 # shellcheck shell=bash
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+# Function that picks values of BASE and HEAD commit based on triggrring event (INPUT_TRIGGERING_EVENT)
+# It sets BASE and HEAD for external use.
+# $? - return value - 0 on success
+pick_base_and_head_hash () {
+  case ${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}} in
+    "push")
+      export BASE=${INPUT_PUSH_EVENT_BASE:-}
+      export HEAD=${INPUT_PUSH_EVENT_HEAD:-}
+      ;;
+
+    "pull_request")
+      export BASE=${INPUT_PULL_REQUEST_BASE:-}
+      export HEAD=${INPUT_PULL_REQUEST_HEAD:-}
+      ;;
+
+    "manual")
+      export BASE=${INPUT_BASE:-}
+      export HEAD=${INPUT_HEAD:-}
+    ;;
+
+    *)
+      echo -e "❓ ${RED}Value of required variable INPUT_TRIGGERING_EVENT isn't set or contains unsupported value. Supported values are: (pull_request | push | manual).${NOCOLOR}"
+      return 1
+  esac
+
+  if [[ -z ${BASE} ]] || [[ -z ${HEAD} ]]; then
+    echo -e "❓ ${RED}Value of required variables BASE and/or HEAD isn't set or contains unsupported value.${NOCOLOR}"
+    return 2
+  fi
+}
+
 # Function to check whether the input param is on the list of shell scripts
 # $1 - <string> absolute path to a file
 # $@ - <array of strings> list of strings to compare with
@@ -201,7 +232,7 @@ uploadSARIF () {
     -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/analysis"
     -H "Authorization: token ${INPUT_TOKEN}"
     -H "Accept: application/vnd.github.v3+json"
-    -d '{"commit_oid":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}'
+    -d '{"commit_oid":"'"${HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}'
   )
 
   if curl "${curl_args[@]}" &> curl_std; then
@@ -213,6 +244,28 @@ uploadSARIF () {
   fi
 }
 
+link_to_results () {
+  local pull_number=${GITHUB_REF##refs\/pull\/}
+  pull_number=${pull_number%%\/merge}
+
+  # !FIXME: Currently variable `tool` doesn't exist ...
+  local push_link="https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=tool%3A${SCANNING_TOOL:-"shellcheck"}+branch%3A${GITHUB_REF_NAME:-"main"}"
+  local pull_request_link="https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=pr%3A${pull_number}+tool%3A${SCANNING_TOOL:-"shellcheck"}"
+
+  case ${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}} in
+    "push")
+      echo -e "${push_link}"
+      ;;
+
+    "pull_request")
+      echo -e "${pull_request_link}"
+      ;;
+
+    *)
+      echo -e ""
+  esac 
+}
+
 summary () {
   local fixed_issues
   fixed_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../fixes.log))
@@ -220,9 +273,14 @@ summary () {
   local added_issues
   added_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../defects.log))
 
-  local pull_number=${GITHUB_REF##refs\/}
-  pull_number=${pull_number%%\/merge}
+  local results_link_title="Errors / Warnings / Notes"
+  local results_link=""
+  local resutls=""
+  results_link=$(link_to_results)
 
+  [[ -z "${results_link}" ]] && resutls="${results_link_title}"
+  [[ -n "${results_link}" ]] && resutls="[${results_link_title}](${results_link})"
+  
   echo -e "\
 ### Differential ShellCheck 🐚
 
@@ -230,7 +288,7 @@ Changed scripts: \`${#list_of_changed_scripts[@]}\`
 
 |                             | ❌ Added | ✅ Fixed |
 |:---------------------------:|:-------:|:-------:|
-| ⚠️ [Errors / Warnings / Notes](https://github.com/${GITHUB_REPOSITORY}/${pull_number}/files) |  **${added_issues:-0}**  |  **${fixed_issues:-0}**  |
+| ⚠️ ${resutls} |  **${added_issues:-0}**  |  **${fixed_issues:-0}**  |
 
 #### Useful links
 
