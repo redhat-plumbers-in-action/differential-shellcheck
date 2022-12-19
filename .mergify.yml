@@ -32,7 +32,6 @@ pull_request_rules:
     actions:
       merge:
         method: rebase
-        rebase_fallback: none
 
   - name: Delete head branch after merge
     conditions:
