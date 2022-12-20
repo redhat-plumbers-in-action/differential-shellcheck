@@ -7,12 +7,7 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 
 declare \
   GITHUB_ENV \
-  GITHUB_STEP_SUMMARY \
-  GITHUB_WORKSPACE \
-  INPUT_BASE \
-  INPUT_HEAD \
-  INPUT_IGNORED_CODES \
-  INPUT_SHELL_SCRIPTS
+  GITHUB_STEP_SUMMARY
 
 # ------------ #
 #  FILE PATHS  #
@@ -29,7 +24,7 @@ git diff --name-only --diff-filter=db "${INPUT_BASE}".."${INPUT_HEAD}" > ../pr-c
 list_of_changes=()
 file_to_array "../pr-changes.txt" "list_of_changes" 0
 list_of_scripts=()
-[[ -f "${INPUT_SHELL_SCRIPTS}" ]] && file_to_array "${INPUT_SHELL_SCRIPTS}" "list_of_scripts" 1
+[[ -f "${INPUT_SHELL_SCRIPTS:-}" ]] && file_to_array "${INPUT_SHELL_SCRIPTS}" "list_of_scripts" 1
 
 # Create a list of scripts for testing
 list_of_changed_scripts=()
@@ -41,11 +36,11 @@ for file in "${list_of_changes[@]}"; do
 done
 
 # Expose list_of_changed_scripts[*] for use within the GA workflow
-echo "LIST_OF_SCRIPTS=${list_of_changed_scripts[*]}" >> "$GITHUB_ENV"
+echo "LIST_OF_SCRIPTS=${list_of_changed_scripts[*]}" >> "${GITHUB_ENV}"
 
 # Get a list of exceptions
 list_of_exceptions=()
-[[ -f "${INPUT_IGNORED_CODES}" ]] && file_to_array "${INPUT_IGNORED_CODES}" "list_of_exceptions" 1
+[[ -f "${INPUT_IGNORED_CODES:-}" ]] && file_to_array "${INPUT_IGNORED_CODES}" "list_of_exceptions" 1
 string_of_exceptions=$(join_by , "${list_of_exceptions[@]}")
 
 echo -e "${VERSIONS_HEADING}"
@@ -53,7 +48,7 @@ show_versions
 
 echo -e "${MAIN_HEADING}"
 
-if is_debug ; then 
+if is_debug; then
   echo -e "📜 ${WHITE}Changed shell scripts${NOCOLOR}"
   echo "${list_of_changed_scripts[@]}"
   echo
