@@ -22,7 +22,7 @@ is_shell_extension () {
   [[ $# -le 0 ]] && return 1
   local file="$1"
 
-  case $file in
+  case ${file} in
     *.sh) return 0;;
     *.ash) return 0;;
     *.bash) return 0;;
@@ -204,7 +204,7 @@ uploadSARIF () {
     -d '{"commit_oid":"'"${INPUT_HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}'
   )
 
-  if curl "${curl_args[@]}" &> curl_std ; then
+  if curl "${curl_args[@]}" &> curl_std; then
     echo -e "✅ ${GREEN}SARIF report was successfully uploaded to GitHub${NOCOLOR}"
     is_debug && cat curl_std
   else
