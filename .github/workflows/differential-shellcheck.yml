@@ -2,6 +2,7 @@
 
 name: Differential ShellCheck
 on:
+  push:
   pull_request:
     branches: [ main ]
 
@@ -31,7 +32,6 @@ jobs:
 
       # Replace docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:vX.Y.Z with Dockerfile
       - name: Edit an action.yml file to test current changes
-        if: github.event_name == 'pull_request'
         run: |
           sed -i "s/docker:\/\/ghcr\.io\/redhat-plumbers-in-action\/differential-shellcheck.*/Dockerfile/g" action.yml
 
