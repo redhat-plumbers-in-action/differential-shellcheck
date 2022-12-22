@@ -1,9 +1,10 @@
 #!/bin/bash
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+CURRENT_DIR="$(dirname "$(readlink -f "$0")")"
 
-. "${SCRIPT_DIR}/functions.sh"
+# shellcheck source=functions.sh
+. "${SCRIPT_DIR="${CURRENT_DIR}/"}functions.sh"
 
 declare \
   GITHUB_ENV \
@@ -14,7 +15,7 @@ declare \
 # ------------ #
 
 # Make directory $GITHUB_WORKSPACE (/github/workspace) git-save
-git config --global --add safe.directory "${GITHUB_WORKSPACE?"❓ Variable GITHUB_WORKSPACE doesn't exist"}"
+git config --global --add safe.directory "${GITHUB_WORKSPACE:-}"
 
 # Chose correct BASE and HEAD commit for scan
 pick_base_and_head_hash || exit 1

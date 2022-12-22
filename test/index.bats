@@ -11,7 +11,19 @@ setup () {
 }
 
 @test "index.sh - source" {
+  SCRIPT_DIR=""
+  INPUT_TRIGGERING_EVENT="manual"
+  INPUT_BASE="base"
+  INPUT_HEAD="head"
   run . "$PROJECT_ROOT/src/index.sh"
 
   assert_success
+}
+
+teardown () {
+  export \
+    SCRIPT_DIR="" \
+    INPUT_TRIGGERING_EVENT="" \
+    INPUT_BASE="" \
+    INPUT_HEAD=""
 }
