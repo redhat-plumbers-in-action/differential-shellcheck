@@ -3,7 +3,6 @@
 
 CURRENT_DIR="$(dirname "$(readlink -f "$0")")"
 
-# shellcheck source=functions.sh
 . "${SCRIPT_DIR="${CURRENT_DIR}/"}functions.sh"
 
 declare \
@@ -29,6 +28,8 @@ pick_base_and_head_hash || exit 1
 
 # https://github.com/actions/runner/issues/342
 # Get the names of files from range of commits (excluding deleted files)
+# shellcheck disable=SC2154
+# BASE and HEAD are always set, it is checked inside pick_base_and_head_hash function
 git diff --name-only --diff-filter=db "${BASE}".."${HEAD}" > ../pr-changes.txt
 
 # Find modified shell scripts
