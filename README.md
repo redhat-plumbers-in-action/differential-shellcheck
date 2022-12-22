@@ -32,7 +32,7 @@
 
 <!-- -->
 
-This repository hosts code for running differential ShellCheck in GitHub actions. Idea of having something like a differential ShellCheck was first introduced in [@fedora-sysv/initscripts](https://github.com/fedora-sysv/initscripts). Initscripts needed some way to verify incoming PRs without getting warnings and errors about already merged and for years working code. Therefore, differential ShellCheck was born.
+This repository hosts code for running Differential ShellCheck in GitHub Actions. Idea of having something like a Differential ShellCheck was first introduced in [@fedora-sysv/initscripts](https://github.com/fedora-sysv/initscripts). Initscripts needed some way to verify incoming Pull Requests without getting warnings and errors about already merged and for years working code. Therefore, Differential ShellCheck was born.
 
 ## How does it work
 
@@ -55,6 +55,7 @@ To evaluate results, Differential ShellCheck uses utilities `csdiff` and `csgrep
 * Ability to run in a verbose mode when run with [debug option](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/)
 * Results displayed as [job summaries](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/)
 * Ability to configure Differential ShellCheck using [`.shellcheckrc`](https://github.com/koalaman/shellcheck/blob/master/shellcheck.1.md#rc-files)
+* Support for GitHub `push` triggering event
 
 ## Usage
 
@@ -63,6 +64,7 @@ Example of running Differential ShellCheck:
 ```yml
 name: Differential ShellCheck
 on:
+  push:
   pull_request:
     branches: [main]
 
@@ -80,7 +82,7 @@ jobs:
           fetch-depth: 0
 
       - name: Differential ShellCheck
-        uses: redhat-plumbers-in-action/differential-shellcheck@v3
+        uses: redhat-plumbers-in-action/differential-shellcheck@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -136,10 +138,15 @@ Action currently accepts following options:
 # ...
 
 - name: Differential ShellCheck
-  uses: redhat-plumbers-in-action/differential-shellcheck@v3
+  uses: redhat-plumbers-in-action/differential-shellcheck@v4
   with:
-    base: <base-sha>
-    head: <head-sha>
+    triggering-event: <name of triggering event>
+    base: <sha1>
+    head: <sha1>
+    pull-request-base: <sha1>
+    pull-request-head: <sha1>
+    push-event-base: <sha1>
+    push-event-head: <sha1>
     ignored-codes: <path to file with list of codes>    # <-- Deprecated option
     shell-scripts: <path to file with list of scripts>
     external-sources: <true or false>
@@ -149,18 +156,53 @@ Action currently accepts following options:
 # ...
 ```
 
+### triggering-event
+
+The name of the event that triggered the workflow run. Supported values are: `pull_request`, `push` and `manual`.
+
+* default value: `${{ github.event_name }}`
+* requirements: `optional`
+
 ### base
 
-`SHA` of commit which will be used as the base when performing differential ShellCheck.
+`SHA1` of the commit which will be used as the base when performing differential ShellCheck. Input is used only when `triggering-event` is set to `manual`.
 
-* default value: `""`
+* default value: `undefined`
 * requirements: `optional`
 
 ### head
 
-`SHA` of commit which refers to `HEAD`.
+`SHA1` of the commit which refers to the `HEAD` of changes. Input is used only when `triggering-event` is set to `manual`.
 
-* default value: `""`
+* default value: `undefined`
+* requirements: `optional`
+
+### pull-request-base
+
+`SHA1` of the top commit on the base branch. Input is used when `triggering-event` is set to `pull_request`.
+
+* default value: `${{ github.event.pull_request.base.sha }}`
+* requirements: `optional`
+
+### pull-request-head
+
+`SHA1` of the latest commit in Pull Request. Input is used when `triggering-event` is set to `pull_request`.
+
+* default value: `${{ github.event.pull_request.head.sha }}`
+* requirements: `optional`
+
+### push-event-base
+
+`SHA1` of the last commit before the push. Input is used when `triggering-event` is set to `push`.
+
+* default value: `${{ github.event.before }}`
+* requirements: `optional`
+
+### push-event-head
+
+`SHA1` of the last commit after push. Input is used when `triggering-event` is set to `push`.
+
+* default value: `${{ github.event.after }}`
 * requirements: `optional`
 
 ### ignored-codes
@@ -210,7 +252,7 @@ Token needs to have the following [characteristics](https://docs.github.com/en/r
 
 ## Limitations
 
-* Currently `differential-shellcheck` action can be run only on Pull-Requests.
+* `differential-shellcheck` Action doesn't run correctly when overwriting commits using `--force` and when the triggering event is `push`.
 
 ---
 
