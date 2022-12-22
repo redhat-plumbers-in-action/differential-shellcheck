@@ -1,6 +1,38 @@
 # shellcheck shell=bash
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+# shellcheck source=summary.sh
+. "${SCRIPT_DIR=}summary.sh"
+# shellcheck source=validation.sh
+. "${SCRIPT_DIR=}validation.sh"
+
+is_full_scan_demanded () {
+  case "${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}}" in
+    "push")
+      return 0
+      ;;
+
+    "pull_request")
+      return 1
+      ;;
+
+    "manual")
+      is_false "${INPUT_DIFF_SCAN}" && return 0
+      ;;
+
+    *)
+      # Perform Differential scans by default
+  esac
+
+  return 1
+}
+
+is_strict_check_on_push_demanded () {
+  [[ "${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}}" = "push" ]] || return 1
+  is_false "${INPUT_STRICT_CHECK_ON_PUSH:-"false"}" && return 2
+  return 0
+}
+
 # Function that picks values of BASE and HEAD commit based on triggrring event (INPUT_TRIGGERING_EVENT)
 # It sets BASE and HEAD for external use.
 # $? - return value - 0 on success
@@ -30,6 +62,30 @@ pick_base_and_head_hash () {
     echo -e "❓ ${RED}Value of required variables BASE and/or HEAD isn't set or contains unsupported value.${NOCOLOR}"
     return 2
   fi
+}
+
+# $1 - <string> absolute path to a file with list of files
+# $2 - <string> name of a variable where the result array will be stored
+get_scripts_for_scanning () {
+  [[ $# -le 1 ]] && return 1
+
+  # Find modified shell scripts
+  local list_of_changes=()
+  file_to_array "${1}" "list_of_changes" 0
+  local list_of_scripts=()
+  [[ -f "${INPUT_SHELL_SCRIPTS:-}" ]] && file_to_array "${INPUT_SHELL_SCRIPTS}" "list_of_scripts" 1
+
+  # Create a list of scripts for testing
+  local scripts_for_scanning=()
+  for file in "${list_of_changes[@]}"; do
+    is_symlink "${file}" && continue
+    is_directory "${file}" && continue
+    is_script_listed "${file}" "${list_of_scripts[@]}" && scripts_for_scanning+=("./${file}") && continue
+    is_shell_extension "${file}" && scripts_for_scanning+=("./${file}") && continue
+    has_shebang "${file}" && scripts_for_scanning+=("./${file}")
+  done
+
+  eval "$2"="(${scripts_for_scanning[*]})"
 }
 
 # Function to check whether the input param is on the list of shell scripts
@@ -77,22 +133,22 @@ has_shebang () {
   local file="$1"
 
   # shell shebangs detection
-  if head -n1 "${file}" | grep -E '^\s*((\#|\!)|(\#\s*\!)|(\!\s*\#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
+  if head -n1 "${file}" | grep --quiet -E '^\s*((\#|\!)|(\#\s*\!)|(\!\s*\#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
     return 0
   fi
 
   # ShellCheck shell directive detection
-  if grep -E '^\s*\#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+  if grep --quiet -E '^\s*\#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
     return 0
   fi
 
   # Emacs mode detection
-  if grep -E '^\s*\#\s+-\*-\s+(sh|ash|bash|dash|ksh|bats)\s+-\*-\s*' "${file}"; then
+  if grep --quiet -E '^\s*\#\s+-\*-\s+(sh|ash|bash|dash|ksh|bats)\s+-\*-\s*' "${file}"; then
     return 0
   fi
 
   # Vi and Vim modeline filetype detection
-  if grep -E '^\s*\#\s+vim?:\s+(set\s+)?(ft|filetype)=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+  if grep --quiet -E '^\s*\#\s+vim?:\s+(set\s+)?(ft|filetype)=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
     return 0
   fi
 
@@ -107,6 +163,18 @@ is_symlink () {
   local file="$1"
 
   [[ -L "${file}" ]] && return 0
+
+  return 2
+}
+
+# Function to test if given file path is directory
+# $1 - <string> file path
+# $? - return value - 0 on success
+is_directory () {
+  [[ $# -le 0 ]] && return 1
+  local file="$1"
+
+  [[ -d "${file}" ]] && return 0
 
   return 2
 }
@@ -200,9 +268,10 @@ execute_shellcheck () {
     "${external_sources:-}"
     --severity="${INPUT_SEVERITY}"
     --exclude="${string_of_exceptions}"
-    "${list_of_changed_scripts[@]}"
+    "${@}"
   )
 
+  # The sed part ensures that cstools will recognize the output as being produced by ShellCheck and not GCC.
   local output
   output=$(shellcheck "${shellcheck_args[@]}" 2> /dev/null | sed -e 's|$| <--[shellcheck]|')
 
@@ -242,61 +311,6 @@ uploadSARIF () {
     echo -e "❌ ${RED}Failed to upload the SARIF report to GitHub${NOCOLOR}"
     cat curl_std
   fi
-}
-
-link_to_results () {
-  local pull_number=${GITHUB_REF##refs\/pull\/}
-  pull_number=${pull_number%%\/merge}
-
-  # !FIXME: Currently variable `tool` doesn't exist ...
-  local push_link="https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=tool%3A${SCANNING_TOOL:-"shellcheck"}+branch%3A${GITHUB_REF_NAME:-"main"}"
-  local pull_request_link="https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=pr%3A${pull_number}+tool%3A${SCANNING_TOOL:-"shellcheck"}"
-
-  case ${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}} in
-    "push")
-      echo -e "${push_link}"
-      ;;
-
-    "pull_request")
-      echo -e "${pull_request_link}"
-      ;;
-
-    *)
-      echo -e ""
-  esac 
-}
-
-summary () {
-  local fixed_issues
-  fixed_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../fixes.log))
-
-  local added_issues
-  added_issues=$(grep -Eo "[0-9]*" < <(csgrep --mode=stat ../defects.log))
-
-  local results_link_title="Errors / Warnings / Notes"
-  local results_link=""
-  local resutls=""
-  results_link=$(link_to_results)
-
-  [[ -z "${results_link}" ]] && resutls="${results_link_title}"
-  [[ -n "${results_link}" ]] && resutls="[${results_link_title}](${results_link})"
-  
-  echo -e "\
-### Differential ShellCheck 🐚
-
-Changed scripts: \`${#list_of_changed_scripts[@]}\`
-
-|                             | ❌ Added | ✅ Fixed |
-|:---------------------------:|:-------:|:-------:|
-| ⚠️ ${resutls} |  **${added_issues:-0}**  |  **${fixed_issues:-0}**  |
-
-#### Useful links
-
-- [Differential ShellCheck Documentation](https://github.com/redhat-plumbers-in-action/differential-shellcheck#readme)
-- [ShellCheck Documentation](https://github.com/koalaman/shellcheck#readme)
-
----
-_ℹ️ If you have an issue with this GitHub action, please try to run it in the [debug mode](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/) and submit an [issue](https://github.com/redhat-plumbers-in-action/differential-shellcheck/issues/new)._"
 }
 
 show_versions() {

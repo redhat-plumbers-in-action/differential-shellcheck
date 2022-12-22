@@ -10,7 +10,7 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
-@test "link_to_results() - trigger event = push" {
+@test "compose_results_link() - trigger event = push" {
   source "${PROJECT_ROOT}/src/summary.sh"
 
   INPUT_TRIGGERING_EVENT="push"
@@ -19,12 +19,15 @@ setup () {
   SCANNING_TOOL="not-shellcheck"
   GITHUB_REF="refs/heads/${GITHUB_REF_NAME}"
 
-  run link_to_results
+  run compose_results_link "Result Link"
   assert_success
-  assert_output "https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=tool%3A${SCANNING_TOOL}+branch%3A${GITHUB_REF_NAME}+is%3Aopen"
+  assert_output "[Result Link](https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=tool%3A${SCANNING_TOOL}+branch%3A${GITHUB_REF_NAME}+is%3Aopen)"
+
+  run compose_results_link
+  assert_failure 1
 }
 
-@test "link_to_results() - trigger event = pull_request" {
+@test "compose_results_link() - trigger event = pull_request" {
   source "${PROJECT_ROOT}/src/summary.sh"
 
   INPUT_TRIGGERING_EVENT="pull_request"
@@ -33,20 +36,26 @@ setup () {
   SCANNING_TOOL="not-shellcheck"
   GITHUB_REF="refs/pull/${PR_NUMBER}/merge"
 
-  run link_to_results
+  run compose_results_link "Result Link"
   assert_success
-  assert_output "https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=pr%3A${PR_NUMBER}+tool%3A${SCANNING_TOOL}+is%3Aopen"
+  assert_output "[Result Link](https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=pr%3A${PR_NUMBER}+tool%3A${SCANNING_TOOL}+is%3Aopen)"
+
+  run compose_results_link
+  assert_failure 1
 }
 
-@test "link_to_results() - trigger event = manual" {
+@test "compose_results_link() - trigger event = manual" {
   source "${PROJECT_ROOT}/src/summary.sh"
 
   INPUT_TRIGGERING_EVENT="manual"
   SCANNING_TOOL="not-shellcheck"
 
-  run link_to_results
+  run compose_results_link "Result Link"
   assert_success
-  assert_output ""
+  assert_output "Result Link"
+
+  run compose_results_link
+  assert_failure 1
 }
 
 teardown () {

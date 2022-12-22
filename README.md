@@ -55,7 +55,6 @@ To evaluate results, Differential ShellCheck uses utilities `csdiff` and `csgrep
 * Ability to run in a verbose mode when run with [debug option](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/)
 * Results displayed as [job summaries](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/)
 * Ability to configure Differential ShellCheck using [`.shellcheckrc`](https://github.com/koalaman/shellcheck/blob/master/shellcheck.1.md#rc-files)
-* Support for GitHub `push` triggering event
 
 ## Usage
 
@@ -147,6 +146,8 @@ Action currently accepts following options:
     pull-request-head: <sha1>
     push-event-base: <sha1>
     push-event-head: <sha1>
+    diff-scan: <true or false>
+    strict-check-on-push: <true or false>
     ignored-codes: <path to file with list of codes>    # <-- Deprecated option
     shell-scripts: <path to file with list of scripts>
     external-sources: <true or false>
@@ -203,6 +204,28 @@ The name of the event that triggered the workflow run. Supported values are: `pu
 `SHA1` of the last commit after push. Input is used when `triggering-event` is set to `push`.
 
 * default value: `${{ github.event.after }}`
+* requirements: `optional`
+
+### diff-scan
+
+Input allows requesting a specific type of scan. Input is considered only if `triggering-event` is set to `manual`.
+
+Default types of scans based on `triggering-event` input:
+
+| `triggering-event` | type of scan               |
+|--------------------|----------------------------|
+| `pull_request`     | differential               |
+| `push`             | full                       |
+| `manual`           | based on `diff-scan` input |
+
+* default value: `true`
+* requirements: `optional`
+
+### strict-check-on-push
+
+Differential ShellCheck performs full scans when running on a `push` event, but the Action fails only when new defects are added. This option allows overwriting this behavior. Hence when `strict-check-on-push` is set to `true` it will fail when any defect is discovered.
+
+* default value: `false`
 * requirements: `optional`
 
 ### ignored-codes

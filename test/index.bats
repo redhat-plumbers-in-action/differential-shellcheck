@@ -21,6 +21,8 @@ setup () {
 }
 
 teardown () {
+  rm -f ../base-shellcheck.err ../changed-files.txt ../defects.log ../fixes.log ../head-shellcheck.err
+
   export \
     SCRIPT_DIR="" \
     INPUT_TRIGGERING_EVENT="" \

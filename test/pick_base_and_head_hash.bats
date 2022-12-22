@@ -10,7 +10,7 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
-@test "pick_base_and_head_hash () - trigger event = push" {
+@test "pick_base_and_head_hash() - trigger event = push" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
   INPUT_TRIGGERING_EVENT="push"
@@ -38,7 +38,7 @@ setup () {
   assert_success
 }
 
-@test "pick_base_and_head_hash () - trigger event = pull_request" {
+@test "pick_base_and_head_hash() - trigger event = pull_request" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
   INPUT_TRIGGERING_EVENT="pull_request"
@@ -66,7 +66,7 @@ setup () {
   assert_success
 }
 
-@test "pick_base_and_head_hash () - trigger event = manual" {
+@test "pick_base_and_head_hash() - trigger event = manual" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
   INPUT_TRIGGERING_EVENT="manual"
@@ -94,7 +94,7 @@ setup () {
   assert_success
 }
 
-@test "pick_base_and_head_hash () - trigger event = empty" {
+@test "pick_base_and_head_hash() - trigger event = empty" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
   INPUT_TRIGGERING_EVENT=""
@@ -104,7 +104,7 @@ setup () {
   assert_failure 1
 }
 
-@test "pick_base_and_head_hash () - trigger event = UNSUPPORTED_VALUE" {
+@test "pick_base_and_head_hash() - trigger event = UNSUPPORTED_VALUE" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
   INPUT_TRIGGERING_EVENT="UNSUPPORTED_VALUE"

@@ -1,0 +1,2 @@
+Error: SHELLCHECK_WARNING:
+src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)

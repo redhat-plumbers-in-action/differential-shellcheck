@@ -32,6 +32,6 @@ RUN dnf -y install "./${rpm_shellcheck}" "./${rpm_csdiff}" \
 RUN mkdir -p /action
 WORKDIR /action
 
-COPY src/index.sh src/functions.sh ./
+COPY src/* ./
 
 ENTRYPOINT ["/action/index.sh"]

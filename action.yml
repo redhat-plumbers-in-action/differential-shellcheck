@@ -41,6 +41,17 @@ inputs:
     required: false
     default: ${{ github.event.after }}
 
+  diff-scan:
+    description: Input allowing to request specific type of scan. Input is taken into consideration only if `triggering-event` is set to `manual`.
+    required: false
+    default: 'true'
+  strict-check-on-push:
+    description: |
+      Differential ShellCheck performs full scans when running on a `push` event, but the Action fails only when new defects are added.
+      This option allows overwriting this behavior. Hence when `strict-check-on-push` is set to `true` it will fail when any defect is discovered.
+    required: false
+    default: 'false'
+
   ignored-codes:
     description: List of ShellCheck codes which should be excluded from validation.
     deprecationMessage: This option is now deprecated, please consider using `.shellcheckrc` instead.
@@ -63,10 +74,6 @@ inputs:
     description: GitHub TOKEN used to upload SARIF data.
     required: false
 
-outputs:
-  result:
-    description: Result of Differential ShellCheck.
-
 runs:
   using: docker
   image: docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:v3.3.1
@@ -76,6 +83,8 @@ runs:
     INPUT_PULL_REQUEST_HEAD: ${{ inputs.pull-request-head }}
     INPUT_PUSH_EVENT_BASE: ${{ inputs.push-event-base }}
     INPUT_PUSH_EVENT_HEAD: ${{ inputs.push-event-head }}
+    INPUT_DIFF_SCAN: ${{ inputs.diff-scan }}
+    INPUT_STRICT_CHECK_ON_PUSH: ${{ inputs.strict-check-on-push }}
     INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
     INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}
     INPUT_EXTERNAL_SOURCES: ${{ inputs.external-sources }}

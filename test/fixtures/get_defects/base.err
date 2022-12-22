@@ -1,0 +1,4 @@
+src/index.sh:7:3: note: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory) [SC1091]
+src/index.sh:39:42: warning: BASE is referenced but not assigned. [SC2154]
+src/index.sh:39:53: warning: HEAD is referenced but not assigned. [SC2154]
+src/index.sh:50:10: warning: VERSIONS_HEADING is referenced but not assigned. [SC2154]

@@ -1,0 +1,6 @@
+src/index.sh:39:42: warning: BASE is referenced but not assigned. [SC2154]
+src/index.sh:39:53: warning: HEAD is referenced but not assigned. [SC2154]
+src/index.sh:50:10: warning: VERSIONS_HEADING is referenced but not assigned. [SC2154]
+src/index.sh:53:10: warning: MAIN_HEADING is referenced but not assigned. [SC2154]
+src/index.sh:56:14: warning: WHITE is referenced but not assigned. [SC2154]
+src/index.sh:56:56: warning: NOCOLOR is referenced but not assigned. [SC2154]

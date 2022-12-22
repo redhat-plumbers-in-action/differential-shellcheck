@@ -1,0 +1,8 @@
+Error: SHELLCHECK_WARNING:
+src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
+
+Error: SHELLCHECK_WARNING:
+src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
+
+Error: SHELLCHECK_WARNING:
+src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned.
