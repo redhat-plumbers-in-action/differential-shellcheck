@@ -3,6 +3,27 @@
 ## v4.0.0
 
 * Tag `latest` is no longer available. Use major tags instead (e.g. `v3` or `v4`).
+* Action can be triggered using GitHub `push` event
+
+  ```yaml
+  on:
+    push:
+
+  jobs:
+    lint:
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v3
+          with:
+            fetch-depth: 0
+
+        - uses: redhat-plumbers-in-action/differential-shellcheck@v4
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+  ```
+
+  > **Note**: When using `--force` action doesn't work properly when triggered on `push` events.
 
 ## v3.3.0
 
