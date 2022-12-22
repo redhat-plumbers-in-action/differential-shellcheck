@@ -23,7 +23,13 @@
             token: ${{ secrets.GITHUB_TOKEN }}
   ```
 
-  > **Note**: When using `--force` action doesn't work properly when triggered on `push` events.
+  > **Note**: When using `--force` action doesn't work properly when triggered on `push` events
+
+* Action now perform full scans on `push` event by default and on `manual` trigger when requested
+* Addition of new Summary page for full scans
+* Removal of unused output - `ENV.LIST_OF_SCRIPTS`
+* Increased code coverage
+* Some minor bugfixes, ShellCheck fixes, and CI updates
 
 ## v3.3.0
 

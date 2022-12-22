@@ -1,0 +1,4 @@
+test/fixtures/get_scripts_for_scanning/files.txt
+test/fixtures/get_scripts_for_scanning/non-script.md
+test/fixtures/get_scripts_for_scanning/script1.sh
+test/fixtures/get_scripts_for_scanning/script2
