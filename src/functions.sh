@@ -6,6 +6,9 @@
 # shellcheck source=validation.sh
 . "${SCRIPT_DIR=}validation.sh"
 
+# Function that determine if FULL scan is requested
+# INPUT_TRIGGERING_EVENT is required
+# $? - return value - 0 on success
 is_full_scan_demanded () {
   case "${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}}" in
     "push")
@@ -27,6 +30,9 @@ is_full_scan_demanded () {
   return 1
 }
 
+# Function that determine if strict check on push events is requested
+# INPUT_TRIGGERING_EVENT is required
+# $? - return value - 0 on success
 is_strict_check_on_push_demanded () {
   [[ "${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}}" = "push" ]] || return 1
   is_false "${INPUT_STRICT_CHECK_ON_PUSH:-"false"}" && return 2
@@ -64,6 +70,7 @@ pick_base_and_head_hash () {
   fi
 }
 
+# Function that returns an array of paths to scripts eligible for scanning
 # $1 - <string> absolute path to a file with list of files
 # $2 - <string> name of a variable where the result array will be stored
 get_scripts_for_scanning () {
@@ -313,6 +320,7 @@ uploadSARIF () {
   fi
 }
 
+# Function that shows versions of currently used commands
 show_versions() {
   local shellcheck
   local csutils
