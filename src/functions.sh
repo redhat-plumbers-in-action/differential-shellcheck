@@ -7,7 +7,7 @@
 . "${SCRIPT_DIR=}validation.sh"
 
 is_full_scan_demanded () {
-  case "${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}}" in
+  case "${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}}" in
     "push")
       return 0
       ;;
@@ -28,7 +28,7 @@ is_full_scan_demanded () {
 }
 
 is_strict_check_on_push_demanded () {
-  [[ "${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}}" = "push" ]] || return 1
+  [[ "${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}}" = "push" ]] || return 1
   is_false "${INPUT_STRICT_CHECK_ON_PUSH:-"false"}" && return 2
   return 0
 }
@@ -37,7 +37,7 @@ is_strict_check_on_push_demanded () {
 # It sets BASE and HEAD for external use.
 # $? - return value - 0 on success
 pick_base_and_head_hash () {
-  case ${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}} in
+  case ${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}} in
     "push")
       export BASE=${INPUT_PUSH_EVENT_BASE:-}
       export HEAD=${INPUT_PUSH_EVENT_HEAD:-}
