@@ -93,26 +93,30 @@ echo
 evaluate_and_print_defects
 exit_status=$?
 
+# Upload all defects when Full scan was requested
+if [[ ${FULL_SCAN} -eq 0 ]]; then
+  cp ../full-shellcheck.err ../sarif-defects.log
+else
+  cp ../defects.log ../sarif-defects.log
+fi
+
+# GitHub requires an absolute path, so let's remove the './' prefix from it.
+# TODO: Don't hardcode ShellCheck version
+csgrep \
+  --strip-path-prefix './' \
+  --mode=sarif \
+  --set-scan-prop='tool:ShellCheck' \
+  --set-scan-prop='tool-version:0.8.0' \
+  --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
+  '../sarif-defects.log' >> output.sarif
+
+echo "sarif=output.sarif" >> "${GITHUB_OUTPUT}"
+
 # SARIF upload
 if [[ -n "${INPUT_TOKEN}" ]]; then
   echo
 
-  # Upload all defects when Full scan was requested
-  if [[ ${FULL_SCAN} -eq 0 ]]; then
-    cp ../full-shellcheck.err ../sarif-defects.log
-  else
-    cp ../defects.log ../sarif-defects.log
-  fi
-
-  # GitHub requires an absolute path, so let's remove the './' prefix from it.
-  # TODO: Don't hardcode ShellCheck version
-  csgrep \
-    --strip-path-prefix './' \
-    --mode=sarif \
-    --set-scan-prop='tool:ShellCheck' \
-    --set-scan-prop='tool-version:0.8.0' \
-    --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
-    '../sarif-defects.log' >> output.sarif && uploadSARIF
+  uploadSARIF
 fi
 
 summary >> "${GITHUB_STEP_SUMMARY}"

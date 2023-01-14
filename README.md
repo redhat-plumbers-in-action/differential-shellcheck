@@ -80,10 +80,18 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Differential ShellCheck
+      - id: ShellCheck
+        name: Differential ShellCheck
         uses: redhat-plumbers-in-action/differential-shellcheck@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: ${{ always() }}
+        name: Upload artifact with ShellCheck defects in SARIF format
+        uses: actions/upload-artifact@v3
+        with:
+          name: Differential ShellCheck SARIF
+          path: ${{ steps.ShellCheck.outputs.sarif }}
 ```
 
 > **Warning**: _`fetch-depth: 0` is required in order to run `differential-shellcheck` successfully._
@@ -272,6 +280,35 @@ Token needs to have the following [characteristics](https://docs.github.com/en/r
 
 * Token with the `security_events: write` scope to use this endpoint for private repositories.
 * Token with the `public_repo` scope for **public repositories only**.
+
+If the `token` isn't passed, SARIF file can be uploaded manually using [sarif from outputs](#sarif) and [github/codeql-action/upload-sarif](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions) GitHub Action.
+
+## Outputs
+
+Differential ShellCheck exposes following [outputs](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs).
+
+### sarif
+
+Relative path to SARIF file containing detected defects. Example of use:
+
+```yaml
+- id: ShellCheck
+  name: Differential ShellCheck
+  uses: redhat-plumbers-in-action/differential-shellcheck@v4
+
+- if: ${{ always() }}
+  name: Upload artifact with ShellCheck defects in SARIF format
+  uses: actions/upload-artifact@v3
+  with:
+    name: Differential ShellCheck SARIF
+    path: ${{ steps.ShellCheck.outputs.sarif }}
+
+- if: ${{ always() }}
+  name: Upload SARIF to GitHub using github/codeql-action/upload-sarif
+  uses: github/codeql-action/upload-sarif@v2
+  with:
+    sarif_file: ${{ steps.ShellCheck.outputs.sarif }}
+```
 
 ## Limitations
 

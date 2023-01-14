@@ -74,6 +74,10 @@ inputs:
     description: GitHub TOKEN used to upload SARIF data.
     required: false
 
+outputs:
+  sarif:
+    description: 'The SARIF file containing defects'
+
 runs:
   using: docker
   image: docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:v3.3.1

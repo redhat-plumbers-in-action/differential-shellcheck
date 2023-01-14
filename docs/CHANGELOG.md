@@ -19,6 +19,7 @@
             fetch-depth: 0
 
         - uses: redhat-plumbers-in-action/differential-shellcheck@v4
+          id: ShellCheck
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
   ```
@@ -27,6 +28,18 @@
 
 * Action now perform full scans on `push` event by default and on `manual` trigger when requested
 * Addition of new Summary page for full scans
+* SARIF file is now exposed under output `sarif` for further use.
+
+  ```yaml
+    - if: ${{ always() }}
+      name: Upload artifact with defects in SARIF format
+      uses: actions/upload-artifact@v3
+      with:
+        name: Differential ShellCheck SARIF
+        path: ${{ steps.ShellCheck.outputs.sarif }}
+        retention-days: 7
+  ```
+
 * Removal of unused output - `ENV.LIST_OF_SCRIPTS`
 * Increased code coverage
 * Some minor bugfixes, ShellCheck fixes, and CI updates

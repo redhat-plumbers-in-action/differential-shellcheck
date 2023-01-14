@@ -36,7 +36,16 @@ jobs:
           sed -i "s/docker:\/\/ghcr\.io\/redhat-plumbers-in-action\/differential-shellcheck.*/Dockerfile/g" action.yml
 
       - name: Differential ShellCheck - test current changes
+        id: ShellCheck
         uses: ./
         with:
           shell-scripts: .github/.differential-shellcheck-scripts.txt
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: ${{ always() }}
+        name: Upload artifact with defects in SARIF format
+        uses: actions/upload-artifact@0b7f8abb1508181956e8e162db84b466c27e18ce
+        with:
+          name: Differential ShellCheck SARIF
+          path: ${{ steps.ShellCheck.outputs.sarif }}
+          retention-days: 7
