@@ -29,7 +29,7 @@ jobs:
           template-path: .github/ISSUE_TEMPLATE/${{ matrix.template }}
 
       - name: Set labels based on type input
-        uses: redhat-plumbers-in-action/advanced-issue-labeler@6ee6fddfd744ee26b977e6a0436916f256896971
+        uses: redhat-plumbers-in-action/advanced-issue-labeler@25a1e41826424cdf577c71b58c852df4347f13b8
         with:
           issue-form: ${{ steps.issue-parser.outputs.jsonString }}
           token: ${{ secrets.GITHUB_TOKEN }}
