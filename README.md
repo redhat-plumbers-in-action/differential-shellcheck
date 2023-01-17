@@ -65,7 +65,7 @@ name: Differential ShellCheck
 on:
   push:
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -73,6 +73,10 @@ permissions:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    
+    permissions:
+      security-events: write
+      pull-requests: write
 
     steps:
       - name: Repository checkout
