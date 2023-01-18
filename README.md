@@ -65,7 +65,7 @@ name: Differential ShellCheck
 on:
   push:
   pull_request:
-    branches: [ main ]
+    branches: [ $default-branch ]
 
 permissions:
   contents: read
