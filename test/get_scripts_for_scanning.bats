@@ -23,7 +23,8 @@ setup () {
   run get_scripts_for_scanning "./test/fixtures/get_scripts_for_scanning/files.txt" "shell_scripts"
   assert_success
   #! FIXME for some reason I can't get assert_equal to work
-  # assert_equal "${shell_scripts[*]}" "./test/fixtures/get_scripts_for_scanning/script1.sh ./test/fixtures/get_scripts_for_scanning/script2"
+  #assert_equal "\"${shell_scripts[0]}\"" "\"./test/fixtures/get_scripts_for_scanning/script1.sh\""
+  #assert_equal "\"${shell_scripts[1]}\"" "\"./test/fixtures/get_scripts_for_scanning/script2\""
 }
 
 teardown () {
