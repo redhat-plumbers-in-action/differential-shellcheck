@@ -33,5 +33,23 @@ setup () {
   local el3=$(echo -e "\n Something3 \n")
   
   clean_array "cleaned_array" "$el1" "$el2" "$el3"
-  assert_equal "${cleaned_array[*]}" "Something1 Something2 Something3"
+  assert_equal "\"${cleaned_array[0]}\"" "\"Something1\""
+  assert_equal "\"${cleaned_array[1]}\"" "\"Something2\""
+  assert_equal "\"${cleaned_array[2]}\"" "\"Something3\""
+}
+
+@test "clean_array() - special characters" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+
+  local cleaned_array=()
+  local el1=$(echo -e "Something1 conf\n")
+  local el2=$(echo -e "Something2 conf\r ")
+  local el3=$(echo -e "\n Something3 conf\n")
+  local el4=$(echo -e "\n Something4\&Something4 conf \n")
+  
+  clean_array "cleaned_array" "$el1" "$el2" "$el3" "$el4"
+  assert_equal "\"${cleaned_array[0]}\"" "\"Something1 conf\""
+  assert_equal "\"${cleaned_array[1]}\"" "\"Something2 conf\""
+  assert_equal "\"${cleaned_array[2]}\"" "\"Something3 conf\""
+  assert_equal "\"${cleaned_array[3]}\"" "\"Something4\&Something4 conf\""
 }
