@@ -13,6 +13,8 @@ setup () {
 @test "get_scripts_for_scanning()" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
+  UNIT_TESTS=0
+
   run get_scripts_for_scanning
   assert_failure 1
 
@@ -22,12 +24,11 @@ setup () {
   shell_scripts=()
   run get_scripts_for_scanning "./test/fixtures/get_scripts_for_scanning/files.txt" "shell_scripts"
   assert_success
-  #! FIXME for some reason I can't get assert_equal to work
-  #assert_equal "\"${shell_scripts[0]}\"" "\"./test/fixtures/get_scripts_for_scanning/script1.sh\""
-  #assert_equal "\"${shell_scripts[1]}\"" "\"./test/fixtures/get_scripts_for_scanning/script2\""
+  assert_output "'./test/fixtures/get_scripts_for_scanning/script1.sh' './test/fixtures/get_scripts_for_scanning/script2' './test/fixtures/get_scripts_for_scanning/script 2.sh' './test/fixtures/get_scripts_for_scanning/script&3.sh' './test/fixtures/get_scripts_for_scanning/\$script4.sh'"
 }
 
 teardown () {
   export \
     shell_scripts=""
+    UNIT_TESTS=""
 }
