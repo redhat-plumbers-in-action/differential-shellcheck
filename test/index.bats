@@ -21,7 +21,7 @@ setup () {
 }
 
 teardown () {
-  rm -f ../base-shellcheck.err ../changed-files.txt ../defects.log ../fixes.log ../head-shellcheck.err
+  rm -f ../base-shellcheck.err ../changed-files.txt ../defects.log ../fixes.log ../head-shellcheck.err ./output.sarif
 
   export \
     SCRIPT_DIR="" \
