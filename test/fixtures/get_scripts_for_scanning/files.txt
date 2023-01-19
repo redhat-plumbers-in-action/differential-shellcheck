@@ -2,3 +2,6 @@ test/fixtures/get_scripts_for_scanning/files.txt
 test/fixtures/get_scripts_for_scanning/non-script.md
 test/fixtures/get_scripts_for_scanning/script1.sh
 test/fixtures/get_scripts_for_scanning/script2
+test/fixtures/get_scripts_for_scanning/script 2.sh
+test/fixtures/get_scripts_for_scanning/script&3.sh
+test/fixtures/get_scripts_for_scanning/$script4.sh

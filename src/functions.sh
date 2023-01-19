@@ -76,6 +76,7 @@ pick_base_and_head_hash () {
 # $2 - <string> name of a variable where the result array will be stored
 get_scripts_for_scanning () {
   [[ $# -le 1 ]] && return 1
+  local output=$2
 
   # Find modified shell scripts
   local list_of_changes=()
@@ -93,7 +94,8 @@ get_scripts_for_scanning () {
     has_shebang "${file}" && scripts_for_scanning+=("./${file}")
   done
 
-  eval "$2"="(${scripts_for_scanning[*]@Q})"
+  eval $output=\("${scripts_for_scanning[*]@Q}"\)
+  [[ ${UNIT_TESTS:-1} -eq 0 ]] && eval echo "\${${output}[@]@Q}"
 }
 
 # Function to check whether the input param is on the list of shell scripts
