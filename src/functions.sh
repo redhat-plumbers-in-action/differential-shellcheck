@@ -216,6 +216,7 @@ file_to_array () {
 # https://stackoverflow.com/a/9715377
 # https://stackoverflow.com/a/19347380
 # https://unix.stackexchange.com/a/225517
+# https://unix.stackexchange.com/a/360648
 # $1 - name of a variable where the result array will be stored
 # $@ - source array
 # $? - return value - 0 on success
@@ -225,9 +226,20 @@ clean_array () {
   shift
   local input=("$@")
 
+  local extglob_state=0
+  if ! shopt -q extglob; then
+    extglob_state=1
+    shopt -s extglob
+  fi
+
   for i in "${input[@]}"; do
-    eval $output+=\("${i//[$'\t\r\n ']}"\)
+    local cleaned_item=""
+    cleaned_item=$(printf '%s' "${i##+([[:space:]])}") \
+      && cleaned_item=$(printf '%s' "${cleaned_item%%+([[:space:]])}")
+    eval $output+=\("$(printf '%q' "${cleaned_item}")"\)
   done
+
+  [[ ${extglob_state} -ne 0 ]] && shopt -u extglob
 }
 
 # Evaluate if variable contains true value
