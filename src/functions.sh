@@ -71,6 +71,7 @@ pick_base_and_head_hash () {
 }
 
 # Function that returns an array of paths to scripts eligible for scanning
+# https://stackoverflow.com/a/12985353/10221282
 # $1 - <string> absolute path to a file with list of files
 # $2 - <string> name of a variable where the result array will be stored
 get_scripts_for_scanning () {
@@ -92,7 +93,7 @@ get_scripts_for_scanning () {
     has_shebang "${file}" && scripts_for_scanning+=("./${file}")
   done
 
-  eval "$2"="(${scripts_for_scanning[*]})"
+  eval "$2"="(${scripts_for_scanning[*]@Q})"
 }
 
 # Function to check whether the input param is on the list of shell scripts
