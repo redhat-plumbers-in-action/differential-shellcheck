@@ -92,7 +92,7 @@ link_to_results () {
   local push_link="https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=tool%3A${SCANNING_TOOL:-"shellcheck"}+branch%3A${GITHUB_REF_NAME:-"main"}+is%3Aopen"
   local pull_request_link="https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=pr%3A${pull_number}+tool%3A${SCANNING_TOOL:-"shellcheck"}+is%3Aopen"
 
-  case ${INPUT_TRIGGERING_EVENT:-${GITHUB_EVENT_NAME}} in
+  case ${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}} in
     "push")
       echo -e "${push_link}"
       ;;
