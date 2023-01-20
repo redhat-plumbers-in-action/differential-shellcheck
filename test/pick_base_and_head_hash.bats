@@ -28,14 +28,16 @@ setup () {
   run pick_base_and_head_hash
   assert_failure 2
 
+  UNIT_TESTS=0
   INPUT_PUSH_EVENT_BASE="abcdef123456"
   INPUT_PUSH_EVENT_HEAD="ghijkl789012"
 
   run pick_base_and_head_hash
-  # !FIXME: This should work ...
-  # assert_equal "${BASE}" "${INPUT_PUSH_EVENT_BASE}"
-  # assert_equal "${HEAD}" "${INPUT_PUSH_EVENT_HEAD}"
   assert_success
+  assert_output "BASE:\"${INPUT_PUSH_EVENT_BASE}\" ; HEAD:\"${INPUT_PUSH_EVENT_HEAD}\""
+  # TODO: Doesn't work, don't know why...
+  # assert_equal "\"${BASE}\"" "\"${INPUT_PUSH_EVENT_BASE}\""
+  # assert_equal "\"${HEAD}\"" "\"${INPUT_PUSH_EVENT_HEAD}\""
 }
 
 @test "pick_base_and_head_hash() - trigger event = pull_request" {
@@ -56,14 +58,16 @@ setup () {
   run pick_base_and_head_hash
   assert_failure 2
 
+  UNIT_TESTS=0
   INPUT_PULL_REQUEST_BASE="abcdef123456"
   INPUT_PULL_REQUEST_HEAD="ghijkl789012"
 
   run pick_base_and_head_hash
-  # !FIXME: This should work ...
-  # assert_equal "${BASE}" "${INPUT_PULL_REQUEST_BASE}"
-  # assert_equal "${HEAD}" "${INPUT_PULL_REQUEST_HEAD}"
   assert_success
+  assert_output "BASE:\"${INPUT_PULL_REQUEST_BASE}\" ; HEAD:\"${INPUT_PULL_REQUEST_HEAD}\""
+  # TODO: Doesn't work, don't know why...
+  # assert_equal "\"${BASE}\"" "\"${INPUT_PULL_REQUEST_BASE}\""
+  # assert_equal "\"${HEAD}\"" "\"${INPUT_PULL_REQUEST_HEAD}\""
 }
 
 @test "pick_base_and_head_hash() - trigger event = manual" {
@@ -84,14 +88,16 @@ setup () {
   run pick_base_and_head_hash
   assert_failure 2
 
+  UNIT_TESTS=0
   INPUT_BASE="abcdef123456"
   INPUT_HEAD="ghijkl789012"
 
   run pick_base_and_head_hash
-  # !FIXME: This should work ...
-  # assert_equal "${BASE}" "${INPUT_BASE}"
-  # assert_equal "${HEAD}" "${INPUT_HEAD}"
   assert_success
+  assert_output "BASE:\"${INPUT_BASE}\" ; HEAD:\"${INPUT_HEAD}\""
+  # TODO: Doesn't work, don't know why...
+  # assert_equal "\"${BASE}\"" "\"${INPUT_BASE}\""
+  # assert_equal "\"${HEAD}\"" "\"${INPUT_HEAD}\""
 }
 
 @test "pick_base_and_head_hash() - trigger event = empty" {
@@ -124,5 +130,6 @@ teardown () {
     INPUT_BASE="" \
     INPUT_HEAD="" \
     BASE="" \
-    HEAD=""
+    HEAD="" \
+    UNIT_TESTS=""
 }
