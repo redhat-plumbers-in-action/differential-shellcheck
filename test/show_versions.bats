@@ -14,6 +14,7 @@ setup () {
   source "${PROJECT_ROOT}/src/functions.sh"
 
   run show_versions
+  assert_success
   assert_output \
 "ShellCheck: 0.8.0
 csutils: 2.8.0"
