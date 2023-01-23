@@ -55,7 +55,7 @@ jobs:
 
       - name: Start deployment
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        uses: bobheadxi/deployments@9d4477fdaa4120020cd10ab7e97f68c801422e73
+        uses: bobheadxi/deployments@88ce5600046c82542f8246ac287d0a53c461bca3
         id: deployment
         with:
           step: start
@@ -79,7 +79,7 @@ jobs:
 
       - name: Update deployment status
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        uses: bobheadxi/deployments@9d4477fdaa4120020cd10ab7e97f68c801422e73
+        uses: bobheadxi/deployments@88ce5600046c82542f8246ac287d0a53c461bca3
         with:
           step: finish
           token: ${{ secrets.GITHUB_TOKEN }}

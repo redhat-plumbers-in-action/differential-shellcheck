@@ -59,7 +59,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Start deployment
-        uses: bobheadxi/deployments@9d4477fdaa4120020cd10ab7e97f68c801422e73
+        uses: bobheadxi/deployments@88ce5600046c82542f8246ac287d0a53c461bca3
         id: deployment
         with:
           step: start
@@ -81,7 +81,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.images.tag }}:latest
 
       - name: Update deployment status
-        uses: bobheadxi/deployments@9d4477fdaa4120020cd10ab7e97f68c801422e73
+        uses: bobheadxi/deployments@88ce5600046c82542f8246ac287d0a53c461bca3
         if: always()
         with:
           step: finish
