@@ -75,8 +75,12 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
+      # required for all workflows
       security-events: write
-      pull-requests: write
+
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
 
     steps:
       - name: Repository checkout
@@ -98,7 +102,7 @@ jobs:
           path: ${{ steps.ShellCheck.outputs.sarif }}
 ```
 
-> **Warning**: _`fetch-depth: 0` is required in order to run `differential-shellcheck` successfully._
+> **Warning**: _`fetch-depth: 0` is required to run `differential-shellcheck` successfully. It fetches all git history._
 
 <details>
   <summary>Console output example</summary>
@@ -313,6 +317,12 @@ Relative path to SARIF file containing detected defects. Example of use:
   with:
     sarif_file: ${{ steps.ShellCheck.outputs.sarif }}
 ```
+
+## Using with Private repositories
+
+Differential ShellCheck GitHub Action could be used in private repositories by any user. But code scanning-related features are available only for GitHub Enterprise users, as mentioned in [GitHub Documentation](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning):
+
+_Code scanning is available for all public repositories on GitHub.com. Code scanning is also available for private repositories owned by organizations that use GitHub Enterprise Cloud and have a license for GitHub Advanced Security. For more information, see "[About GitHub Advanced Security](https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security)"._
 
 ## Limitations
 

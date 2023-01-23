@@ -16,7 +16,6 @@ jobs:
 
     permissions:
       security-events: write
-      pull-requests: write
 
     steps:
       # Let's have this log of GitHub context for further development and debugging
