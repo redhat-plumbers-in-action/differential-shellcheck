@@ -41,10 +41,16 @@ is_strict_check_on_push_demanded () {
 
 # Function that picks values of BASE and HEAD commit based on triggrring event (INPUT_TRIGGERING_EVENT)
 # It sets BASE and HEAD for external use.
+# https://github.com/tj-actions/changed-files/blob/main/diff-sha.sh#L116-L118
+# https://stackoverflow.com/a/61861763/10221282
 # $? - return value - 0 on success
 pick_base_and_head_hash () {
   case ${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}} in
     "push")
+      if [[ -z "${INPUT_PUSH_EVENT_BASE}" || "${INPUT_PUSH_EVENT_BASE}" == "0000000000000000000000000000000000000000" ]]; then
+        INPUT_PUSH_EVENT_BASE=$(git rev-list -n 1 "HEAD~1")
+      fi
+
       export BASE=${INPUT_PUSH_EVENT_BASE:-}
       export HEAD=${INPUT_PUSH_EVENT_HEAD:-}
       [[ ${UNIT_TESTS:-1} -eq 0 ]] && echo "BASE:\"${BASE}\" ; HEAD:\"${HEAD}\""
