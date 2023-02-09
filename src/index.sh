@@ -51,7 +51,7 @@ string_of_exceptions=$(join_by , "${list_of_exceptions[@]}")
 echo -e "${VERSIONS_HEADING}"
 show_versions
 
-echo -e "${MAIN_HEADING}"
+echo -e ${MAIN_HEADING}
 
 if is_debug; then
   echo -e "📜 ${WHITE}List of shell scripts for scanning${NOCOLOR}"
