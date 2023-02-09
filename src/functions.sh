@@ -48,7 +48,11 @@ pick_base_and_head_hash () {
   case ${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}} in
     "push")
       if [[ -z "${INPUT_PUSH_EVENT_BASE}" || "${INPUT_PUSH_EVENT_BASE}" == "0000000000000000000000000000000000000000" ]]; then
-        INPUT_PUSH_EVENT_BASE=$(git rev-list -n 1 "HEAD~1")
+        if [[ ${UNIT_TESTS:-1} -ne 0 ]]; then
+          INPUT_PUSH_EVENT_BASE=$(git rev-list -n 1 "HEAD~1")
+        else
+          echo "first commit on new branch detected"
+        fi
       fi
 
       export BASE=${INPUT_PUSH_EVENT_BASE:-}
