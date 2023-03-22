@@ -146,22 +146,22 @@ has_shebang () {
   local file="$1"
 
   # shell shebangs detection
-  if head -n1 "${file}" | grep --quiet -E '^\s*((\#|\!)|(\#\s*\!)|(\!\s*\#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
+  if head -n1 "${file}" | grep --quiet -E '^\s*((#|!)|(#\s*!)|(!\s*#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
     return 0
   fi
 
   # ShellCheck shell directive detection
-  if grep --quiet -E '^\s*\#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+  if grep --quiet -E '^\s*#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
     return 0
   fi
 
   # Emacs mode detection
-  if grep --quiet -E '^\s*\#\s+-\*-\s+(sh|ash|bash|dash|ksh|bats)\s+-\*-\s*' "${file}"; then
+  if grep --quiet -E '^\s*#\s+-\*-\s+(sh|ash|bash|dash|ksh|bats)\s+-\*-\s*' "${file}"; then
     return 0
   fi
 
   # Vi and Vim modeline filetype detection
-  if grep --quiet -E '^\s*\#\s+vim?:\s+(set\s+)?(ft|filetype)=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+  if grep --quiet -E '^\s*#\s+vim?:\s+(set\s+)?(ft|filetype)=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
     return 0
   fi
 
