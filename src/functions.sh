@@ -145,23 +145,29 @@ has_shebang () {
   [[ $# -le 0 ]] && return 1
   local file="$1"
 
+  ! is_debug && local quiet=--quiet
+
+  local grep_args=(
+    "${quiet:-}"
+  )
+
   # shell shebangs detection
-  if head -n1 "${file}" | grep --quiet -E '^\s*((#|!)|(#\s*!)|(!\s*#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
+  if head -n1 "${file}" | grep "${grep_args[@]}" -E '^\s*((#|!)|(#\s*!)|(!\s*#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
     return 0
   fi
 
   # ShellCheck shell directive detection
-  if grep --quiet -E '^\s*#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+  if grep "${grep_args[@]}" -E '^\s*#\s*shellcheck\s+shell=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
     return 0
   fi
 
   # Emacs mode detection
-  if grep --quiet -E '^\s*#\s+-\*-\s+(sh|ash|bash|dash|ksh|bats)\s+-\*-\s*' "${file}"; then
+  if grep "${grep_args[@]}" -E '^\s*#\s+-\*-\s+(sh|ash|bash|dash|ksh|bats)\s+-\*-\s*' "${file}"; then
     return 0
   fi
 
   # Vi and Vim modeline filetype detection
-  if grep --quiet -E '^\s*#\s+vim?:\s+(set\s+)?(ft|filetype)=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
+  if grep "${grep_args[@]}" -E '^\s*#\s+vim?:\s+(set\s+)?(ft|filetype)=(sh|ash|bash|dash|ksh|bats)\s*' "${file}"; then
     return 0
   fi
 
