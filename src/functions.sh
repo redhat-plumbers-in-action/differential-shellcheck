@@ -16,7 +16,7 @@ is_full_scan_demanded () {
       ;;
 
     "pull_request")
-      return 1
+      return 0
       ;;
 
     "manual")

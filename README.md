@@ -229,13 +229,15 @@ The name of the event that triggered the workflow run. Supported values are: `pu
 
 ### diff-scan
 
+> **Warning**: _GitHub now compares scanning results as announced in blog post: [Code scanning shows more accurate and relevant alerts on pull requests](https://github.blog/changelog/2023-03-17-code-scanning-shows-more-accurate-and-relevant-alerts-on-pull-requests/). We needed to adopt because this change caused unexpected behavior in form of missing defects and more. Differential ShellCheck will now produce full scan on both `push` and `pull_request` events and leave diff process up to GitHub._
+
 Input allows requesting a specific type of scan. Input is considered only if `triggering-event` is set to `manual`.
 
 Default types of scans based on `triggering-event` input:
 
 | `triggering-event` | type of scan               |
 |--------------------|----------------------------|
-| `pull_request`     | differential               |
+| `pull_request`     | full                       |
 | `push`             | full                       |
 | `manual`           | based on `diff-scan` input |
 

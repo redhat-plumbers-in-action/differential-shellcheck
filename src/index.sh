@@ -27,7 +27,7 @@ is_full_scan_demanded
 FULL_SCAN=$?
 
 if [[ ${FULL_SCAN} -eq 0 ]]; then
-  git ls-tree -r --name-only "${GITHUB_REF_NAME-"main"}" > ../files.txt
+  git ls-tree -r --name-only "${HEAD}" > ../files.txt
 
   all_scripts=()
   get_scripts_for_scanning "../files.txt" "all_scripts"
