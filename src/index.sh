@@ -29,6 +29,8 @@ FULL_SCAN=$?
 if [[ ${FULL_SCAN} -eq 0 ]]; then
   git ls-tree -r --name-only "${HEAD}" > ../files.txt
 
+  unused=
+
   all_scripts=()
   get_scripts_for_scanning "../files.txt" "all_scripts"
 fi
