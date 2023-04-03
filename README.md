@@ -64,6 +64,7 @@ Example of running Differential ShellCheck:
 name: Differential ShellCheck
 on:
   push:
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
