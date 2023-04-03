@@ -92,6 +92,8 @@ jobs:
       - id: ShellCheck
         name: Differential ShellCheck
         uses: redhat-plumbers-in-action/differential-shellcheck@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - if: ${{ always() }}
         name: Upload artifact with ShellCheck defects in SARIF format
@@ -99,12 +101,6 @@ jobs:
         with:
           name: Differential ShellCheck SARIF
           path: ${{ steps.ShellCheck.outputs.sarif }}
-
-      - if: ${{ always() }}
-        name: Upload SARIF to GitHub using github/codeql-action/upload-sarif
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: ${{ steps.ShellCheck.outputs.sarif }}
 ```
 
 > **Warning**: _`fetch-depth: 0` is required to run `differential-shellcheck` successfully. It fetches all git history._
