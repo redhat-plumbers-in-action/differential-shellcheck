@@ -1,5 +1,16 @@
 # Changelog
 
+## v4.1.0
+
+* `grep` - do not escape `#` and `!` in patterns
+* Utilize `DEBUG` to run `grep` without `--silent` option
+* Update `csutils` (`csdiff`) to 3.0.0
+
+## v4.0.2
+
+* Correctly handle character escaping in filenames (e.g. `␣` and `&`)
+* Improve documentation and more tests
+
 ## v4.0.0
 
 * Tag `latest` is no longer available. Use major tags instead (e.g. `v3` or `v4`).
