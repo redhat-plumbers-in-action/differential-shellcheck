@@ -5,7 +5,6 @@
 * `grep` - do not escape `#` and `!` in patterns
 * Utilize `DEBUG` to run `grep` without `--silent` option
 * Update `csutils` (`csdiff`) to 3.0.0
-* Update example - suggest `github/codeql-action/upload-sarif` as default way how to upload SARIF
 
 ## v4.0.2
 
