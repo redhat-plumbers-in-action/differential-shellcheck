@@ -169,6 +169,7 @@ Action currently accepts following options:
     shell-scripts: <path to file with list of scripts>
     external-sources: <true or false>
     severity: <minimal severity level>
+    exclude-path: <list of paths>
     token: <GitHub token>
 
 # ...
@@ -277,6 +278,13 @@ Minimal severity level of detected errors that will be reported. Valid values in
 
 * default value: `style`
 * requirements: `optional`
+
+### exclude-path
+
+List of relative paths excluded from ShellCheck scanning. Globbing is supported.
+
+* requirements: `optional`
+* example: `"test/{bats,beakerlib}/**"`
 
 ### token
 

@@ -69,6 +69,10 @@ inputs:
     description: Specify minimum severity of errors to consider. Valid values in order of severity are error, warning, info and style. The default is style.
     default: style
     required: false
+  exclude-path:
+    description: List of paths excluded from ShellCheck scanning.
+    default: ''
+    required: false
 
   token:
     description: GitHub TOKEN used to upload SARIF data.
@@ -92,3 +96,4 @@ runs:
     INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
     INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}
     INPUT_EXTERNAL_SOURCES: ${{ inputs.external-sources }}
+    INPUT_EXCLUDE_PATH: ${{ inputs.exclude-path }}
