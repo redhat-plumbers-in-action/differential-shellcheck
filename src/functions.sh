@@ -92,7 +92,8 @@ get_scripts_for_scanning () {
   for file in "${list_of_changes[@]}"; do
     is_symlink "${file}" && continue
     is_directory "${file}" && continue
-    is_matched_by_exclude_path "${file}" && continue
+    is_matched_by_path "${file}" "${INPUT_EXCLUDE_PATH-}" && continue
+    is_matched_by_path "${file}" "${INPUT_INCLUDE_PATH-}" && scripts_for_scanning+=("./${file}") && continue
     is_script_listed "${file}" "${list_of_scripts[@]}" && scripts_for_scanning+=("./${file}") && continue
     is_shell_extension "${file}" && scripts_for_scanning+=("./${file}") && continue
     has_shebang "${file}" && scripts_for_scanning+=("./${file}")
@@ -199,21 +200,23 @@ is_directory () {
   return 2
 }
 
-# Function to test if given file path is listed in the exclude list
+# Function to test if given file path is listed in the privided input list
 # https://unix.stackexchange.com/a/165981/509101
 # $1 - <string> file path
+# $2 - <string> input list of files
 # $? - return value - 0 on success
-is_matched_by_exclude_path () {
-  [[ $# -le 0 ]] && return 1
+is_matched_by_path () {
+  [[ $# -le 1 ]] && return 1
   local file="$1"
+  local file_paths="$2"
 
   set -f
-  globs=$(eval "echo ${INPUT_EXCLUDE_PATH-""}")
+  globs=$(eval "echo ${file_paths-""}")
 
   for pattern in ${globs}; do
     # shellcheck disable=SC2053
     # We want to use glob pattern matching here
-    [[ ${file} == ${pattern} ]] && set +f && return 0
+    [[ ${file} == ${pattern} ]] && { set +f; return 0; }
   done
 
   set +f

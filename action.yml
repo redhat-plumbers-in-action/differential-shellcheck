@@ -73,6 +73,10 @@ inputs:
     description: List of paths excluded from ShellCheck scanning.
     default: ''
     required: false
+  include-path:
+    description: List of paths to files that will be scanned by ShellCheck. Alternative to `shell-scripts` option.
+    default: ''
+    required: false
 
   token:
     description: GitHub TOKEN used to upload SARIF data.
@@ -97,3 +101,4 @@ runs:
     INPUT_SHELL_SCRIPTS: ${{ inputs.shell-scripts }}
     INPUT_EXTERNAL_SOURCES: ${{ inputs.external-sources }}
     INPUT_EXCLUDE_PATH: ${{ inputs.exclude-path }}
+    INPUT_INCLUDE_PATH: ${{ inputs.include-path }}
