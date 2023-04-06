@@ -3,6 +3,8 @@
 ## v4.2.0
 
 * New option `exclude-path`. Allows to specify list of paths excluded from ShellCheck scanning. It supports globbing and brace expansion. e.g. `test/{test1,test2}/**`
+* New option `include-path`. Similar to `exclude-path`, it allows specifying the list of paths that will be included into scanning. No further checks are performed.
+  It supports globbing and brace expansion. e.g. `fixture/**.fixture`
 
 ## v4.1.0
 

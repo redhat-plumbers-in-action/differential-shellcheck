@@ -170,6 +170,7 @@ Action currently accepts following options:
     external-sources: <true or false>
     severity: <minimal severity level>
     exclude-path: <list of paths>
+    include-path: <list of paths>
     token: <GitHub token>
 
 # ...
@@ -285,6 +286,13 @@ List of relative paths excluded from ShellCheck scanning. Globbing is supported.
 
 * requirements: `optional`
 * example: `"test/{bats,beakerlib}/**"`
+
+### include-path
+
+List of file paths that will be scanned by ShellCheck. Alternative to `shell-scripts` option. Globbing is supported.
+
+* requirements: `optional`
+* example: `"src/**.{shell,custom}"`
 
 ### token
 
