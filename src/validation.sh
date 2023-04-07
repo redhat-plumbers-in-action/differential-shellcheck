@@ -17,6 +17,9 @@ get_fixes () {
 # $? - return value is always 0
 evaluate_and_print_fixes () {
   if [[ -s ../fixes.log ]]; then
+    gather_statistics "../defects.log"
+    print_statistics
+
     echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
     csgrep ../fixes.log
   else
@@ -40,10 +43,46 @@ get_defects () {
 # $? - return value - 0 on success
 evaluate_and_print_defects () {
   if [[ -s ../defects.log ]]; then
+    gather_statistics "../defects.log"
+    print_statistics
+
     echo -e "✋ ${YELLOW}Defects, NEEDS INSPECTION${NOCOLOR}"
     csgrep ../defects.log
     return 1
   fi
 
   echo -e "🥳 ${GREEN}No defects added. Yay!${NOCOLOR}"
+}
+
+print_statistics () {
+  echo -e "::group::📊 ${WHITE}Statistics of defects${NOCOLOR}"
+    [[ -n ${stat_error} ]] && echo -e "Error: ${stat_error}"
+    [[ -n ${stat_warning} ]] && echo -e "Warning: ${stat_warning}"
+    [[ -n ${stat_note} ]] && echo -e "Note: ${stat_note}"
+    [[ -n ${stat_style} ]] && echo -e "Style: ${stat_style}"
+  echo "::endgroup::"
+  echo
+}
+
+# Function to filter out defects by their severity level
+gather_statistics () {
+  [[ $# -le 0 ]] && return 1
+  local logs="$1"
+
+  [[ ${INPUT_SEVERITY-} == "style" ]] && stat_style=$(get_number_of_defects_by_severity "style" "${logs}")
+  [[ ${INPUT_SEVERITY} =~ style|note ]] && stat_note=$(get_number_of_defects_by_severity "note" "${logs}")
+  [[ ${INPUT_SEVERITY} =~ style|note|warning ]] && stat_warning=$(get_number_of_defects_by_severity "warning" "${logs}")
+  [[ ${INPUT_SEVERITY} =~ style|note|warning|error ]] && stat_error=$(get_number_of_defects_by_severity "error" "${logs}")
+
+  export stat_style stat_note stat_warning stat_error
+}
+
+get_number_of_defects_by_severity () {
+  [[ $# -le 1 ]] && return 1
+  local severity="$1"
+  local logs="$2"
+  local defects=0
+
+  defects=$(grep --count --extended-regexp "^[^:]+:[0-9]+:[0-9]+: ${severity}\[SC[0-9]+\].*$" "${logs}")
+  echo "${defects}"
 }
