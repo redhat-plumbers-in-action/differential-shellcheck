@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.2.1
+
+* Handle multiple include/exclude paths with newlines
+
 ## v4.2.0
 
 * New option `exclude-path`. Allows to specify list of paths excluded from ShellCheck scanning. It supports globbing and brace expansion. e.g. `test/{test1,test2}/**`

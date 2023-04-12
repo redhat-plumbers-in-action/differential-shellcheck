@@ -61,6 +61,19 @@ setup () {
   assert_success
 }
 
+@test "is_matched_by_path() - matching - multiline input" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+
+  INPUT_EXCLUDE_PATH="test/{**,*,}
+test/**
+1.sh"
+
+  run is_matched_by_path "test/1.sh" "${INPUT_EXCLUDE_PATH}"
+  assert_success
+  run is_matched_by_path "1.sh" "${INPUT_EXCLUDE_PATH}"
+  assert_success
+}
+
 @test "is_matched_by_path() - bad number of arguments" {
   source "${PROJECT_ROOT}/src/functions.sh"
 

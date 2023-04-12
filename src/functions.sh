@@ -208,10 +208,14 @@ is_directory () {
 is_matched_by_path () {
   [[ $# -le 1 ]] && return 1
   local file="$1"
-  local file_paths="$2"
+
+  # When multiple paths are provided they might be separated by space and/or newline, lets replace all newlines with spaces in order to avoid issues with glob pattern matching in eval
+  # /action/functions.sh: line 215: tests/**: No such file or directory
+  local file_paths=""
+  file_paths=$(tr '\r\n' ' ' <<< "$2")
 
   set -f
-  globs=$(eval "echo ${file_paths-""}")
+  globs=$(eval "echo ${file_paths}")
 
   for pattern in ${globs}; do
     # shellcheck disable=SC2053
