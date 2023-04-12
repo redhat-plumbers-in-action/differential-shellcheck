@@ -39,7 +39,9 @@ jobs:
         uses: ./
         with:
           shell-scripts: .github/.differential-shellcheck-scripts.txt
-          exclude-path: test/**
+          exclude-path: |
+            test/**
+            src/**.{zsh,osh}
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - if: ${{ always() }}
