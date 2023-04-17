@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-FROM fedora@sha256:f99efcddc4dd6736d8a88cc1ab6722098ec1d77dbf7aed9a7a514fc997ca08e0
+FROM fedora@sha256:ca620b6a713882989f2dfb31dd34705834c95bc23e493687828080f6e5ad1be6
 
 # --- Version Pinning --- #
 
