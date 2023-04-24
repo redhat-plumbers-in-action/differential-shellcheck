@@ -1,14 +1,14 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-FROM fedora@sha256:f99efcddc4dd6736d8a88cc1ab6722098ec1d77dbf7aed9a7a514fc997ca08e0
+FROM fedora@sha256:a1aff3e01bb667ededb2e4d895a1f1f88b7d329bd22402d4a5ba5e7f1c7a48cb
 
 # --- Version Pinning --- #
 
-ARG fedora="37"
+ARG fedora="38"
 ARG arch="x86_64"
 
-ARG version_csdiff="3.0.0-1"
-ARG version_shellcheck="0.8.0-3"
+ARG version_csdiff="3.0.2-1"
+ARG version_shellcheck="0.9.0-2"
 
 ARG rpm_csdiff="csdiff-${version_csdiff}.fc${fedora}.${arch}.rpm"
 
