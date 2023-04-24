@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.2.2
+
+* Container images now based on Fedora 38
+  * `ShellCheck` - `0.8.0 -> 0.9.0`
+  * `csutils` - `3.0.0 -> 3.0.2`
+
 ## v4.2.1
 
 * Handle multiple include/exclude paths with newlines
