@@ -154,7 +154,7 @@ has_shebang () {
   )
 
   # shell shebangs detection
-  if head -n1 "${file}" | grep "${grep_args[@]}" -E '^\s*((#|!)|(#\s*!)|(!\s*#))\s*(\/usr(\/local)?)?\/bin\/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
+  if head -n1 "${file}" | grep "${grep_args[@]}" -E '^\s*((#|!)|(#\s*!)|(!\s*#))\s*(/usr(/local)?)?/bin/(env\s+)?(sh|ash|bash|dash|ksh|bats)\b'; then
     return 0
   fi
 
