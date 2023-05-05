@@ -1,0 +1,26 @@
+---
+
+    name: Clean Code Scanning Alerts
+    on:
+      push:
+      pull_request:
+        branches: [ main ]
+    
+    permissions:
+      contents: read
+    
+    jobs:
+      lint:
+        runs-on: ubuntu-latest
+    
+        permissions:
+          security-events: write
+    
+        steps:  
+          - name: Repository checkout
+            uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+
+          - name: Upload SARIF to GitHub using github/codeql-action/upload-sarif
+            uses: github/codeql-action/upload-sarif@v2
+            with:
+              sarif_file: empty.sarif
