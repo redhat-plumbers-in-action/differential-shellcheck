@@ -5,7 +5,7 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     labels:
       - 'merge-strategy: rebase'
       - 'type: dependencies'
@@ -14,7 +14,7 @@ updates:
   - package-ecosystem: docker
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     labels:
       - 'merge-strategy: rebase'
       - 'type: dependencies'
@@ -23,7 +23,7 @@ updates:
   - package-ecosystem: gitsubmodule
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
     labels:
       - 'merge-strategy: rebase'
       - 'type: dependencies'
