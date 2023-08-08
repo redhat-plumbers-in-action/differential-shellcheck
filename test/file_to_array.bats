@@ -16,7 +16,7 @@ setup () {
   touch file.txt
 
   file_array=()
-  run file_to_array "file.txt" "file_array"
+  run file_to_array "file.txt"
   assert_failure 1
   assert_equal "${file_array[*]}" ""
 }
@@ -28,43 +28,20 @@ setup () {
   touch file.txt
 
   file_array=()
-  run file_to_array "file.txt" "file_array" 0
+  run file_to_array "file.txt" "file_array"
   # assert_success
   assert_equal "${file_array[*]}" ""
 }
 
-@test "file_to_array() - in-line comments" {
+@test "file_to_array() - general" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
-  echo -e "\
-# comment
-#comment
-Something1\t # comment
-# comment
-\rSomething2\r #comment
-Something3" > file.txt
+  UNIT_TESTS=0
 
-  local file_array=()
-  file_to_array "file.txt" "file_array" 1
-  assert_equal "${file_array[*]}" "Something1 Something2 Something3"
-}
-
-@test "file_to_array() - no in-line comments" {
-  source "${PROJECT_ROOT}/src/functions.sh"
-
-  echo -e "\
-# comment
-#comment
-Something1\t
-# comment
-\rSomething2\r 
-Something3
-Something 4 \r
-\r Something5&Something6 conf \r" > file.txt
-
-  local file_array=()
-  file_to_array "file.txt" "file_array" 0
-  assert_equal "${file_array[*]}" "Something1 Something2 Something3 Something 4 Something5&Something6 conf"
+  file_array=()
+  run file_to_array "./test/fixtures/file_to_array/files.txt" "file_array"
+  assert_success
+  assert_output "test/fixtures/get_scripts_for_scanning/files.txt test/fixtures/get_scripts_for_scanning/non-script.md test/fixtures/get_scripts_for_scanning/script1.sh test/fixtures/get_scripts_for_scanning/script2 test/fixtures/get_scripts_for_scanning/script 2.sh test/fixtures/get_scripts_for_scanning/script&3.sh test/fixtures/get_scripts_for_scanning/\$script4.sh test/fixtures/get_scripts_for_scanning/dm-back\\x2dslash.swap"
 }
 
 teardown () {
