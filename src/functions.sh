@@ -83,7 +83,7 @@ get_scripts_for_scanning () {
 
   # Find modified shell scripts
   local list_of_changes=()
-  file_to_array "${1}" "list_of_changes" 0
+  file_to_array "${1}" "list_of_changes"
 
   # Create a list of scripts for testing
   local scripts_for_scanning=()
@@ -212,17 +212,21 @@ is_matched_by_path () {
   return 2
 }
 
-# Function to get rid of comments represented by '#'
+# Function that reads a file of paths and stores them in an array
+# https://stackoverflow.com/a/28109890/10221282
 # $1 - file path
 # $2 - name of a variable where the result array will be stored
-# $3 - value 1|0 - does the file contain inline comments?
 # $? - return value - 0 on success
 file_to_array () {
-  [[ $# -le 2 ]] && return 1
+  [[ $# -le 1 ]] && return 1
   local output=()
 
-  [[ "$3" -eq 0 ]] && readarray output < <(grep -v "^#.*" "$1")                         # fetch the array with lines from the file while excluding '#' comments
-  [[ "$3" -eq 1 ]] && readarray output < <(cut -d ' ' -f 1 < <(grep -v "^#.*" "$1"))    # fetch the array with lines from the file while excluding '#' comments
+  while IFS= read -r -d '' file; do
+    output+=("${file}")
+  done < "${1}"
+
+  [[ ${UNIT_TESTS:-1} -eq 0 ]] && echo "${output[@]}"
+
   clean_array "$2" "${output[@]}" && return 0
 }
 
@@ -250,7 +254,7 @@ clean_array () {
     local cleaned_item=""
     cleaned_item=$(printf '%s' "${i##+([[:space:]])}") \
       && cleaned_item=$(printf '%s' "${cleaned_item%%+([[:space:]])}")
-    eval $output+=\("$(printf '%q' "${cleaned_item}")"\)
+    eval "${output}"+=\("$(printf '%q' "${cleaned_item}")"\)
   done
 
   [[ ${extglob_state} -ne 0 ]] && shopt -u extglob

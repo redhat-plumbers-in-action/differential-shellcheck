@@ -10,7 +10,7 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
-@test "get_scripts_for_scanning()" {
+@test "get_scripts_for_scanning() - general" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
   UNIT_TESTS=0
@@ -24,7 +24,7 @@ setup () {
   shell_scripts=()
   run get_scripts_for_scanning "./test/fixtures/get_scripts_for_scanning/files.txt" "shell_scripts"
   assert_success
-  assert_output "'./test/fixtures/get_scripts_for_scanning/script1.sh' './test/fixtures/get_scripts_for_scanning/script2' './test/fixtures/get_scripts_for_scanning/script 2.sh' './test/fixtures/get_scripts_for_scanning/script&3.sh' './test/fixtures/get_scripts_for_scanning/\$script4.sh'"
+  assert_output --partial "'./test/fixtures/get_scripts_for_scanning/script1.sh' './test/fixtures/get_scripts_for_scanning/script2' './test/fixtures/get_scripts_for_scanning/script 2.sh' './test/fixtures/get_scripts_for_scanning/script&3.sh' './test/fixtures/get_scripts_for_scanning/\$script4.sh'"
 }
 
 teardown () {

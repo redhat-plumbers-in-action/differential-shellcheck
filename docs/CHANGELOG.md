@@ -2,6 +2,7 @@
 
 ## Next release
 
+* Fix detection of changed files that might cause failure on paths with special characters.
 * Drop support for `shell-scripts` input
 * Drop support for `ignored-codes` input
 

@@ -27,7 +27,7 @@ is_full_scan_demanded
 FULL_SCAN=$?
 
 if [[ ${FULL_SCAN} -eq 0 ]]; then
-  git ls-tree -r --name-only "${GITHUB_REF_NAME-"main"}" > ../files.txt
+  git ls-tree -r --name-only -z "${GITHUB_REF_NAME-"main"}" > ../files.txt
 
   all_scripts=()
   get_scripts_for_scanning "../files.txt" "all_scripts"
@@ -37,7 +37,7 @@ if ! [[ ${FULL_SCAN} -eq 0 ]] || ! is_strict_check_on_push_demanded; then
   # https://github.com/actions/runner/issues/342
   # Get the names of files from range of commits (excluding deleted files)
   # BASE and HEAD are always set, it is checked inside pick_base_and_head_hash function
-  git diff --name-only --diff-filter=db "${BASE}".."${HEAD}" > ../changed-files.txt
+  git diff --name-only -z --diff-filter=db "${BASE}".."${HEAD}" > ../changed-files.txt
 
   only_changed_scripts=()
   get_scripts_for_scanning "../changed-files.txt" "only_changed_scripts"
