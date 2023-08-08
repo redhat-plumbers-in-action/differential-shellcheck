@@ -53,10 +53,12 @@ show_versions
 
 echo -e "${MAIN_HEADING}"
 
+echo -e "::group::📜 ${WHITE}List of shell scripts for scanning${NOCOLOR}"
+echo "${all_scripts[@]:-${only_changed_scripts[@]}}"
+echo "::endgroup::"
+echo
+
 if is_debug; then
-  echo -e "📜 ${WHITE}List of shell scripts for scanning${NOCOLOR}"
-  echo "${all_scripts[@]:-${only_changed_scripts[@]}}"
-  echo
   echo -e "👌 ${WHITE}List of ShellCheck exceptions${NOCOLOR}"
   echo "${string_of_exceptions}"
   echo
