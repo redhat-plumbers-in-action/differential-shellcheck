@@ -212,18 +212,6 @@ is_matched_by_path () {
   return 2
 }
 
-# Function to concatenate an array of strings where the first argument
-# specifies the separator
-# https://stackoverflow.com/a/17841619
-# $1 - <char> character used to join the elements of the array
-# $@ - <array of strings> list of strings
-# return value - string
-join_by () {
-  local IFS="$1"
-  shift
-  echo "$*"
-}
-
 # Function to get rid of comments represented by '#'
 # $1 - file path
 # $2 - name of a variable where the result array will be stored
