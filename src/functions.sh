@@ -227,37 +227,7 @@ file_to_array () {
 
   [[ ${UNIT_TESTS:-1} -eq 0 ]] && echo "${output[@]}"
 
-  clean_array "$2" "${output[@]}" && return 0
-}
-
-# Function to trim spaces and new lines from array elements
-# https://stackoverflow.com/a/9715377
-# https://stackoverflow.com/a/19347380
-# https://unix.stackexchange.com/a/225517
-# https://unix.stackexchange.com/a/360648
-# $1 - name of a variable where the result array will be stored
-# $@ - source array
-# $? - return value - 0 on success
-clean_array () {
-  [[ $# -le 1 ]] && return 1
-  local output="$1"
-  shift
-  local input=("$@")
-
-  local extglob_state=0
-  if ! shopt -q extglob; then
-    extglob_state=1
-    shopt -s extglob
-  fi
-
-  for i in "${input[@]}"; do
-    local cleaned_item=""
-    cleaned_item=$(printf '%s' "${i##+([[:space:]])}") \
-      && cleaned_item=$(printf '%s' "${cleaned_item%%+([[:space:]])}")
-    eval "${output}"+=\("$(printf '%q' "${cleaned_item}")"\)
-  done
-
-  [[ ${extglob_state} -ne 0 ]] && shopt -u extglob
+  eval "${2}"=\("${output[*]@Q}"\)
 }
 
 # Evaluate if variable contains true value
