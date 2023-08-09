@@ -166,7 +166,6 @@ Action currently accepts following options:
     diff-scan: <true or false>
     strict-check-on-push: <true or false>
     ignored-codes: <path to file with list of codes>    # <-- Deprecated option
-    shell-scripts: <path to file with list of scripts>
     external-sources: <true or false>
     severity: <minimal severity level>
     exclude-path: <list of paths>
@@ -256,16 +255,6 @@ Path to a text file which holds a list of ShellCheck codes which should be exclu
 
 > **Warning**: _This option is now deprecated, please consider using `.shellcheckrc` instead._
 
-### shell-scripts
-
-Path to a text file which holds a list of shell scripts which would not, otherwise, be automatically picked by the shell script auto-detection routine.
-
-* default value: `undefined`
-* requirements: `optional`
-* example: [.differential-shellcheck-scripts.txt](.github/.differential-shellcheck-scripts.txt)
-
-> **Warning**: _Every path should be absolute and placed on a separate line. Avoid spaces in the list since they are interpreted as comments._
-
 ### external-sources
 
 Enable following of source statements even when the file is not specified as input. By default, [ShellCheck](https://github.com/koalaman/shellcheck/blob/master/shellcheck.1.md) will only follow files specified on the command-line (plus `/dev/null`). This option allows following any file the script may source. This option may also be enabled using `external-sources=true` in `.shellcheckrc`.
@@ -289,7 +278,7 @@ List of relative paths excluded from ShellCheck scanning. Globbing is supported.
 
 ### include-path
 
-List of file paths that will be scanned by ShellCheck. Alternative to `shell-scripts` option. Globbing is supported.
+List of file paths that will be scanned by ShellCheck. Globbing is supported.
 
 * requirements: `optional`
 * example: `"src/**.{shell,custom}"`
