@@ -100,19 +100,6 @@ get_scripts_for_scanning () {
   [[ ${UNIT_TESTS:-1} -eq 0 ]] && eval echo "\${${output}[@]@Q}"
 }
 
-# Function to check whether the input param is on the list of shell scripts
-# $1 - <string> absolute path to a file
-# $@ - <array of strings> list of strings to compare with
-# $? - return value - 0 on success
-is_script_listed () {
-  [[ $# -le 1 ]] && return 1
-  local file="$1"
-  shift
-  local scripts=("$@")
-
-  [[ "${scripts[*]}" =~ ${file} ]] && return 0 || return 2
-}
-
 # Function to check whether the given file has the .{,a,ba,da,k}sh and .bats extension
 # https://stackoverflow.com/a/6926061
 # $1 - <string> absolute path to a file
