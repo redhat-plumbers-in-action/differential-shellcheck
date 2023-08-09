@@ -84,8 +84,6 @@ get_scripts_for_scanning () {
   # Find modified shell scripts
   local list_of_changes=()
   file_to_array "${1}" "list_of_changes" 0
-  local list_of_scripts=()
-  [[ -f "${INPUT_SHELL_SCRIPTS:-}" ]] && file_to_array "${INPUT_SHELL_SCRIPTS}" "list_of_scripts" 1
 
   # Create a list of scripts for testing
   local scripts_for_scanning=()
@@ -94,7 +92,6 @@ get_scripts_for_scanning () {
     is_directory "${file}" && continue
     is_matched_by_path "${file}" "${INPUT_EXCLUDE_PATH-}" && continue
     is_matched_by_path "${file}" "${INPUT_INCLUDE_PATH-}" && scripts_for_scanning+=("./${file}") && continue
-    is_script_listed "${file}" "${list_of_scripts[@]}" && scripts_for_scanning+=("./${file}") && continue
     is_shell_extension "${file}" && scripts_for_scanning+=("./${file}") && continue
     has_shebang "${file}" && scripts_for_scanning+=("./${file}")
   done

@@ -1,5 +1,9 @@
 # Changelog
 
+## Next release
+
+* Drop support for `shell-scripts` input
+
 ## v4.2.2
 
 * Container images now based on Fedora 38
