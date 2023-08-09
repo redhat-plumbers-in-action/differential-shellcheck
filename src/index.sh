@@ -43,11 +43,6 @@ if ! [[ ${FULL_SCAN} -eq 0 ]] || ! is_strict_check_on_push_demanded; then
   get_scripts_for_scanning "../changed-files.txt" "only_changed_scripts"
 fi
 
-# Get a list of exceptions
-list_of_exceptions=()
-[[ -f "${INPUT_IGNORED_CODES:-}" ]] && file_to_array "${INPUT_IGNORED_CODES}" "list_of_exceptions" 1
-string_of_exceptions=$(join_by , "${list_of_exceptions[@]}")
-
 echo -e "${VERSIONS_HEADING}"
 show_versions
 
@@ -57,12 +52,6 @@ echo -e "::group::📜 ${WHITE}List of shell scripts for scanning${NOCOLOR}"
 echo "${all_scripts[@]:-${only_changed_scripts[@]}}"
 echo "::endgroup::"
 echo
-
-if is_debug; then
-  echo -e "👌 ${WHITE}List of ShellCheck exceptions${NOCOLOR}"
-  echo "${string_of_exceptions}"
-  echo
-fi
 
 # ------------ #
 #  SHELLCHECK  #

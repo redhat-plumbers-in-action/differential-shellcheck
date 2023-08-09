@@ -52,10 +52,6 @@ inputs:
     required: false
     default: 'false'
 
-  ignored-codes:
-    description: List of ShellCheck codes which should be excluded from validation.
-    deprecationMessage: This option is now deprecated, please consider using `.shellcheckrc` instead.
-    required: false
   external-sources:
     description: |
       Enable following of source statements even when the file is not specified as input. By default, shellcheck will only follow files specified on the command-line (plus /dev/null).
@@ -94,7 +90,6 @@ runs:
     INPUT_PUSH_EVENT_HEAD: ${{ inputs.push-event-head }}
     INPUT_DIFF_SCAN: ${{ inputs.diff-scan }}
     INPUT_STRICT_CHECK_ON_PUSH: ${{ inputs.strict-check-on-push }}
-    INPUT_IGNORED_CODES: ${{ inputs.ignored-codes }}
     INPUT_EXTERNAL_SOURCES: ${{ inputs.external-sources }}
     INPUT_EXCLUDE_PATH: ${{ inputs.exclude-path }}
     INPUT_INCLUDE_PATH: ${{ inputs.include-path }}

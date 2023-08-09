@@ -3,6 +3,7 @@
 ## Next release
 
 * Drop support for `shell-scripts` input
+* Drop support for `ignored-codes` input
 
 ## v4.2.2
 

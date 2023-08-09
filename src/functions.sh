@@ -312,7 +312,6 @@ execute_shellcheck () {
     --format=gcc
     "${external_sources:-}"
     --severity="${INPUT_SEVERITY}"
-    --exclude="${string_of_exceptions}"
     "${@}"
   )
 

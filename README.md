@@ -165,7 +165,6 @@ Action currently accepts following options:
     push-event-head: <sha1>
     diff-scan: <true or false>
     strict-check-on-push: <true or false>
-    ignored-codes: <path to file with list of codes>    # <-- Deprecated option
     external-sources: <true or false>
     severity: <minimal severity level>
     exclude-path: <list of paths>
@@ -245,15 +244,6 @@ Differential ShellCheck performs full scans when running on a `push` event, but 
 
 * default value: `false`
 * requirements: `optional`
-
-### ignored-codes
-
-Path to a text file which holds a list of ShellCheck codes which should be excluded from validation.
-
-* default value: `undefined`
-* requirements: `optional`
-
-> **Warning**: _This option is now deprecated, please consider using `.shellcheckrc` instead._
 
 ### external-sources
 
