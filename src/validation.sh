@@ -54,6 +54,8 @@ evaluate_and_print_defects () {
   echo -e "🥳 ${GREEN}No defects added. Yay!${NOCOLOR}"
 }
 
+# Function to print statistics of defects
+# it requires gather_statistics to be called first
 print_statistics () {
   echo -e "::group::📊 ${WHITE}Statistics of defects${NOCOLOR}"
     [[ -n ${stat_error} ]] && echo -e "Error: ${stat_error}"
@@ -65,6 +67,8 @@ print_statistics () {
 }
 
 # Function to filter out defects by their severity level
+# It sets global variables stat_error, stat_warning, stat_note, stat_style depending on INPUT_SEVERITY
+# $1 - <string> absolute path to a file containing defects detected by scan in gcc format
 gather_statistics () {
   [[ $# -le 0 ]] && return 1
   local logs="$1"
@@ -77,6 +81,9 @@ gather_statistics () {
   export stat_style stat_note stat_warning stat_error
 }
 
+# Function to get number of defects by severity level
+# $1 - <string> severity level
+# $2 - <string> absolute path to a file containing defects detected by scan in gcc format
 get_number_of_defects_by_severity () {
   [[ $# -le 1 ]] && return 1
   local severity="$1"
