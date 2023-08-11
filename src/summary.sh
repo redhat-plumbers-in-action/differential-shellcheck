@@ -10,6 +10,9 @@ summary () {
     scan_summary=$(diff_scan_summary)
   fi
 
+  local defect_statistics=""
+  defect_statistics=$(summary_defect_statistics)
+
   local useful_links=
   useful_links=$(summary_useful_links)
   
@@ -17,6 +20,8 @@ summary () {
 ### Differential ShellCheck 🐚
 
 ${scan_summary}
+
+${defect_statistics}
 
 ${useful_links}"
 }
@@ -104,6 +109,15 @@ link_to_results () {
     *)
       echo -e ""
   esac 
+}
+
+summary_defect_statistics () {
+  echo -e "\
+#### New defects statistics
+
+|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **${stat_style:-"N/A"}** | **${stat_note:-"N/A"}** | **${stat_warning:-"N/A"}** | **${stat_error:-"N/A"}** |"
 }
 
 # Print useful information at the end of summary report
