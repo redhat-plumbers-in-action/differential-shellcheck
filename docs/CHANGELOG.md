@@ -6,6 +6,7 @@
 * Fix detection of changed files that might cause failure on paths with special characters.
 * Drop support for `shell-scripts` input
 * Drop support for `ignored-codes` input
+* Update `csutils` (`csdiff`) to 3.0.3
 
 ## v4.2.2
 
