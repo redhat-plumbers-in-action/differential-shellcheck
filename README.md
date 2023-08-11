@@ -49,7 +49,7 @@ To evaluate results, Differential ShellCheck uses utilities `csdiff` and `csgrep
   * support for [`emacs` modes specifications](https://www.gnu.org/software/emacs/manual/html_node/emacs/Choosing-Modes.html) ; e.g. `# -*- sh -*-`
   * support for [`vi/vim` modeline specifications](http://vimdoc.sourceforge.net/htmldoc/options.html#modeline) ; e.g. `# vi: set filetype=sh`, `# vim: ft=sh`
 * Ability to allowlist specific error codes
-* Statistics about fixed and added errors
+* Statistics about fixed and added defects and their severity
 * Colored console output with emojis
 * [SARIF support](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning) - warnings are visible in the `Changed files` tab of the Pull-Request and as [comment alerts on Pull-Requests](https://github.blog/changelog/2022-06-02-users-can-view-and-comment-on-code-scanning-alerts-on-the-conversation-tab-in-a-pull-request/)
 * Ability to run in a verbose mode when run with [debug option](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/)
