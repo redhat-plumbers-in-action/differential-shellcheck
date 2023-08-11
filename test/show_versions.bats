@@ -10,12 +10,12 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
-@test "show_versions()" {
+@test "show_versions() - general" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
   run show_versions
   assert_success
   assert_output \
 "ShellCheck: 0.9.0
-csutils: 3.0.2"
+csutils: 3.0.3"
 }
