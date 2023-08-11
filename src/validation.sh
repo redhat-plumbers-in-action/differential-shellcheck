@@ -83,6 +83,7 @@ get_number_of_defects_by_severity () {
   local logs="$2"
   local defects=0
 
+  [[ -f "${logs}" ]] || return 1
   defects=$(grep --count --extended-regexp "^[^:]+:[0-9]+:[0-9]+: ${severity}\[SC[0-9]+\].*$" "${logs}")
   echo "${defects}"
 }

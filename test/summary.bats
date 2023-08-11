@@ -10,12 +10,13 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
-@test "summary()" {
+@test "summary() - general" {
   source "${PROJECT_ROOT}/src/functions.sh"
   source "${PROJECT_ROOT}/src/summary.sh"
 
   export only_changed_scripts=("1.sh" "\$2.sh" "3 .sh")
   INPUT_TRIGGERING_EVENT=""
+  INPUT_SEVERITY="style"
 
   echo -e \
 "Error: SHELLCHECK_WARNING:
@@ -44,6 +45,12 @@ Changed scripts: \`3\`
 |:------------------:|:------------------------:|:------------------------:|
 | ⚠️ Errors / Warnings / Notes |  **3**  |  **1**  |
 
+#### New defects statistics
+
+|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+
 #### Useful links
 
 - [Differential ShellCheck Documentation](https://github.com/redhat-plumbers-in-action/differential-shellcheck#readme)
@@ -59,6 +66,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
 
   export only_changed_scripts=("1.sh" "\$2.sh" "3 .sh")
   INPUT_TRIGGERING_EVENT="push"
+  INPUT_SEVERITY="style"
   GITHUB_REPOSITORY="test-user/test-repo"
   GITHUB_REF_NAME="test-branch"
   SCANNING_TOOL="not-shellcheck"
@@ -91,6 +99,12 @@ Changed scripts: \`3\`
 |:------------------:|:------------------------:|:------------------------:|
 | ⚠️ [Errors / Warnings / Notes](https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=tool%3A${SCANNING_TOOL}+branch%3A${GITHUB_REF_NAME}+is%3Aopen) |  **3**  |  **1**  |
 
+#### New defects statistics
+
+|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+
 #### Useful links
 
 - [Differential ShellCheck Documentation](https://github.com/redhat-plumbers-in-action/differential-shellcheck#readme)
@@ -106,6 +120,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
 
   export only_changed_scripts=("1.sh" "\$2.sh" "3 .sh")
   INPUT_TRIGGERING_EVENT="pull_request"
+  INPUT_SEVERITY="style"
   GITHUB_REPOSITORY="test-user/test-repo"
   PR_NUMBER=123
   SCANNING_TOOL="not-shellcheck"
@@ -138,6 +153,12 @@ Changed scripts: \`3\`
 |:------------------:|:------------------------:|:------------------------:|
 | ⚠️ [Errors / Warnings / Notes](https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=pr%3A${PR_NUMBER}+tool%3A${SCANNING_TOOL}+is%3Aopen) |  **3**  |  **1**  |
 
+#### New defects statistics
+
+|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+
 #### Useful links
 
 - [Differential ShellCheck Documentation](https://github.com/redhat-plumbers-in-action/differential-shellcheck#readme)
@@ -153,6 +174,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
 
   export only_changed_scripts=("1.sh" "\$2.sh" "3 .sh")
   INPUT_TRIGGERING_EVENT=""
+  INPUT_SEVERITY="style"
 
   touch ../defects.log ../fixes.log
 
@@ -166,6 +188,12 @@ Changed scripts: \`3\`
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
 | ⚠️ Errors / Warnings / Notes |  **0**  |  **0**  |
+
+#### New defects statistics
+
+|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 
@@ -182,6 +210,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
 
   export only_changed_scripts=()
   INPUT_TRIGGERING_EVENT=""
+  INPUT_SEVERITY="style"
 
   touch ../defects.log ../fixes.log
 
@@ -195,6 +224,12 @@ Changed scripts: \`0\`
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
 | ⚠️ Errors / Warnings / Notes |  **0**  |  **0**  |
+
+#### New defects statistics
+
+|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 
@@ -211,6 +246,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
 
   export all_scripts=("1.sh" "\$2.sh" "3 .sh")
   INPUT_TRIGGERING_EVENT=""
+  INPUT_SEVERITY="style"
   FULL_SCAN=0
 
   echo -e \
@@ -240,6 +276,12 @@ Changed scripts: \`0\`
 |:------------------:|:------------------------:|:------------------------:|
 | ⚠️ Errors / Warnings / Notes |  **3**  |  **1**  |
 
+#### New defects statistics
+
+|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+
 #### Useful links
 
 - [Differential ShellCheck Documentation](https://github.com/redhat-plumbers-in-action/differential-shellcheck#readme)
@@ -255,6 +297,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
 
   export all_scripts=("1.sh" "\$2.sh" "3 .sh")
   INPUT_TRIGGERING_EVENT="push"
+  INPUT_SEVERITY="style"
   GITHUB_REPOSITORY="test-user/test-repo"
   GITHUB_REF_NAME="test-branch"
   SCANNING_TOOL="not-shellcheck"
@@ -287,6 +330,12 @@ Number of scripts: \`3\`
 
 [Defects](https://github.com/${GITHUB_REPOSITORY}/security/code-scanning?query=tool%3A${SCANNING_TOOL}+branch%3A${GITHUB_REF_NAME}+is%3Aopen): **3**
 
+#### New defects statistics
+
+|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+
 #### Useful links
 
 - [Differential ShellCheck Documentation](https://github.com/redhat-plumbers-in-action/differential-shellcheck#readme)
@@ -302,6 +351,7 @@ teardown () {
   export \
     only_changed_scripts="" \
     INPUT_TRIGGERING_EVENT="" \
+    INPUT_SEVERITY="" \
     GITHUB_REPOSITORY="" \
     GITHUB_REF_NAME="" \
     SCANNING_TOOL="" \
