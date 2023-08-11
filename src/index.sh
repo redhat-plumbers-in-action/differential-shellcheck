@@ -49,7 +49,7 @@ show_versions
 echo -e "${MAIN_HEADING}"
 
 echo -e "::group::📜 ${WHITE}List of shell scripts for scanning${NOCOLOR}"
-echo "${all_scripts[@]:-${only_changed_scripts[@]}}"
+  echo "${all_scripts[@]:-${only_changed_scripts[@]}}"
 echo "::endgroup::"
 echo
 
