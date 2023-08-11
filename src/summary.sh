@@ -111,6 +111,7 @@ link_to_results () {
   esac 
 }
 
+# Print statistics of defects in form of table
 summary_defect_statistics () {
   echo -e "\
 #### New defects statistics
