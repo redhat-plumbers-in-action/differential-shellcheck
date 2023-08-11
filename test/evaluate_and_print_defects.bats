@@ -13,11 +13,19 @@ setup () {
 @test "evaluate_and_print_defects() - some defects" {
   source "${PROJECT_ROOT}/src/validation.sh"
 
+  INPUT_SEVERITY="style"
   cp ./test/fixtures/evaluate_and_print_defects/defects.log ../defects.log
 
   run evaluate_and_print_defects
   assert_failure 1
   assert_output "\
+::group::📊 Statistics of defects
+Error: 0
+Warning: 3
+Note: 0
+Style: 0
+::endgroup::
+
 ✋ Defects, NEEDS INSPECTION
 Error: SHELLCHECK_WARNING:
 src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
