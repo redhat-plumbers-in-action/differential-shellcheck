@@ -62,6 +62,11 @@ inputs:
     description: Specify minimum severity of errors to consider. Valid values in order of severity are error, warning, info and style. The default is style.
     default: style
     required: false
+
+  scan-directory:
+    description: Directory to scan. If not specified, the root directory is scanned.
+    default: ''
+    required: false
   exclude-path:
     description: List of paths excluded from ShellCheck scanning.
     default: ''
@@ -91,5 +96,6 @@ runs:
     INPUT_DIFF_SCAN: ${{ inputs.diff-scan }}
     INPUT_STRICT_CHECK_ON_PUSH: ${{ inputs.strict-check-on-push }}
     INPUT_EXTERNAL_SOURCES: ${{ inputs.external-sources }}
+    INPUT_SCAN_DIRECTORY: ${{ inputs.scan-directory }}
     INPUT_EXCLUDE_PATH: ${{ inputs.exclude-path }}
     INPUT_INCLUDE_PATH: ${{ inputs.include-path }}

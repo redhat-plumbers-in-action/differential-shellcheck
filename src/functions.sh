@@ -222,12 +222,24 @@ file_to_array () {
   local output=()
 
   while IFS= read -r -d '' file; do
+    is_file_inside_scan_directory "${file}" || continue
     output+=("${file}")
   done < "${1}"
 
   [[ ${UNIT_TESTS:-1} -eq 0 ]] && echo "${output[@]}"
 
   eval "${2}"=\("${output[*]@Q}"\)
+}
+
+# Function to test if given file is inside the scan directory
+# $1 - <string> file path
+# $? - return value - 0 on success
+is_file_inside_scan_directory () {
+  [[ $# -le 0 ]] && return 1
+  [[ -z "${INPUT_SCAN_DIRECTORY}" ]] && return 0
+
+  is_matched_by_path "${file}" "${INPUT_SCAN_DIRECTORY}"
+  return $?
 }
 
 # Evaluate if variable contains true value
