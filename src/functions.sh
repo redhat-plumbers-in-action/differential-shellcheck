@@ -277,7 +277,7 @@ execute_shellcheck () {
   is_true "${INPUT_EXTERNAL_SOURCES}" && local external_sources=--external-sources
 
   local shellcheck_args=(
-    --format=gcc
+    --format=json1
     "${external_sources:-}"
     --severity="${INPUT_SEVERITY}"
     "${@}"

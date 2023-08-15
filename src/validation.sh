@@ -66,7 +66,7 @@ print_statistics () {
 
 # Function to filter out defects by their severity level
 # It sets global variables stat_error, stat_warning, stat_note, stat_style depending on INPUT_SEVERITY
-# $1 - <string> absolute path to a file containing defects detected by scan in gcc format
+# $1 - <string> absolute path to a file containing defects detected by scan
 gather_statistics () {
   [[ $# -le 0 ]] && return 1
   local logs="$1"
@@ -81,7 +81,7 @@ gather_statistics () {
 
 # Function to get number of defects by severity level
 # $1 - <string> severity level
-# $2 - <string> absolute path to a file containing defects detected by scan in gcc format
+# $2 - <string> absolute path to a file containing defects detected by scan
 get_number_of_defects_by_severity () {
   [[ $# -le 1 ]] && return 1
   local severity="$1"
