@@ -319,16 +319,23 @@ uploadSARIF () {
   fi
 }
 
+get_shellcheck_version () {
+  local shellcheck_version
+  shellcheck_version=$(shellcheck --version | grep -w "version:" | cut -s -d ' ' -f 2)
+
+  echo "${shellcheck_version}"
+}
+
 # Function that shows versions of currently used commands
 show_versions() {
   local shellcheck
   local csutils
 
-  shellcheck=$(shellcheck --version | grep "version:")
+  shellcheck=$(get_shellcheck_version)
   csutils=$(csdiff --version)
 
   echo -e "\
-ShellCheck: ${shellcheck//'version: '/}
+ShellCheck: ${shellcheck}
 csutils: ${csutils}"
 }
 
