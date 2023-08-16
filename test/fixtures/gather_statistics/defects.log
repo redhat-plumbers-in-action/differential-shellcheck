@@ -1,8 +1,34 @@
-Error: SHELLCHECK_WARNING:
-src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned.
+{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 7,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}

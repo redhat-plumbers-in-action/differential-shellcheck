@@ -1,6 +1,9 @@
 # shellcheck shell=bash
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+# shellcheck source=summary.sh
+. "${SCRIPT_DIR=}summary.sh"
+
 # Get file containing fixes based on two input files
 # $1 - <string> absolute path to a file containing results from BASE scan
 # $2 - <string> absolute path to a file containing results from HEAD scan
@@ -18,7 +21,7 @@ get_fixes () {
 evaluate_and_print_fixes () {
   if [[ -s ../fixes.log ]]; then
     echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
-    csgrep ../fixes.log
+    csgrep --embed-context 2 ../fixes.log
   else
     echo -e "ℹ️ ${YELLOW}No Fixes!${NOCOLOR}"
   fi
@@ -41,11 +44,12 @@ get_defects () {
 evaluate_and_print_defects () {
   gather_statistics "../defects.log"
 
-  if [[ -s ../defects.log ]]; then
+  num_of_defects=$(get_number_of defects)
+  if [[ -s ../defects.log ]] && [[ "${num_of_defects}" -gt 0 ]] ; then
     print_statistics
 
     echo -e "✋ ${YELLOW}Defects, NEEDS INSPECTION${NOCOLOR}"
-    csgrep ../defects.log
+    csgrep --embed-context 4 ../defects.log
     return 1
   fi
 
@@ -58,25 +62,23 @@ print_statistics () {
   echo -e "::group::📊 ${WHITE}Statistics of defects${NOCOLOR}"
     [[ -n ${stat_error} ]] && echo -e "Error: ${stat_error}"
     [[ -n ${stat_warning} ]] && echo -e "Warning: ${stat_warning}"
-    [[ -n ${stat_note} ]] && echo -e "Note: ${stat_note}"
-    [[ -n ${stat_style} ]] && echo -e "Style: ${stat_style}"
+    [[ -n ${stat_info} ]] && echo -e "Style or Note: ${stat_info}"
   echo "::endgroup::"
   echo
 }
 
 # Function to filter out defects by their severity level
-# It sets global variables stat_error, stat_warning, stat_note, stat_style depending on INPUT_SEVERITY
+# It sets global variables stat_error, stat_warning, stat_info depending on INPUT_SEVERITY
 # $1 - <string> absolute path to a file containing defects detected by scan
 gather_statistics () {
   [[ $# -le 0 ]] && return 1
   local logs="$1"
 
-  [[ ${INPUT_SEVERITY-} == "style" ]] && stat_style=$(get_number_of_defects_by_severity "style" "${logs}")
-  [[ ${INPUT_SEVERITY} =~ style|note ]] && stat_note=$(get_number_of_defects_by_severity "note" "${logs}")
+  [[ ${INPUT_SEVERITY-} =~ style|note ]] && stat_info=$(get_number_of_defects_by_severity "info" "${logs}")
   [[ ${INPUT_SEVERITY} =~ style|note|warning ]] && stat_warning=$(get_number_of_defects_by_severity "warning" "${logs}")
   [[ ${INPUT_SEVERITY} =~ style|note|warning|error ]] && stat_error=$(get_number_of_defects_by_severity "error" "${logs}")
 
-  export stat_style stat_note stat_warning stat_error
+  export stat_info stat_warning stat_error
 }
 
 # Function to get number of defects by severity level
@@ -90,6 +92,6 @@ get_number_of_defects_by_severity () {
 
   [[ -f "${logs}" ]] || return 1
   # the optional group is workaround for csdiff issue: https://github.com/csutils/csdiff/issues/138
-  defects=$(grep --count --extended-regexp "^[^:]+:[0-9]+:([0-9]+:)? ${severity}\[SC[0-9]+\].*$" "${logs}")
+  defects=$(grep --count --extended-regexp "^\s*\"event\": \"${severity}\[SC[0-9]+\]\",$" "${logs}")
   echo "${defects}"
 }

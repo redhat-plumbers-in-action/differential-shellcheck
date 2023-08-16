@@ -1,2 +1,19 @@
-Error: SHELLCHECK_WARNING:
-src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)
+{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 6,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}

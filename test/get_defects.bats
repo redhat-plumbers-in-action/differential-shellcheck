@@ -11,7 +11,7 @@ setup () {
   load 'test_helper/bats-file/load'
 }
 
-@test "get_defects()" {
+@test "get_defects() - general" {
   source "${PROJECT_ROOT}/src/validation.sh"
 
   run get_defects

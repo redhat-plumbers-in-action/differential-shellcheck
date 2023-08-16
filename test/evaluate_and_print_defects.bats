@@ -18,27 +18,23 @@ setup () {
 
   run evaluate_and_print_defects
   assert_failure 1
-  assert_output "\
+  assert_output --partial "\
 ::group::📊 Statistics of defects
 Error: 0
-Warning: 3
-Note: 0
-Style: 0
-::endgroup::
-
-✋ Defects, NEEDS INSPECTION
-Error: SHELLCHECK_WARNING:
-src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned."
+Warning: 2
+Style or Note: 0
+::endgroup::"
+  assert_line --partial "innocent-script.sh:7: warning[SC2034]: UNUSED_VAR2 appears unused. Verify use (or export if used externally)."
+  assert_line --partial 'innocent-script.sh:11: warning[SC2115]: Use "${var:?}" to ensure this never expands to / .'
 }
 
 @test "evaluate_and_print_defects() - no defects" {
   source "${PROJECT_ROOT}/src/validation.sh"
+
+  echo -e \
+'{
+    "defects": []
+}' > ../defects.log
 
   run evaluate_and_print_defects
   assert_success

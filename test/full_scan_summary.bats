@@ -10,27 +10,53 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
-@test "full_scan_summary()" {
+@test "full_scan_summary() - general" {
   source "${PROJECT_ROOT}/src/summary.sh"
 
   export all_scripts=("1.sh" "\$2.sh" "3 .sh")
   INPUT_TRIGGERING_EVENT=""
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned.
-" > ../defects.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 7,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        }, {}, {}
+    ]
+}' > ../defects.log
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)
-" > ../fixes.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 6,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../fixes.log
 
   run full_scan_summary
   assert_success

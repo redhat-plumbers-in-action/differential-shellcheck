@@ -72,7 +72,7 @@ Scanned/Changed scripts: \`${#list_of_changed_scripts[@]}\`
 get_number_of () {
   [[ $# -le 0 ]] && return 1
 
-  grep -Eo "[0-9]*" < <(csgrep --mode=stat ../"${1}".log)
+  jq '.defects | length' "../${1}.log"
 }
 
 # Create full Markdown style link to results
@@ -123,9 +123,9 @@ summary_defect_statistics () {
   echo -e "\
 #### New defects statistics
 
-|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
-|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
-| 🔢 Count | **${stat_style:-"N/A"}** | **${stat_note:-"N/A"}** | **${stat_warning:-"N/A"}** | **${stat_error:-"N/A"}** |"
+|          | 👕 Style / 🗒️ Note      | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **${stat_info:-"N/A"}** | **${stat_warning:-"N/A"}** | **${stat_error:-"N/A"}** |"
 }
 
 # Print useful information at the end of summary report
