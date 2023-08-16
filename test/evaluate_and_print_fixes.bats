@@ -18,10 +18,9 @@ setup () {
 
   run evaluate_and_print_fixes
   assert_success
-  assert_output "\
-✅ Fixed defects
+  assert_output --partial "✅ Fixed defects
 Error: SHELLCHECK_WARNING:
-src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)"
+innocent-script.sh:6: warning[SC2034]: UNUSED_VAR appears unused. Verify use (or export if used externally)."
 }
 
 @test "evaluate_and_print_fixes() - no fixes" {

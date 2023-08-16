@@ -21,8 +21,7 @@ setup () {
 "::group::📊 Statistics of defects
 Error: 0
 Warning: 3
-Note: 0
-Style: 0
+Style or Note: 0
 ::endgroup::"
 }
 

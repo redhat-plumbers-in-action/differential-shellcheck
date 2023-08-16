@@ -17,7 +17,7 @@ ARG rpm_shellcheck="ShellCheck-${version_shellcheck}.fc${fedora}.${arch}.rpm"
 # --- Install dependencies --- #
 
 RUN dnf -y upgrade
-RUN dnf -y install git koji kcov bats diffutils \
+RUN dnf -y install git koji kcov bats diffutils jq \
     && dnf clean all
 
 # Download rpms from koji

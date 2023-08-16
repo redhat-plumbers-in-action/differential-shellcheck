@@ -19,20 +19,76 @@ setup () {
   INPUT_SEVERITY="style"
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned.
-" > ../defects.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 7,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../defects.log
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)
-" > ../fixes.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 6,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../fixes.log
 
   run summary
   assert_success
@@ -47,9 +103,9 @@ Scanned/Changed scripts: \`3\`
 
 #### New defects statistics
 
-|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
-|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
-| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+|          | 👕 Style / 🗒️ Note      | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 
@@ -73,20 +129,76 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
   GITHUB_REF="refs/heads/${GITHUB_REF_NAME}"
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned.
-" > ../defects.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 7,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../defects.log
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)
-" > ../fixes.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 6,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../fixes.log
 
   run summary
   assert_success
@@ -101,9 +213,9 @@ Scanned/Changed scripts: \`3\`
 
 #### New defects statistics
 
-|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
-|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
-| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+|          | 👕 Style / 🗒️ Note      | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 
@@ -127,20 +239,76 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
   GITHUB_REF="refs/pull/${PR_NUMBER}/merge"
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned.
-" > ../defects.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 7,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../defects.log
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)
-" > ../fixes.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 6,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../fixes.log
 
   run summary
   assert_success
@@ -155,9 +323,9 @@ Scanned/Changed scripts: \`3\`
 
 #### New defects statistics
 
-|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
-|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
-| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+|          | 👕 Style / 🗒️ Note      | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 
@@ -191,9 +359,9 @@ Scanned/Changed scripts: \`3\`
 
 #### New defects statistics
 
-|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
-|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
-| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+|          | 👕 Style / 🗒️ Note      | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 
@@ -228,9 +396,9 @@ Scanned/Changed scripts: \`0\`
 
 #### New defects statistics
 
-|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
-|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
-| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+|          | 👕 Style / 🗒️ Note      | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 
@@ -251,20 +419,76 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
   FULL_SCAN=0
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned.
-" > ../defects.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 7,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../defects.log
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)
-" > ../fixes.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 6,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../fixes.log
 
   run summary
   assert_success
@@ -279,9 +503,9 @@ Scanned/Changed scripts: \`3\`
 
 #### New defects statistics
 
-|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
-|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
-| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+|          | 👕 Style / 🗒️ Note      | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 
@@ -307,20 +531,76 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
   INPUT_STRICT_CHECK_ON_PUSH="true"
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:53:10: warning[SC2154]: MAIN_HEADING is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:14: warning[SC2154]: WHITE is referenced but not assigned.
-
-Error: SHELLCHECK_WARNING:
-src/index.sh:56:56: warning[SC2154]: NOCOLOR is referenced but not assigned.
-" > ../defects.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 7,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../defects.log
 
   echo -e \
-"Error: SHELLCHECK_WARNING:
-src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)
-" > ../fixes.log
+'{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 6,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}' > ../fixes.log
 
   run summary
   assert_success
@@ -333,9 +613,9 @@ Number of scripts: \`3\`
 
 #### New defects statistics
 
-|          | 👕 Style                 | 🗒️ Note                 | ⚠️ Warning                 | 🛑 Error                 |
-|:--------:|:------------------------:|:-----------------------:|:--------------------------:|:------------------------:|
-| 🔢 Count | **N/A** | **N/A** | **N/A** | **N/A** |
+|          | 👕 Style / 🗒️ Note      | ⚠️ Warning                 | 🛑 Error                 |
+|:--------:|:-----------------------:|:--------------------------:|:------------------------:|
+| 🔢 Count | **N/A** | **N/A** | **N/A** |
 
 #### Useful links
 

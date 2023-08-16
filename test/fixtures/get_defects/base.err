@@ -1,4 +1,15 @@
-src/index.sh:7:3: note: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory) [SC1091]
-src/index.sh:39:42: warning: BASE is referenced but not assigned. [SC2154]
-src/index.sh:39:53: warning: HEAD is referenced but not assigned. [SC2154]
-src/index.sh:50:10: warning: VERSIONS_HEADING is referenced but not assigned. [SC2154]
+{
+  "comments": [
+    {
+      "file": "innocent-script.sh",
+      "line": 6,
+      "endLine": 6,
+      "column": 1,
+      "endColumn": 11,
+      "level": "warning",
+      "code": 2034,
+      "message": "UNUSED_VAR appears unused. Verify use (or export if used externally).",
+      "fix": null
+    }
+  ]
+}
