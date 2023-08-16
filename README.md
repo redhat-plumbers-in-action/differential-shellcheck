@@ -167,6 +167,7 @@ Action currently accepts following options:
     strict-check-on-push: <true or false>
     external-sources: <true or false>
     severity: <minimal severity level>
+    scan-directory: <list of paths>
     exclude-path: <list of paths>
     include-path: <list of paths>
     token: <GitHub token>
@@ -258,6 +259,17 @@ Minimal severity level of detected errors that will be reported. Valid values in
 
 * default value: `style`
 * requirements: `optional`
+
+### scan-directory
+
+List of relative paths to directories that will be scanned for shell scripts. Globbing is supported.
+
+By default the whole repository is scanned. This feature is useful when you want to scan only a subset of the repository.
+
+This feature is fully compatible with [exclude-path](#exclude-path) and [include-path](#include-path) options.
+
+* requirements: `optional`
+* example: `"build/**"`
 
 ### exclude-path
 
