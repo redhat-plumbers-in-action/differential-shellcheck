@@ -3,6 +3,7 @@
 ## Next release
 
 * Added defect statistics based on severity levels. They are available in the console output and in the job Summary page.
+* New option `scan-directory`. Allows to specify directories that will be scanned. By default Differential ShellCheck scans the whole repository.
 * Fix detection of changed files that might cause failure on paths with special characters.
 * Drop support for `shell-scripts` input
 * Drop support for `ignored-codes` input
