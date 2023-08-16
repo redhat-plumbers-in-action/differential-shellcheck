@@ -39,7 +39,7 @@ src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: doe
   assert_output \
 "### Differential ShellCheck 🐚
 
-Changed scripts: \`3\`
+Scanned/Changed scripts: \`3\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -93,7 +93,7 @@ src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: doe
   assert_output \
 "### Differential ShellCheck 🐚
 
-Changed scripts: \`3\`
+Scanned/Changed scripts: \`3\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -147,7 +147,7 @@ src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: doe
   assert_output \
 "### Differential ShellCheck 🐚
 
-Changed scripts: \`3\`
+Scanned/Changed scripts: \`3\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -183,7 +183,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
   assert_output \
 "### Differential ShellCheck 🐚
 
-Changed scripts: \`3\`
+Scanned/Changed scripts: \`3\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -209,6 +209,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
   source "${PROJECT_ROOT}/src/summary.sh"
 
   export only_changed_scripts=()
+  export all_scripts=()
   INPUT_TRIGGERING_EVENT=""
   INPUT_SEVERITY="style"
 
@@ -219,7 +220,7 @@ _ℹ️ If you have an issue with this GitHub action, please try to run it in th
   assert_output \
 "### Differential ShellCheck 🐚
 
-Changed scripts: \`0\`
+Scanned/Changed scripts: \`0\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -270,7 +271,7 @@ src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: doe
   assert_output \
 "### Differential ShellCheck 🐚
 
-Changed scripts: \`0\`
+Scanned/Changed scripts: \`3\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -350,6 +351,7 @@ teardown () {
 
   export \
     only_changed_scripts="" \
+    all_scripts="" \
     INPUT_TRIGGERING_EVENT="" \
     INPUT_SEVERITY="" \
     GITHUB_REPOSITORY="" \

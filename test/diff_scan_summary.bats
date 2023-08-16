@@ -10,7 +10,7 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
-@test "diff_scan_summary()" {
+@test "diff_scan_summary() - general" {
   source "${PROJECT_ROOT}/src/summary.sh"
 
   export only_changed_scripts=("1.sh" "\$2.sh" "3 .sh")
@@ -35,7 +35,7 @@ src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: doe
   run diff_scan_summary
   assert_success
   assert_output \
-"Changed scripts: \`3\`
+"Scanned/Changed scripts: \`3\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -53,7 +53,7 @@ src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: doe
   run diff_scan_summary
   assert_success
   assert_output \
-"Changed scripts: \`3\`
+"Scanned/Changed scripts: \`3\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -64,6 +64,7 @@ src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: doe
   source "${PROJECT_ROOT}/src/summary.sh"
 
   export only_changed_scripts=()
+  export all_scripts=()
   INPUT_TRIGGERING_EVENT=""
 
   touch ../defects.log ../fixes.log
@@ -71,7 +72,7 @@ src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: doe
   run diff_scan_summary
   assert_success
   assert_output \
-"Changed scripts: \`0\`
+"Scanned/Changed scripts: \`0\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
@@ -83,5 +84,6 @@ teardown () {
 
   export \
     only_changed_scripts="" \
+    all_scripts="" \
     INPUT_TRIGGERING_EVENT=""
 }

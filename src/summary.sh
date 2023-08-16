@@ -51,8 +51,15 @@ diff_scan_summary () {
   local added_issues
   added_issues=$(get_number_of defects)
 
+  local list_of_changed_scripts
+  if [[ "${#all_scripts[@]}" -le 0 ]] && [[ "${#only_changed_scripts[@]}" -le 0 ]]; then
+    list_of_changed_scripts=()  
+  else
+    list_of_changed_scripts=("${all_scripts[@]:-${only_changed_scripts[@]}}")
+  fi
+
   echo -e "\
-Changed scripts: \`${#only_changed_scripts[@]}\`
+Scanned/Changed scripts: \`${#list_of_changed_scripts[@]}\`
 
 |                    | ❌ Added                 | ✅ Fixed                 |
 |:------------------:|:------------------------:|:------------------------:|
