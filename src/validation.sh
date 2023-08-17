@@ -42,8 +42,9 @@ get_defects () {
 # It expects file '../defects.log' to contain defects
 # $? - return value - 0 on success
 evaluate_and_print_defects () {
+  gather_statistics "../defects.log"
+
   if [[ -s ../defects.log ]]; then
-    gather_statistics "../defects.log"
     print_statistics
 
     echo -e "✋ ${YELLOW}Defects, NEEDS INSPECTION${NOCOLOR}"
