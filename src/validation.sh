@@ -17,9 +17,6 @@ get_fixes () {
 # $? - return value is always 0
 evaluate_and_print_fixes () {
   if [[ -s ../fixes.log ]]; then
-    gather_statistics "../defects.log"
-    print_statistics
-
     echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
     csgrep ../fixes.log
   else

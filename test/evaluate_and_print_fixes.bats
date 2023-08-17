@@ -19,9 +19,6 @@ setup () {
   run evaluate_and_print_fixes
   assert_success
   assert_output "\
-::group::📊 Statistics of defects
-::endgroup::
-
 ✅ Fixed defects
 Error: SHELLCHECK_WARNING:
 src/index.sh:7:3: note[SC1091]: Not following: functions.sh: openBinaryFile: does not exist (No such file or directory)"
