@@ -89,6 +89,7 @@ get_number_of_defects_by_severity () {
   local defects=0
 
   [[ -f "${logs}" ]] || return 1
-  defects=$(grep --count --extended-regexp "^[^:]+:[0-9]+:[0-9]+: ${severity}\[SC[0-9]+\].*$" "${logs}")
+  # the optional group is workaround for csdiff issue: https://github.com/csutils/csdiff/issues/138
+  defects=$(grep --count --extended-regexp "^[^:]+:[0-9]+:([0-9]+:)? ${severity}\[SC[0-9]+\].*$" "${logs}")
   echo "${defects}"
 }
