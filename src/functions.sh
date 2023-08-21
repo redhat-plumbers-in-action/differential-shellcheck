@@ -283,9 +283,8 @@ execute_shellcheck () {
     "${@}"
   )
 
-  # The sed part ensures that cstools will recognize the output as being produced by ShellCheck and not GCC.
   local output
-  output=$(shellcheck "${shellcheck_args[@]}" 2> /dev/null | sed -e 's|$| <--[shellcheck]|')
+  output=$(shellcheck "${shellcheck_args[@]}" 2> /dev/null)
 
   echo "${output}"
 }
