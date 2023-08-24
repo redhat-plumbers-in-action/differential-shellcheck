@@ -103,7 +103,7 @@ csgrep \
   --set-scan-prop='tool:ShellCheck' \
   --set-scan-prop="tool-version:${shellcheck_version}" \
   --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
-  '../sarif-defects.log' >> output.sarif
+  '../sarif-defects.log' > output.sarif
 
 echo "sarif=output.sarif" >> "${GITHUB_OUTPUT}"
 
