@@ -67,7 +67,7 @@ if ! is_strict_check_on_push_demanded; then
   execute_shellcheck "${only_changed_scripts[@]}" > ../head-shellcheck.err
 
   # Checkout the base branch/commit
-  git checkout --force --quiet -b ci_br_dest "${BASE}"
+  git checkout --force --quiet -b ci_br_dest "${BASE}" || git checkout --force --quiet "${BASE}"
 
   execute_shellcheck "${only_changed_scripts[@]}" > ../base-shellcheck.err
 
