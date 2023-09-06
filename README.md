@@ -262,7 +262,7 @@ Minimal severity level of detected errors that will be reported. Valid values in
 
 ### scan-directory
 
-List of relative paths to directories that will be scanned for shell scripts. Globbing is supported.
+List of relative paths to directories that will be scanned for shell scripts. Globbing is supported. The list is a multi-line string, not a YAML list.
 
 By default the whole repository is scanned. This feature is useful when you want to scan only a subset of the repository.
 
@@ -270,17 +270,23 @@ This feature is fully compatible with [exclude-path](#exclude-path) and [include
 
 * requirements: `optional`
 * example: `"build/**"`
+* example for multiple values:
+  ```
+  scan-directory: |
+    build/**
+    testing
+  ```
 
 ### exclude-path
 
-List of relative paths excluded from ShellCheck scanning. Globbing is supported.
+List of relative paths excluded from ShellCheck scanning. Globbing is supported. The list is a multi-line string, not a YAML list.
 
 * requirements: `optional`
 * example: `"test/{bats,beakerlib}/**"`
 
 ### include-path
 
-List of file paths that will be scanned by ShellCheck. Globbing is supported.
+List of file paths that will be scanned by ShellCheck. Globbing is supported. The list is a multi-line string, not a YAML list.
 
 * requirements: `optional`
 * example: `"src/**.{shell,custom}"`
