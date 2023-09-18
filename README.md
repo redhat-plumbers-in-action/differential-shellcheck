@@ -271,7 +271,8 @@ This feature is fully compatible with [exclude-path](#exclude-path) and [include
 * requirements: `optional`
 * example: `"build/**"`
 * example for multiple values:
-  ```
+
+  ```yml
   scan-directory: |
     build/**
     testing
