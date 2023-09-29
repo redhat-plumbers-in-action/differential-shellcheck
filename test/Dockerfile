@@ -7,7 +7,7 @@ FROM fedora@sha256:6fc00f83a1b6526b1c6562e30f552d109ba8e269259c6742a26efab1b7aef
 ARG fedora="38"
 ARG arch="x86_64"
 
-ARG version_csdiff="3.0.3-1"
+ARG version_csdiff="3.0.4-1"
 ARG version_shellcheck="0.9.0-2"
 
 ARG rpm_csdiff="csdiff-${version_csdiff}.fc${fedora}.${arch}.rpm"

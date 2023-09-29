@@ -9,6 +9,7 @@
                 {
                     "file_name": "innocent-script.sh",
                     "line": 7,
+                    "column": 1,
                     "event": "warning[SC2034]",
                     "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
                     "verbosity_level": 0
@@ -24,6 +25,7 @@
                 {
                     "file_name": "innocent-script.sh",
                     "line": 11,
+                    "column": 8,
                     "event": "warning[SC2115]",
                     "message": "Use \"${var:?}\" to ensure this never expands to / .",
                     "verbosity_level": 0

@@ -10,7 +10,7 @@
 * Fix count of scanned files in job Summary when running on push event.
 * Drop support for `shell-scripts` input
 * Drop support for `ignored-codes` input
-* Update `csutils` (`csdiff`) to 3.0.3
+* Update `csutils` (`csdiff`) to 3.0.4
 
 ## v4.2.2
 
