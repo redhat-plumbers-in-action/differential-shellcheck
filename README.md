@@ -338,6 +338,18 @@ Differential ShellCheck GitHub Action could be used in private repositories by a
 
 _Code scanning is available for all public repositories on GitHub.com. Code scanning is also available for private repositories owned by organizations that use GitHub Enterprise Cloud and have a license for GitHub Advanced Security. For more information, see "[About GitHub Advanced Security](https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security)"._
 
+## Using with Visual Studio Code
+
+Differential ShellCheck doesn't have a VS Code plugin, but results can be accessed by using [SARIF Viewer](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer) VS Code extension provided by Microsoft. Once installed, you have to connect your GitHub account with VS Code. Then, if you open a repository that uses Differential ShellCheck, you will see reported defects directly in your VS Code IDE.
+
+<p align="center">
+  <img src="docs/images/vs-code-sarif-connect-dark.png" width="450" />
+</p>
+
+<p align="center">
+  <img src="docs/images/vs-code-sarif-results-dark.png" width="550" />
+</p>
+
 ## Limitations
 
 * `differential-shellcheck` Action doesn't run correctly when overwriting commits using `--force` and when the triggering event is `push`.
