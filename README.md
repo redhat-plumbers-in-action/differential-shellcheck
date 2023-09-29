@@ -53,7 +53,7 @@ To evaluate results, Differential ShellCheck uses utilities `csdiff` and `csgrep
 * Colored console output with emojis
 * [SARIF support](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning) - warnings are visible in the `Changed files` tab of the Pull-Request and as [comment alerts on Pull-Requests](https://github.blog/changelog/2022-06-02-users-can-view-and-comment-on-code-scanning-alerts-on-the-conversation-tab-in-a-pull-request/)
 * Ability to run in a verbose mode when run with [debug option](https://github.blog/changelog/2022-05-24-github-actions-re-run-jobs-with-debug-logging/)
-* Results displayed as [job summaries](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/)
+* Results displayed as [Job Summaries](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/) - [example](docs/images/job-summary-light.png)
 * Ability to configure Differential ShellCheck using [`.shellcheckrc`](https://github.com/koalaman/shellcheck/blob/master/shellcheck.1.md#rc-files)
 
 ## Usage
@@ -109,6 +109,16 @@ jobs:
   <summary>Console output example</summary>
   <p align="center">
     <img src="docs/images/output-example.png" width="800" />
+  </p>
+</details>
+
+<details>
+  <summary>Example of Job Summary</summary>
+  <p align="center">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/images/job-summary-dark.png">
+      <img src="docs/images/job-summary-light.png" width="600" />
+    </picture>
   </p>
 </details>
 
