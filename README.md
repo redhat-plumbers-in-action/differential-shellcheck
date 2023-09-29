@@ -103,7 +103,9 @@ jobs:
           path: ${{ steps.ShellCheck.outputs.sarif }}
 ```
 
-> **Warning**: _`fetch-depth: 0` is required to run `differential-shellcheck` successfully. It fetches all git history._
+> **Warning**
+>
+> _`fetch-depth: 0` is required to run `differential-shellcheck` successfully. It fetches all git history._
 
 <details>
   <summary>Console output example</summary>
