@@ -41,7 +41,7 @@ jobs:
 
     steps:
       - name: Repository checkout
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4.1.0
 
       - name: Get current date
         run: |
@@ -49,17 +49,17 @@ jobs:
           echo "BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> "${GITHUB_ENV}"
 
       - name: Set up Docker
-        uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226
+        uses: docker/setup-buildx-action@f95db51fddba0c2d1ec667646a06c2ce06100226 # v3.0.0
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Start deployment
-        uses: bobheadxi/deployments@88ce5600046c82542f8246ac287d0a53c461bca3
+        uses: bobheadxi/deployments@88ce5600046c82542f8246ac287d0a53c461bca3 # v1.4.0
         id: deployment
         with:
           step: start
@@ -67,7 +67,7 @@ jobs:
           env: ${{ matrix.images.deployment-environment-identifier }}
 
       - name: Build and Push Container
-        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09
+        uses: docker/build-push-action@0565240e2d4ab88bba5387d719585280857ece09 # v5.0.0
         with:
           context: .
           file: ${{ matrix.images.dockerfile }}
@@ -81,7 +81,7 @@ jobs:
             ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.images.tag }}:latest
 
       - name: Update deployment status
-        uses: bobheadxi/deployments@88ce5600046c82542f8246ac287d0a53c461bca3
+        uses: bobheadxi/deployments@88ce5600046c82542f8246ac287d0a53c461bca3 # v1.4.0
         if: always()
         with:
           step: finish
