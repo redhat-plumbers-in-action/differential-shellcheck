@@ -2,6 +2,8 @@
 
 ## Next release
 
+## v5.0.0
+
 * Added defect statistics based on severity levels. They are available in the console output and in the job Summary page.
 * New option `scan-directory`. Allows to specify directories that will be scanned. By default Differential ShellCheck scans the whole repository.
 * Show more context for ShellCheck defects and fixes in console output. The defect is now shown in the context of the surrounding code.

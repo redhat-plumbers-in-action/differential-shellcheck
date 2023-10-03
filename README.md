@@ -91,7 +91,7 @@ jobs:
 
       - id: ShellCheck
         name: Differential ShellCheck
-        uses: redhat-plumbers-in-action/differential-shellcheck@v4
+        uses: redhat-plumbers-in-action/differential-shellcheck@v5
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -166,7 +166,7 @@ Action currently accepts following options:
 # ...
 
 - name: Differential ShellCheck
-  uses: redhat-plumbers-in-action/differential-shellcheck@v4
+  uses: redhat-plumbers-in-action/differential-shellcheck@v5
   with:
     triggering-event: <name of triggering event>
     base: <sha1>
@@ -329,7 +329,7 @@ Relative path to SARIF file containing detected defects. Example of use:
 ```yaml
 - id: ShellCheck
   name: Differential ShellCheck
-  uses: redhat-plumbers-in-action/differential-shellcheck@v4
+  uses: redhat-plumbers-in-action/differential-shellcheck@v5
 
 - if: ${{ always() }}
   name: Upload artifact with ShellCheck defects in SARIF format
