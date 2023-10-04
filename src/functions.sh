@@ -292,7 +292,7 @@ execute_shellcheck () {
 # Function to check if the action is run in a Debug mode
 is_debug () {
   local result
-  result=$(is_true "${RUNNER_DEBUG}")
+  result=$(is_true "${RUNNER_DEBUG:-0}")
 
   # shellcheck disable=SC2086
   # return require numeric value
