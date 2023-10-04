@@ -72,7 +72,10 @@ Scanned/Changed scripts: \`${#list_of_changed_scripts[@]}\`
 get_number_of () {
   [[ $# -le 0 ]] && return 1
 
-  jq '.defects | length' "../${1}.log"
+  file="../${1}.log"
+  [[ -s "${file}" ]] || return 1
+
+  jq '.defects | length' "${file}"
 }
 
 # Create full Markdown style link to results
