@@ -17,6 +17,13 @@ setup () {
   assert_failure 1
 }
 
+@test "get_number_of() - No such file or directory" {
+  source "${PROJECT_ROOT}/src/summary.sh"
+
+  run get_number_of "asdfsghdfadshgfadsdshgfadsfghfjdsdf.log"
+  assert_failure 1
+}
+
 @test "get_number_of() - defects" {
   source "${PROJECT_ROOT}/src/summary.sh"
 

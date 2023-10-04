@@ -19,7 +19,10 @@ get_fixes () {
 # It expects file '../fixes.log' to contain fixes
 # $? - return value is always 0
 evaluate_and_print_fixes () {
-  if [[ -s ../fixes.log ]]; then
+  gather_statistics "../fixes.log"
+
+  num_of_fixes=$(get_number_of fixes)
+  if [[ "${num_of_fixes}" -gt 0 ]]; then
     echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
     csgrep --embed-context 2 ../fixes.log
   else
@@ -45,7 +48,7 @@ evaluate_and_print_defects () {
   gather_statistics "../defects.log"
 
   num_of_defects=$(get_number_of defects)
-  if [[ -s ../defects.log ]] && [[ "${num_of_defects}" -gt 0 ]] ; then
+  if [[ "${num_of_defects}" -gt 0 ]] ; then
     print_statistics
 
     echo -e "✋ ${YELLOW}Defects, NEEDS INSPECTION${NOCOLOR}"
