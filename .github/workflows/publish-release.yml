@@ -20,8 +20,9 @@ jobs:
       - name: Repository checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
+        # never use pinning to SHA, it breaks the release of this action
       - name: Update tag
-        uses: Actions-R-Us/actions-tagger@330ddfac760021349fef7ff62b372f2f691c20fb # v2.0.3
+        uses: Actions-R-Us/actions-tagger@v2
         with:
           publish_latest_tag: false
           token: ${{ secrets.GITHUB_TOKEN }}
