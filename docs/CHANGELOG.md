@@ -2,6 +2,11 @@
 
 ## Next release
 
+## v5.0.2
+
+* Container images now based on Fedora 39
+* Update `csutils` (`csdiff`) to 3.1.0
+
 ## v5.0.0
 
 * Added defect statistics based on severity levels. They are available in the console output and in the job Summary page.
