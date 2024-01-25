@@ -74,7 +74,7 @@ permissions:
 jobs:
   lint:
     runs-on: ubuntu-latest
-    
+
     permissions:
       # required for all workflows
       security-events: write
