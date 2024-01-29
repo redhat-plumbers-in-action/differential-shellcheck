@@ -97,7 +97,7 @@ jobs:
 
       - if: ${{ always() }}
         name: Upload artifact with ShellCheck defects in SARIF format
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Differential ShellCheck SARIF
           path: ${{ steps.ShellCheck.outputs.sarif }}
@@ -333,7 +333,7 @@ Relative path to SARIF file containing detected defects. Example of use:
 
 - if: ${{ always() }}
   name: Upload artifact with ShellCheck defects in SARIF format
-  uses: actions/upload-artifact@v3
+  uses: actions/upload-artifact@v4
   with:
     name: Differential ShellCheck SARIF
     path: ${{ steps.ShellCheck.outputs.sarif }}
