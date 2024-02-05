@@ -2,6 +2,8 @@
 
 ## Next release
 
+* Update `csutils` (`csdiff`) to 3.2.0
+
 ## v5.0.2
 
 * Container images now based on Fedora 39
