@@ -142,7 +142,7 @@ has_shebang () {
   fi
 
   # Emacs mode detection
-  if grep --quiet -E '^\s*#\s+-\*-\s+(sh|ash|bash|dash|ksh|bats)\s+-\*-\s*' "${file}"; then
+  if grep --quiet -E '^\s*#.*\s+-\*-\s+(sh|ash|bash|dash|ksh|bats|shell-script)\s+-\*-\s*' "${file}"; then
     return 0
   fi
 
