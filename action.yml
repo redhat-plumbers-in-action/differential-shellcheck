@@ -86,7 +86,7 @@ outputs:
 
 runs:
   using: docker
-  image: docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:v5.0.2
+  image: docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:v5.1.0
   env:
     INPUT_TRIGGERING_EVENT: ${{ inputs.triggering-event }}
     INPUT_PULL_REQUEST_BASE: ${{ inputs.pull-request-base }}
