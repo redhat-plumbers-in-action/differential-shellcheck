@@ -250,7 +250,7 @@ setup () {
     '   # -*- sh -*-'
     '   # -*-  sh  -*-'
     ' #  -*-  sh  -*- ... ...'
-    '# systemd-sysext(8) completion  -*- shell-script -*-'
+    '# systemd-sysext(8) completion  -*- mode: shell-script -*-'
   )
   local emacs_incorrect=(
     ' -*- sh -*-'
