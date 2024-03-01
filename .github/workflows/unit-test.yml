@@ -63,7 +63,7 @@ jobs:
             bats test/*.bats
 
       - name: Codecov - 1st attempt
-        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
+        uses: codecov/codecov-action@54bcd8715eee62d40e33596ef5e8f0f48dbbccab # v4.1.0
         id: upload_code_coverage_report
         continue-on-error: true
         with:
@@ -76,7 +76,7 @@ jobs:
 
       - name: Codecov - 2nd attempt
         if: steps.upload_code_coverage_report.outcome == 'failure'
-        uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d # v3.1.4
+        uses: codecov/codecov-action@54bcd8715eee62d40e33596ef5e8f0f48dbbccab # v4.1.0
         with:
           fail_ci_if_error: true
           verbose: true
@@ -106,7 +106,7 @@ jobs:
       # There is some issue with code coverage inside the container
       # TODO: Try to finger out how to run kcov inside container and retrieve coverage results
       # - name: Codecov - 1st attempt
-      #   uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d
+      #   uses: codecov/codecov-action@54bcd8715eee62d40e33596ef5e8f0f48dbbccab
       #   id: upload_code_coverage_report
       #   continue-on-error: true
       #   with:
@@ -119,7 +119,7 @@ jobs:
 
       # - name: Codecov - 2nd attempt
       #   if: steps.upload_code_coverage_report.outcome == 'failure'
-      #   uses: codecov/codecov-action@eaaf4bedf32dbdc6b720b63067d99c4d77d6047d
+      #   uses: codecov/codecov-action@54bcd8715eee62d40e33596ef5e8f0f48dbbccab
       #   with:
       #     fail_ci_if_error: true
       #     verbose: true
