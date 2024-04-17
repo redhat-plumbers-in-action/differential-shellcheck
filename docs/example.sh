@@ -4,13 +4,13 @@
 # Quoting
 # =======
 
-# echo $1                           # Unquoted variables
+echo $1                           # Unquoted variables
 # rm "~/my file.txt"                # Quoted tilde expansion
 # v='--verbose="true"'; cmd $v      # Literal quotes in variables
-# touch $@                          # Unquoted $@
-# echo 'Path is $PATH'              # Variables in single quotes
+touch $@                          # Unquoted $@
+echo 'Path is $PATH'              # Variables in single quotes
 # trap "echo Took ${SECONDS}s" 0    # Prematurely expanded trap
-# unset var[i]                      # Array index treated as glob
+unset var[i]                      # Array index treated as glob
 
 # Conditionals
 # ============
