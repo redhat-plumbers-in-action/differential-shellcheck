@@ -24,7 +24,12 @@ RUN dnf -y install git koji jq \
 RUN koji download-build --arch ${arch} ${rpm_shellcheck} \
     && koji download-build --arch ${arch} ${rpm_csdiff}
 
-RUN dnf -y install "./${rpm_shellcheck}" "./${rpm_csdiff}" \
+RUN dnf -y install "./${rpm_shellcheck}" \
+    && dnf clean all
+
+RUN dnf install -y dnf-plugins-core \
+    && dnf copr enable -y packit/csutils-csdiff-170 \
+    && dnf install -y csdiff \
     && dnf clean all
 
 # --- Setup --- #
