@@ -306,13 +306,15 @@ is_debug () {
 uploadSARIF () {
   is_debug && local verbose=--verbose
 
+  echo '{"commit_oid":"'"${HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}' > payload.json
+
   local curl_args=(
     "${verbose:---silent}"
     -X PUT
     -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/analysis"
     -H "Authorization: token ${INPUT_TOKEN}"
     -H "Accept: application/vnd.github.v3+json"
-    -d '{"commit_oid":"'"${HEAD}"'","ref":"'"${GITHUB_REF//merge/head}"'","analysis_key":"differential-shellcheck","sarif":"'"$(gzip -c output.sarif | base64 -w0)"'","tool_names":["differential-shellcheck"]}'
+    -d "@payload.json"
   )
 
   if curl "${curl_args[@]}" &> curl_std; then
