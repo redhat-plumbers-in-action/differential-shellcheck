@@ -8,6 +8,10 @@
 * Container images now based on Fedora 40
 * Update `csutils` (`csdiff`) to 3.2.1
 
+## v5.1.0
+
+* Improve shell script detection based on emacs file mode header
+
 ## v5.0.2
 
 * Container images now based on Fedora 39
