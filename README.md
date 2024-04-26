@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 MD041 -->
 <p align="center">
-  <img src="https://github.com/redhat-plumbers-in-action/team/blob/70f67465cc46e02febb16aaa1cace2ceb82e6e5c/members/green-plumber.png" width="100" />
+  <img src="https://github.com/redhat-plumbers-in-action/team/blob/70f67465cc46e02febb16aaa1cace2ceb82e6e5c/members/green-plumber.png" width="100" alt="Differential ShellCheck" />
   <h1 align="center">Differential ShellCheck</h1>
 </p>
 
@@ -111,7 +111,7 @@ jobs:
 <details>
   <summary>Console output example</summary>
   <p align="center">
-    <img src="docs/images/output-example.png" width="800" />
+    <img src="docs/images/output-example.png" width="800" alt="Console output example" />
   </p>
 </details>
 
@@ -120,7 +120,7 @@ jobs:
   <p align="center">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="docs/images/job-summary-dark.png">
-      <img src="docs/images/job-summary-light.png" width="600" />
+      <img src="docs/images/job-summary-light.png" width="600" alt="Example of Job Summary" />
     </picture>
   </p>
 </details>
@@ -130,7 +130,7 @@ jobs:
   <p align="center">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="docs/images/sarif-output-example-dark.png">
-      <img src="docs/images/sarif-output-example-light.png" width="600" />
+      <img src="docs/images/sarif-output-example-light.png" width="600" alt="Example of output in Changed files tab" />
     </picture>
   </p>
 </details>
@@ -140,7 +140,7 @@ jobs:
   <p align="center">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="docs/images/sarif-comment-dark.png">
-      <img src="docs/images/sarif-comment-light.png" width="600" />
+      <img src="docs/images/sarif-comment-light.png" width="600" alt="Example of @github-code-scanning bot review comment" />
     </picture>
   </p>
 </details>
@@ -357,11 +357,11 @@ _Code scanning is available for all public repositories on GitHub.com. Code scan
 Differential ShellCheck doesn't have a VS Code plugin, but results can be accessed by using [SARIF Viewer](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer) VS Code extension provided by Microsoft. Once installed, you have to connect your GitHub account with VS Code. Then, if you open a repository that uses Differential ShellCheck, you will see reported defects directly in your VS Code IDE.
 
 <p align="center">
-  <img src="docs/images/vs-code-sarif-connect-dark.png" width="450" />
+  <img src="docs/images/vs-code-sarif-connect-dark.png" width="450" alt="VS Code SARIF connect" />
 </p>
 
 <p align="center">
-  <img src="docs/images/vs-code-sarif-results-dark.png" width="550" />
+  <img src="docs/images/vs-code-sarif-results-dark.png" width="550" alt="VS Code SARIF results" />
 </p>
 
 ## Limitations
