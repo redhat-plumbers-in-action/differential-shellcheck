@@ -87,6 +87,7 @@ jobs:
       - name: Repository checkout
         uses: actions/checkout@v4
         with:
+          # Differential ShellCheck requires full git history
           fetch-depth: 0
 
       - id: ShellCheck
