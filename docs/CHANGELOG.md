@@ -2,7 +2,11 @@
 
 ## Next release
 
-* Update `csutils` (`csdiff`) to 3.2.0
+## v5.1.2
+
+* Fix curl Argument list too long by using a payload.json file - by @mpoberezhniy
+* Container images now based on Fedora 40
+* Update `csutils` (`csdiff`) to 3.2.1
 
 ## v5.0.2
 
