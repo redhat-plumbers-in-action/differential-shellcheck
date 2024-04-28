@@ -1,6 +1,8 @@
 # shellcheck shell=bash
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+WORK_DIR="${WORK_DIR-../}"
+
 # Print scanning summary
 summary () {
   scan_summary=""
@@ -72,7 +74,7 @@ Scanned/Changed scripts: \`${#list_of_changed_scripts[@]}\`
 get_number_of () {
   [[ $# -le 0 ]] && return 1
 
-  file="../${1}.log"
+  file="${WORK_DIR}${1}.log"
   [[ -s "${file}" ]] || return 1
 
   jq '.defects | length' "${file}"

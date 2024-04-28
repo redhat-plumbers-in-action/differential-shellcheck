@@ -6,6 +6,8 @@ CURRENT_DIR="$(dirname "$(readlink -f "$0")")"
 # shellcheck source=functions.sh
 . "${SCRIPT_DIR="${CURRENT_DIR}/"}functions.sh"
 
+WORK_DIR="${WORK_DIR-../}"
+
 declare \
   GITHUB_STEP_SUMMARY
 
@@ -27,20 +29,20 @@ is_full_scan_demanded
 FULL_SCAN=$?
 
 if [[ ${FULL_SCAN} -eq 0 ]]; then
-  git ls-tree -r --name-only -z "${GITHUB_REF_NAME-"main"}" > ../files.txt
+  git ls-tree -r --name-only -z "${GITHUB_REF_NAME-"main"}" > "${WORK_DIR}files.txt"
 
   all_scripts=()
-  get_scripts_for_scanning "../files.txt" "all_scripts"
+  get_scripts_for_scanning "${WORK_DIR}files.txt" "all_scripts"
 fi
 
 if ! [[ ${FULL_SCAN} -eq 0 ]] || ! is_strict_check_on_push_demanded; then
   # https://github.com/actions/runner/issues/342
   # Get the names of files from range of commits (excluding deleted files)
   # BASE and HEAD are always set, it is checked inside pick_base_and_head_hash function
-  git diff --name-only -z --diff-filter=db "${BASE}".."${HEAD}" > ../changed-files.txt
+  git diff --name-only -z --diff-filter=db "${BASE}".."${HEAD}" > "${WORK_DIR}changed-files.txt"
 
   only_changed_scripts=()
-  get_scripts_for_scanning "../changed-files.txt" "only_changed_scripts"
+  get_scripts_for_scanning "${WORK_DIR}changed-files.txt" "only_changed_scripts"
 fi
 
 echo -e "${VERSIONS_HEADING}"
@@ -58,25 +60,25 @@ echo
 # ------------ #
 
 if [[ ${FULL_SCAN} -eq 0 ]]; then
-  execute_shellcheck "${all_scripts[@]}" > ../full-shellcheck.err
+  execute_shellcheck "${all_scripts[@]}" > "${WORK_DIR}full-shellcheck.err"
 fi
 
 exit_status=0
 
 if ! is_strict_check_on_push_demanded; then
-  execute_shellcheck "${only_changed_scripts[@]}" > ../head-shellcheck.err
+  execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}head-shellcheck.err"
 
   # Checkout the base branch/commit
   git checkout --force --quiet -b ci_br_dest "${BASE}" || git checkout --force --quiet "${BASE}"
 
-  execute_shellcheck "${only_changed_scripts[@]}" > ../base-shellcheck.err
+  execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}base-shellcheck.err"
 
-  get_fixes "../base-shellcheck.err" "../head-shellcheck.err"
+  get_fixes "${WORK_DIR}base-shellcheck.err" "${WORK_DIR}head-shellcheck.err"
   evaluate_and_print_fixes
 
-  get_defects "../head-shellcheck.err" "../base-shellcheck.err"
+  get_defects "${WORK_DIR}head-shellcheck.err" "${WORK_DIR}base-shellcheck.err"
 else
-  mv ../full-shellcheck.err ../defects.log
+  mv "${WORK_DIR}full-shellcheck.err" "${WORK_DIR}defects.log"
 fi
 
 echo
@@ -89,9 +91,9 @@ exit_status=$?
 
 # Upload all defects when Full scan was requested
 if [[ ${FULL_SCAN} -eq 0 ]]; then
-  cp ../full-shellcheck.err ../sarif-defects.log
+  cp "${WORK_DIR}full-shellcheck.err" "${WORK_DIR}sarif-defects.log"
 else
-  cp ../defects.log ../sarif-defects.log
+  cp "${WORK_DIR}defects.log" "${WORK_DIR}sarif-defects.log"
 fi
 
 shellcheck_version=$(get_shellcheck_version)
@@ -103,7 +105,7 @@ csgrep \
   --set-scan-prop='tool:ShellCheck' \
   --set-scan-prop="tool-version:${shellcheck_version}" \
   --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
-  '../sarif-defects.log' > output.sarif
+  "${WORK_DIR}sarif-defects.log" > output.sarif
 
 echo "sarif=output.sarif" >> "${GITHUB_OUTPUT}"
 

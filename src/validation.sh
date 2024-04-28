@@ -4,6 +4,8 @@
 # shellcheck source=summary.sh
 . "${SCRIPT_DIR=}summary.sh"
 
+WORK_DIR="${WORK_DIR-../}"
+
 # Get file containing fixes based on two input files
 # $1 - <string> absolute path to a file containing results from BASE scan
 # $2 - <string> absolute path to a file containing results from HEAD scan
@@ -12,19 +14,19 @@
 get_fixes () {
   [[ $# -le 1 ]] && return 1
 
-  csdiff --fixed "${1}" "${2}" > ../fixes.log
+  csdiff --fixed "${1}" "${2}" > "${WORK_DIR}fixes.log"
 }
 
 # Function to evaluate results of fixed defects and to provide feedback on standard output
 # It expects file '../fixes.log' to contain fixes
 # $? - return value is always 0
 evaluate_and_print_fixes () {
-  gather_statistics "../fixes.log"
+  gather_statistics "${WORK_DIR}fixes.log"
 
   num_of_fixes=$(get_number_of fixes)
   if [[ "${num_of_fixes}" -gt 0 ]]; then
     echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
-    csgrep --embed-context 2 ../fixes.log
+    csgrep --embed-context 2 "${WORK_DIR}fixes.log"
   else
     echo -e "ℹ️ ${YELLOW}No Fixes!${NOCOLOR}"
   fi
@@ -38,21 +40,21 @@ evaluate_and_print_fixes () {
 get_defects () {
   [[ $# -le 1 ]] && return 1
 
-  csdiff --fixed "${1}" "${2}" > ../defects.log
+  csdiff --fixed "${1}" "${2}" > "${WORK_DIR}defects.log"
 }
 
 # Function to evaluate results of defects and to provide feedback on standard output
 # It expects file '../defects.log' to contain defects
 # $? - return value - 0 on success
 evaluate_and_print_defects () {
-  gather_statistics "../defects.log"
+  gather_statistics "${WORK_DIR}defects.log"
 
   num_of_defects=$(get_number_of defects)
   if [[ "${num_of_defects}" -gt 0 ]] ; then
     print_statistics
 
     echo -e "✋ ${YELLOW}Defects, NEEDS INSPECTION${NOCOLOR}"
-    csgrep --embed-context 4 ../defects.log
+    csgrep --embed-context 4 "${WORK_DIR}defects.log"
     return 1
   fi
 
