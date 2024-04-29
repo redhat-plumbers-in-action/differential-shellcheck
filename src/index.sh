@@ -11,6 +11,9 @@ WORK_DIR="${WORK_DIR-../}"
 declare \
   GITHUB_STEP_SUMMARY
 
+export GROUP="::group::"
+export ENDGROUP="::endgroup::"
+
 # Make directory $GITHUB_WORKSPACE (/github/workspace) git-save
 git config --global --add safe.directory "${GITHUB_WORKSPACE:-}"
 
@@ -50,9 +53,9 @@ show_versions
 
 echo -e "${MAIN_HEADING}"
 
-echo -e "::group::📜 ${WHITE}List of shell scripts for scanning${NOCOLOR}"
+echo -e "${GROUP}📜 ${WHITE}List of shell scripts for scanning${NOCOLOR}"
   echo "${all_scripts[@]:-${only_changed_scripts[@]}}"
-echo "::endgroup::"
+echo "${ENDGROUP}"
 echo
 
 # ------------ #

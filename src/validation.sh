@@ -5,6 +5,8 @@
 . "${SCRIPT_DIR=}summary.sh"
 
 WORK_DIR="${WORK_DIR-../}"
+GROUP=${GROUP-"::group::"}
+ENDGROUP=${ENDGROUP-"::endgroup::"}
 
 # Get file containing fixes based on two input files
 # $1 - <string> absolute path to a file containing results from BASE scan
@@ -64,11 +66,11 @@ evaluate_and_print_defects () {
 # Function to print statistics of defects
 # it requires gather_statistics to be called first
 print_statistics () {
-  echo -e "::group::📊 ${WHITE}Statistics of defects${NOCOLOR}"
+  echo -e "${GROUP}📊 ${WHITE}Statistics of defects${NOCOLOR}"
     [[ -n ${stat_error} ]] && echo -e "Error: ${stat_error}"
     [[ -n ${stat_warning} ]] && echo -e "Warning: ${stat_warning}"
     [[ -n ${stat_info} ]] && echo -e "Style or Note: ${stat_info}"
-  echo "::endgroup::"
+  echo "${ENDGROUP}"
   echo
 }
 
