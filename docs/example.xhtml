@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head><title>Scan Results</title></head>
+<body style='background: white;'>
+<h1>Scan Results</h1>
+<h2>List of Defects</h2>
+<pre style='white-space: pre-wrap;'>
+<a name='def1'/><b>Error: <span style='background: #C0FF00;'>SHELLCHECK_WARNING</span>:</b> <a href ='#def1'>[#def1]</a>
+docs/example.sh:7:7: info[<b><a href="https://github.com/koalaman/shellcheck/wiki/SC2086" title="description of ShellCheck's checker SC2086">SC2086</a></b>]: Double quote to prevent globbing and word splitting.
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    4|   # Quoting</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    5|   # =======</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    6|   </span></span>
+<span style='color: #00C0C0;'>#<span style='color: #000000;'>    7|-&gt;  echo $1                           # Unquoted variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    8|    rm &quot;~/my file.txt&quot;                # Quoted tilde expansion</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    9|    v=&apos;--verbose=&quot;true&quot;&apos;; cmd $v      # Literal quotes in variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   10|   # touch $@                          # Unquoted $@</span></span>
+
+<a name='def2'/><b>Error: <span style='background: #C0FF00;'>SHELLCHECK_WARNING</span>:</b> <a href ='#def2'>[#def2]</a>
+docs/example.sh:8:6: warning[<b><a href="https://github.com/koalaman/shellcheck/wiki/SC2088" title="description of ShellCheck's checker SC2088">SC2088</a></b>]: Tilde does not expand in quotes. Use $HOME.
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    5|   # =======</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    6|   </span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    7|    echo $1                           # Unquoted variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #000000;'>    8|-&gt;  rm &quot;~/my file.txt&quot;                # Quoted tilde expansion</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    9|    v=&apos;--verbose=&quot;true&quot;&apos;; cmd $v      # Literal quotes in variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   10|   # touch $@                          # Unquoted $@</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   11|   # echo &apos;Path is $PATH&apos;              # Variables in single quotes</span></span>
+
+<a name='def3'/><b>Error: <span style='background: #C0FF00;'>SHELLCHECK_WARNING</span>:</b> <a href ='#def3'>[#def3]</a>
+docs/example.sh:9:4: warning[<b><a href="https://github.com/koalaman/shellcheck/wiki/SC2089" title="description of ShellCheck's checker SC2089">SC2089</a></b>]: Quotes/backslashes will be treated literally. Rewrite using set/&quot;$@&quot; or functions.
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    6|   </span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    7|    echo $1                           # Unquoted variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    8|    rm &quot;~/my file.txt&quot;                # Quoted tilde expansion</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #000000;'>    9|-&gt;  v=&apos;--verbose=&quot;true&quot;&apos;; cmd $v      # Literal quotes in variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   10|   # touch $@                          # Unquoted $@</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   11|   # echo &apos;Path is $PATH&apos;              # Variables in single quotes</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   12|   # trap &quot;echo Took ${SECONDS}s&quot; 0    # Prematurely expanded trap</span></span>
+
+<a name='def4'/><b>Error: <span style='background: #C0FF00;'>SHELLCHECK_WARNING</span>:</b> <a href ='#def4'>[#def4]</a>
+docs/example.sh:9:28: warning[<b><a href="https://github.com/koalaman/shellcheck/wiki/SC2090" title="description of ShellCheck's checker SC2090">SC2090</a></b>]: Quotes/backslashes in this variable will not be respected.
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    6|   </span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    7|    echo $1                           # Unquoted variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    8|    rm &quot;~/my file.txt&quot;                # Quoted tilde expansion</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #000000;'>    9|-&gt;  v=&apos;--verbose=&quot;true&quot;&apos;; cmd $v      # Literal quotes in variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   10|   # touch $@                          # Unquoted $@</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   11|   # echo &apos;Path is $PATH&apos;              # Variables in single quotes</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   12|   # trap &quot;echo Took ${SECONDS}s&quot; 0    # Prematurely expanded trap</span></span>
+
+<a name='def5'/><b>Error: <span style='background: #C0FF00;'>SHELLCHECK_WARNING</span>:</b> <a href ='#def5'>[#def5]</a>
+docs/example.sh:9:28: style[<b><a href="https://github.com/koalaman/shellcheck/wiki/SC2248" title="description of ShellCheck's checker SC2248">SC2248</a></b>]: Prefer double quoting even when variables don&apos;t contain special characters.
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    6|   </span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    7|    echo $1                           # Unquoted variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    8|    rm &quot;~/my file.txt&quot;                # Quoted tilde expansion</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #000000;'>    9|-&gt;  v=&apos;--verbose=&quot;true&quot;&apos;; cmd $v      # Literal quotes in variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   10|   # touch $@                          # Unquoted $@</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   11|   # echo &apos;Path is $PATH&apos;              # Variables in single quotes</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   12|   # trap &quot;echo Took ${SECONDS}s&quot; 0    # Prematurely expanded trap</span></span>
+
+<a name='def6'/><b>Error: <span style='background: #C0FF00;'>SHELLCHECK_WARNING</span>:</b> <a href ='#def6'>[#def6]</a>
+docs/example.sh:9:28: style[<b><a href="https://github.com/koalaman/shellcheck/wiki/SC2250" title="description of ShellCheck's checker SC2250">SC2250</a></b>]: Prefer putting braces around variable references even when not strictly required.
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    6|   </span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    7|    echo $1                           # Unquoted variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>    8|    rm &quot;~/my file.txt&quot;                # Quoted tilde expansion</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #000000;'>    9|-&gt;  v=&apos;--verbose=&quot;true&quot;&apos;; cmd $v      # Literal quotes in variables</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   10|   # touch $@                          # Unquoted $@</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   11|   # echo &apos;Path is $PATH&apos;              # Variables in single quotes</span></span>
+<span style='color: #00C0C0;'>#<span style='color: #C0C0C0;'>   12|   # trap &quot;echo Took ${SECONDS}s&quot; 0    # Prematurely expanded trap</span></span>
+
+</pre>
+</body>
+</html>

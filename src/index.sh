@@ -108,7 +108,14 @@ csgrep \
   --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
   "${WORK_DIR}sarif-defects.log" > output.sarif
 
+# Produce report in HTML format
+cshtml \
+  "${WORK_DIR}sarif-defects.log" > output.xhtml
+
+# shellcheck disable=SC2154
+# GITHUB_OUTPUT is GitHub Actions environment variable
 echo "sarif=output.sarif" >> "${GITHUB_OUTPUT}"
+echo "html=output.xhtml" >> "${GITHUB_OUTPUT}"
 
 # SARIF upload
 if [[ -n "${INPUT_TOKEN}" ]]; then

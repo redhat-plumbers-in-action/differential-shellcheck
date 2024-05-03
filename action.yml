@@ -82,7 +82,9 @@ inputs:
 
 outputs:
   sarif:
-    description: 'The SARIF file containing defects'
+    description: The SARIF file containing defects
+  html:
+    description: The HTML file containing defects
 
 runs:
   using: docker
