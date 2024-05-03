@@ -101,6 +101,7 @@ shellcheck_version=$(get_shellcheck_version)
 # GitHub requires an absolute path, so let's remove the './' prefix from it.
 csgrep \
   --strip-path-prefix './' \
+  --embed-context 4 \
   --mode=sarif \
   --set-scan-prop='tool:ShellCheck' \
   --set-scan-prop="tool-version:${shellcheck_version}" \
