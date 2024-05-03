@@ -6,7 +6,7 @@
 
 [![GitHub Marketplace][market-status]][market] [![Lint Code Base][linter-status]][linter] [![Unit Tests][test-status]][test]
 
-![OSSF-Scorecard Score][scorecard-status] [![OpenSSF Best Practices][best-practices-status]][best-practices] [![codecov][codecov-status]][codecov]  [![Mergify Status][mergify-status]][mergify]
+![OSSF-Scorecard Score][scorecard-status] [![OpenSSF Best Practices][best-practices-status]][best-practices] [![codecov][codecov-status]][codecov]
 
 <!-- Status links -->
 
@@ -26,9 +26,6 @@
 
 [best-practices]: https://bestpractices.coreinfrastructure.org/projects/6540
 [best-practices-status]: https://bestpractices.coreinfrastructure.org/projects/6540/badge
-
-[mergify]: https://mergify.com
-[mergify-status]: https://img.shields.io/endpoint.svg?url=https://api.mergify.com/v1/badges/redhat-plumbers-in-action/differential-shellcheck&style=flat
 
 <!-- -->
 
