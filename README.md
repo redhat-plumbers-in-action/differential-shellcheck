@@ -346,6 +346,29 @@ Relative path to SARIF file containing detected defects. Example of use:
     sarif_file: ${{ steps.ShellCheck.outputs.sarif }}
 ```
 
+### html
+
+Relative path to HTML file containing detected defects. Example of use:
+
+```yaml
+- id: ShellCheck
+  name: Differential ShellCheck
+  uses: redhat-plumbers-in-action/differential-shellcheck@v5
+
+- if: ${{ always() }}
+  name: Upload artifact with ShellCheck defects in HTML format
+  uses: actions/upload-artifact@v4
+  with:
+    name: Differential ShellCheck HTML
+    path: ${{ steps.ShellCheck.outputs.html }}
+```
+
+[Example](docs/example.xhtml) of HTML output:
+
+<p align="center">
+  <img src="docs/images/html-output-exmple.png" width="800" alt="HTML output example" />
+</p>
+
 ## Using with Private repositories
 
 Differential ShellCheck GitHub Action could be used in private repositories by any user. But code scanning-related features are available only for GitHub Enterprise users, as mentioned in [GitHub Documentation](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning):
