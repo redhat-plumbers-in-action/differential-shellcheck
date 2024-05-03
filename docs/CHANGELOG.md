@@ -2,6 +2,7 @@
 
 ## Next release
 
+* Provide `html` output with detected defects
 * Update `csutils` (`csdiff`) to 3.2.2
   * propagate the imp flag as level in the SARIF format
   * propagate endLine/endColumn in the JSON and SARIF formats
