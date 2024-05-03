@@ -96,7 +96,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: ${{ always() }}
+      - if: always()
         name: Upload artifact with ShellCheck defects in SARIF format
         uses: actions/upload-artifact@v4
         with:
@@ -332,14 +332,14 @@ Relative path to SARIF file containing detected defects. Example of use:
   name: Differential ShellCheck
   uses: redhat-plumbers-in-action/differential-shellcheck@v5
 
-- if: ${{ always() }}
+- if: always()
   name: Upload artifact with ShellCheck defects in SARIF format
   uses: actions/upload-artifact@v4
   with:
     name: Differential ShellCheck SARIF
     path: ${{ steps.ShellCheck.outputs.sarif }}
 
-- if: ${{ always() }}
+- if: always()
   name: Upload SARIF to GitHub using github/codeql-action/upload-sarif
   uses: github/codeql-action/upload-sarif@v2
   with:
@@ -355,7 +355,7 @@ Relative path to HTML file containing detected defects. Example of use:
   name: Differential ShellCheck
   uses: redhat-plumbers-in-action/differential-shellcheck@v5
 
-- if: ${{ always() }}
+- if: always()
   name: Upload artifact with ShellCheck defects in HTML format
   uses: actions/upload-artifact@v4
   with:

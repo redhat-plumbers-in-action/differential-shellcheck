@@ -43,7 +43,7 @@ jobs:
             src/**.{zsh,osh}
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: ${{ always() }}
+      - if: always()
         name: Upload artifact with defects in SARIF format
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
@@ -51,7 +51,7 @@ jobs:
           path: ${{ steps.ShellCheck.outputs.sarif }}
           retention-days: 7
 
-      - if: ${{ always() }}
+      - if: always()
         name: Upload artifact with defects in XHTML format
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
