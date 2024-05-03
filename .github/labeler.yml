@@ -1,0 +1,23 @@
+---
+
+configuration:
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.yml'
+      - Dockerfile
+      - .shellcheckrc
+      - Makefile
+
+documentation:
+  - changed-files:
+    - any-glob-to-any-file:
+      - docs/**
+      - '**/*.md'
+
+source:
+  - changed-files:
+    - any-glob-to-any-file: src/**
+
+test:
+  - changed-files:
+    - any-glob-to-any-file: test/**
