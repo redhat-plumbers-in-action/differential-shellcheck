@@ -343,6 +343,10 @@ Relative path to SARIF file containing detected defects. Example of use:
     sarif_file: ${{ steps.ShellCheck.outputs.sarif }}
 ```
 
+> [!TIP]
+>
+> `sarif` output can be used together with tools like [`microsoft/sarif-tools`](https://github.com/microsoft/sarif-tools?tab=readme-ov-file#sarif-tools) to convert SARIF to other formats like `codeclimate`, `csv`, `docx` and more. [Example of use](https://github.com/microsoft/sarif-tools?tab=readme-ov-file#suggested-usage-in-ci-pipelines).
+
 ### html
 
 Relative path to HTML file containing detected defects. Example of use:
