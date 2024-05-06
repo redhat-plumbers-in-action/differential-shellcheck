@@ -322,7 +322,7 @@ Differential ShellCheck exposes following [outputs](https://docs.github.com/en/a
 
 ### sarif
 
-Relative path to SARIF file containing detected defects. Example of use:
+Relative path to the SARIF file containing detected defects. Example of how to use `sarif` output within the workflow:
 
 ```yaml
 - id: ShellCheck
@@ -349,7 +349,7 @@ Relative path to SARIF file containing detected defects. Example of use:
 
 ### html
 
-Relative path to HTML file containing detected defects. Example of use:
+Relative path to the HTML file containing detected defects. Example of how to use `html` output within the workflow:
 
 ```yaml
 - id: ShellCheck
