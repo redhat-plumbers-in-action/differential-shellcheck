@@ -5,6 +5,8 @@ CURRENT_DIR="$(dirname "$(readlink -f "$0")")"
 
 # shellcheck source=functions.sh
 . "${SCRIPT_DIR="${CURRENT_DIR}/"}functions.sh"
+# shellcheck source=setup.sh
+. "${SCRIPT_DIR=}setup.sh"
 
 WORK_DIR="${WORK_DIR-../}"
 

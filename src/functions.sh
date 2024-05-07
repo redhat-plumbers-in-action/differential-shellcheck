@@ -300,6 +300,8 @@ is_debug () {
 }
 
 # Function to check if the script is run in GitHub Actions environment
+# GITHUB_ACTIONS is set when Differential ShellCheck is running in GitHub Actions
+# https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
 is_github_actions () {
   if [[ -z "${GITHUB_ACTIONS}" ]]; then
     return 1
