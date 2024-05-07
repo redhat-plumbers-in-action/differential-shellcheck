@@ -299,6 +299,15 @@ is_debug () {
   return ${result}
 }
 
+# Function to check if the script is run in GitHub Actions environment
+is_github_actions () {
+  if [[ -z "${GITHUB_ACTIONS}" ]]; then
+    return 1
+  fi
+
+  return 0
+}
+
 # Function to upload the SARIF report to GitHub
 # Source: https://github.com/github/codeql-action/blob/dbe6f211e66b3aa5e9a5c4731145ed310ed54e28/lib/upload-lib.js#L104-L106
 # Parameters: https://github.com/github/codeql-action/blob/69e09909dc219ed3374913e41c167490fc57202a/lib/upload-lib.js#L211-L224
