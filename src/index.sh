@@ -98,17 +98,7 @@ else
   cp "${WORK_DIR}defects.log" "${WORK_DIR}sarif-defects.log"
 fi
 
-shellcheck_version=$(get_shellcheck_version)
-
-# GitHub requires an absolute path, so let's remove the './' prefix from it.
-csgrep \
-  --strip-path-prefix './' \
-  --embed-context 4 \
-  --mode=sarif \
-  --set-scan-prop='tool:ShellCheck' \
-  --set-scan-prop="tool-version:${shellcheck_version}" \
-  --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
-  "${WORK_DIR}sarif-defects.log" > output.sarif
+generate_SARIF "${WORK_DIR}sarif-defects.log" "output.sarif"
 
 # Produce report in HTML format
 cshtml \

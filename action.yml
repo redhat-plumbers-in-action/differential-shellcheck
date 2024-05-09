@@ -76,6 +76,11 @@ inputs:
     default: ''
     required: false
 
+  display-engine:
+    description: Tool used to display the defects in the output. Valid values are csgrep and sarif-fmt.
+    default: csgrep
+    required: false
+
   token:
     description: GitHub TOKEN used to upload SARIF data.
     required: false
@@ -101,3 +106,4 @@ runs:
     INPUT_SCAN_DIRECTORY: ${{ inputs.scan-directory }}
     INPUT_EXCLUDE_PATH: ${{ inputs.exclude-path }}
     INPUT_INCLUDE_PATH: ${{ inputs.include-path }}
+    INPUT_DISPLAY_ENGINE: ${{ inputs.display-engine }}

@@ -303,11 +303,35 @@ is_debug () {
 # GITHUB_ACTIONS is set when Differential ShellCheck is running in GitHub Actions
 # https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
 is_github_actions () {
-  if [[ -z "${GITHUB_ACTIONS}" ]]; then
-    return 1
-  fi
-
+  [[ -z "${GITHUB_ACTIONS}" ]] && return 1
   return 0
+}
+
+# Function to check if the script is run in unit tests environment
+is_unit_tests () {
+  [[ -z "${UNIT_TESTS}" ]] && return 1
+  return 0
+}
+
+# Function to generate SARIF report
+# $1 - <string> path to a file containing defects detected by scan
+# $2 - <string> name of resulting SARIF file
+generate_SARIF () {
+  [[ $# -le 1 ]] && return 1
+  local defects=$1
+  local output=$2
+
+  shellcheck_version=$(get_shellcheck_version)
+
+  # GitHub requires an absolute path, so let's remove the './' prefix from it.
+  csgrep \
+    --strip-path-prefix './' \
+    --embed-context 4 \
+    --mode=sarif \
+    --set-scan-prop='tool:ShellCheck' \
+    --set-scan-prop="tool-version:${shellcheck_version}" \
+    --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
+    "${defects}" > "${output}"
 }
 
 # Function to upload the SARIF report to GitHub
