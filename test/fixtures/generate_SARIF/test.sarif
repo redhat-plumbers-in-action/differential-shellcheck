@@ -1,0 +1,210 @@
+{
+    "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+    "version": "2.1.0",
+    "inlineExternalProperties": [
+        {
+            "externalizedProperties": {
+                "tool": "ShellCheck",
+                "tool-url": "https://www.shellcheck.net/wiki/",
+                "tool-version": "0.9.0"
+            }
+        }
+    ],
+    "runs": [
+        {
+            "tool": {
+                "driver": {
+                    "name": "ShellCheck",
+                    "version": "0.9.0",
+                    "informationUri": "https://www.shellcheck.net/wiki/",
+                    "rules": [
+                        {
+                            "id": "SHELLCHECK_WARNING: warning[SC2034]",
+                            "properties": {
+                                "tags": [
+                                    "ShellCheck"
+                                ]
+                            },
+                            "name": "SC2034",
+                            "help": {
+                                "text": "Defect reference: https://github.com/koalaman/shellcheck/wiki/SC2034",
+                                "markdown": "Defect reference: [SC2034](https://github.com/koalaman/shellcheck/wiki/SC2034)"
+                            }
+                        },
+                        {
+                            "id": "SHELLCHECK_WARNING: warning[SC2115]",
+                            "properties": {
+                                "tags": [
+                                    "ShellCheck"
+                                ]
+                            },
+                            "name": "SC2115",
+                            "help": {
+                                "text": "Defect reference: https://github.com/koalaman/shellcheck/wiki/SC2115",
+                                "markdown": "Defect reference: [SC2115](https://github.com/koalaman/shellcheck/wiki/SC2115)"
+                            }
+                        }
+                    ]
+                }
+            },
+            "results": [
+                {
+                    "ruleId": "SHELLCHECK_WARNING: warning[SC2034]",
+                    "level": "warning",
+                    "locations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "innocent-script.sh"
+                                },
+                                "region": {
+                                    "startLine": 7,
+                                    "endLine": 7
+                                }
+                            }
+                        }
+                    ],
+                    "message": {
+                        "text": "UNUSED_VAR2 appears unused. Verify use (or export if used externally)."
+                    },
+                    "codeFlows": [
+                        {
+                            "threadFlows": [
+                                {
+                                    "locations": [
+                                        {
+                                            "location": {
+                                                "id": 0,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "innocent-script.sh"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 7,
+                                                        "endLine": 7
+                                                    }
+                                                },
+                                                "message": {
+                                                    "text": "UNUSED_VAR2 appears unused. Verify use (or export if used externally)."
+                                                }
+                                            },
+                                            "nestingLevel": 0,
+                                            "kinds": [
+                                                "warning[SC2034]"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "SHELLCHECK_WARNING: warning[SC2115]",
+                    "level": "warning",
+                    "locations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "innocent-script.sh"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "endLine": 11
+                                }
+                            }
+                        }
+                    ],
+                    "message": {
+                        "text": "Use \"${var:?}\" to ensure this never expands to / ."
+                    },
+                    "codeFlows": [
+                        {
+                            "threadFlows": [
+                                {
+                                    "locations": [
+                                        {
+                                            "location": {
+                                                "id": 0,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "innocent-script.sh"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 11,
+                                                        "endLine": 11
+                                                    }
+                                                },
+                                                "message": {
+                                                    "text": "Use \"${var:?}\" to ensure this never expands to / ."
+                                                }
+                                            },
+                                            "nestingLevel": 0,
+                                            "kinds": [
+                                                "warning[SC2115]"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "ruleId": "SHELLCHECK_WARNING: warning[SC2115]",
+                    "level": "warning",
+                    "locations": [
+                        {
+                            "id": 0,
+                            "physicalLocation": {
+                                "artifactLocation": {
+                                    "uri": "innocent-script.sh"
+                                },
+                                "region": {
+                                    "startLine": 11,
+                                    "endLine": 11
+                                }
+                            }
+                        }
+                    ],
+                    "message": {
+                        "text": "Use \"${var:?}\" to ensure this never expands to / ."
+                    },
+                    "codeFlows": [
+                        {
+                            "threadFlows": [
+                                {
+                                    "locations": [
+                                        {
+                                            "location": {
+                                                "id": 0,
+                                                "physicalLocation": {
+                                                    "artifactLocation": {
+                                                        "uri": "innocent-script.sh"
+                                                    },
+                                                    "region": {
+                                                        "startLine": 11,
+                                                        "endLine": 11
+                                                    }
+                                                },
+                                                "message": {
+                                                    "text": "Use \"${var:?}\" to ensure this never expands to / ."
+                                                }
+                                            },
+                                            "nestingLevel": 0,
+                                            "kinds": [
+                                                "warning[SC2115]"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
