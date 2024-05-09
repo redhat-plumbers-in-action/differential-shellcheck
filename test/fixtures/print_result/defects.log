@@ -1,0 +1,49 @@
+{
+    "defects": [
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 7,
+                    "event": "warning[SC2034]",
+                    "message": "UNUSED_VAR2 appears unused. Verify use (or export if used externally).",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        },
+        {
+            "checker": "SHELLCHECK_WARNING",
+            "language": "shell",
+            "tool": "shellcheck",
+            "key_event_idx": 0,
+            "events": [
+                {
+                    "file_name": "innocent-script.sh",
+                    "line": 11,
+                    "event": "warning[SC2115]",
+                    "message": "Use \"${var:?}\" to ensure this never expands to / .",
+                    "verbosity_level": 0
+                }
+            ]
+        }
+    ]
+}

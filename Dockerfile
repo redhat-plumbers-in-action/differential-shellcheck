@@ -17,7 +17,7 @@ ARG rpm_shellcheck="ShellCheck-${version_shellcheck}.fc${fedora}.${arch}.rpm"
 # --- Install dependencies --- #
 
 RUN dnf -y upgrade
-RUN dnf -y install git koji jq \
+RUN dnf -y install git koji jq sarif-fmt \
     && dnf clean all
 
 # Download rpms from koji

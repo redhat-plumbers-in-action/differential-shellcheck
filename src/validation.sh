@@ -17,6 +17,30 @@ get_fixes () {
   csdiff --fixed "${1}" "${2}" > "${WORK_DIR}fixes.log"
 }
 
+# Function to print results of fixed/introduced defects using display engine
+# $1 - <string> file containing results in csdiff JSON format
+# $2 - <number> embedded context value for csgrep
+print_result () {
+  [[ $# -le 0 ]] && return 1
+  local results="$1"
+
+  if [[ "${INPUT_DISPLAY_ENGINE:-'csgrep'}" == "sarif-fmt" ]]; then
+    local color="always"
+    is_unit_tests && color="never"
+
+    # When sarif-fmt is used, we need to generate SARIF file first
+    # only csgrep can utilize JSON output from csdiff
+    generate_SARIF "${results}" "tmp.sarif"
+    sarif-fmt --color="${color}" < "tmp.sarif"
+    rm "tmp.sarif"
+  else
+    [[ $# -le 1 ]] && return 1
+    local context="$2"
+
+    csgrep --embed-context "${context}" "${results}"
+  fi
+}
+
 # Function to evaluate results of fixed defects and to provide feedback on standard output
 # It expects file '../fixes.log' to contain fixes
 # $? - return value is always 0
@@ -26,7 +50,7 @@ evaluate_and_print_fixes () {
   num_of_fixes=$(get_number_of fixes)
   if [[ "${num_of_fixes}" -gt 0 ]]; then
     echo -e "✅ ${GREEN}Fixed defects${NOCOLOR}"
-    csgrep --embed-context 2 "${WORK_DIR}fixes.log"
+    print_result "${WORK_DIR}fixes.log" 2
   else
     echo -e "ℹ️ ${YELLOW}No Fixes!${NOCOLOR}"
   fi
@@ -54,7 +78,7 @@ evaluate_and_print_defects () {
     print_statistics
 
     echo -e "✋ ${YELLOW}Defects, NEEDS INSPECTION${NOCOLOR}"
-    csgrep --embed-context 4 "${WORK_DIR}defects.log"
+    print_result "${WORK_DIR}defects.log" 4
     return 1
   fi
 
