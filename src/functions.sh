@@ -47,19 +47,19 @@ pick_base_and_head_hash () {
     "push")
       export BASE=${INPUT_PUSH_EVENT_BASE:-}
       export HEAD=${INPUT_PUSH_EVENT_HEAD:-}
-      [[ ${UNIT_TESTS:-1} -eq 0 ]] && echo "BASE:\"${BASE}\" ; HEAD:\"${HEAD}\""
+      is_unit_tests && echo "BASE:\"${BASE}\" ; HEAD:\"${HEAD}\""
       ;;
 
     "pull_request")
       export BASE=${INPUT_PULL_REQUEST_BASE:-}
       export HEAD=${INPUT_PULL_REQUEST_HEAD:-}
-      [[ ${UNIT_TESTS:-1} -eq 0 ]] && echo "BASE:\"${BASE}\" ; HEAD:\"${HEAD}\""
+      is_unit_tests && echo "BASE:\"${BASE}\" ; HEAD:\"${HEAD}\""
       ;;
 
     "manual")
       export BASE=${INPUT_BASE:-}
       export HEAD=${INPUT_HEAD:-}
-      [[ ${UNIT_TESTS:-1} -eq 0 ]] && echo "BASE:\"${BASE}\" ; HEAD:\"${HEAD}\""
+      is_unit_tests && echo "BASE:\"${BASE}\" ; HEAD:\"${HEAD}\""
     ;;
 
     *)
@@ -97,7 +97,7 @@ get_scripts_for_scanning () {
   done
 
   eval $output=\("${scripts_for_scanning[*]@Q}"\)
-  [[ ${UNIT_TESTS:-1} -eq 0 ]] && eval echo "\${${output}[@]@Q}"
+  is_unit_tests && eval echo "\${${output}[@]@Q}"
 }
 
 # Function to check whether the given file has the .{,a,ba,da,k}sh and .bats extension
@@ -220,7 +220,7 @@ file_to_array () {
     output+=("${file}")
   done < "${1}"
 
-  [[ ${UNIT_TESTS:-1} -eq 0 ]] && echo "${output[@]}"
+  is_unit_tests && echo "${output[@]}"
 
   eval "${2}"=\("${output[*]@Q}"\)
 }

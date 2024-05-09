@@ -36,7 +36,7 @@ setup () {
 @test "file_to_array() - general" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
-  UNIT_TESTS=0
+  UNIT_TESTS="true"
 
   file_array=()
   run file_to_array "./test/fixtures/file_to_array/files.txt" "file_array"
@@ -45,5 +45,7 @@ setup () {
 }
 
 teardown () {
+  export \
+    UNIT_TESTS=""
   rm -f file.txt
 }

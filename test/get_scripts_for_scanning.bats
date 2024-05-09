@@ -13,7 +13,7 @@ setup () {
 @test "get_scripts_for_scanning() - general" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
-  UNIT_TESTS=0
+  UNIT_TESTS="true"
 
   run get_scripts_for_scanning
   assert_failure 1
