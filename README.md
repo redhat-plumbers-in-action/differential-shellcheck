@@ -307,14 +307,10 @@ List of file paths that will be scanned by ShellCheck. Globbing is supported. Th
 Tool used to display the defects and fixes in the console output. Currently supported tools are [`csgrep`](https://github.com/csutils/csdiff) and [`sarif-fmt`](https://github.com/psastras/sarif-rs/tree/main/sarif-fmt#readme).
 
 <div align="center">
-  <div width="400">
-    <img src="docs/images/csgrep-output-example.png" width="400" alt="csgrep output example" />
-    <p><i>`display-engine: csgrep`</i></p>
-  </div>
-  <div width="400">
-    <img src="docs/images/sarif-fmt-output-example.png" width="400" alt="sarif-fmt output example" />
-    <p><i>`display-engine: sarif-fmt`</i></p>
-  </div>
+  <img src="docs/images/csgrep-output-example.png" width="600" alt="csgrep output example" />
+  <p><i>`display-engine: csgrep`</i></p>
+  <img src="docs/images/sarif-fmt-output-example.png" width="450" alt="sarif-fmt output example" />
+  <p><i>`display-engine: sarif-fmt`</i></p>
 </div>
 
 * requirements: `optional`
