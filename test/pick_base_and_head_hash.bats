@@ -28,7 +28,7 @@ setup () {
   run pick_base_and_head_hash
   assert_failure 2
 
-  UNIT_TESTS=0
+  UNIT_TESTS="true"
   INPUT_PUSH_EVENT_BASE="abcdef123456"
   INPUT_PUSH_EVENT_HEAD="ghijkl789012"
 
@@ -58,7 +58,7 @@ setup () {
   run pick_base_and_head_hash
   assert_failure 2
 
-  UNIT_TESTS=0
+  UNIT_TESTS="true"
   INPUT_PULL_REQUEST_BASE="abcdef123456"
   INPUT_PULL_REQUEST_HEAD="ghijkl789012"
 
@@ -88,7 +88,7 @@ setup () {
   run pick_base_and_head_hash
   assert_failure 2
 
-  UNIT_TESTS=0
+  UNIT_TESTS="true"
   INPUT_BASE="abcdef123456"
   INPUT_HEAD="ghijkl789012"
 
