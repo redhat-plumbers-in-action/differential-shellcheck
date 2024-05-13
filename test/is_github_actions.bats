@@ -12,6 +12,7 @@ setup () {
 
 @test "is_github_actions()" {
   source "${PROJECT_ROOT}/src/functions.sh"
+  GITHUB_ACTIONS=
 
   run is_github_actions
   assert_failure 1
