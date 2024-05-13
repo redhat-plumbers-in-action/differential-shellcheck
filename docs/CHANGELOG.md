@@ -2,6 +2,13 @@
 
 ## Next release
 
+* Add support for different display engines (`csgrep`, `sarif-fmt`)
+* Update `csutils` (`csdiff`) to 3.3.0
+  * `csdiff`: match findings by line content without spaces if available
+  * `csgrep --hash-v1`: match `csdiff/v1` fingerprint prefix
+  * `sarif`: initial implementation of `csdiff/v1` fingerprints
+  * `sarif`: add descriptions for ShellCheck rules
+
 ## v5.2.0
 
 * Provide `html` output with detected defects
