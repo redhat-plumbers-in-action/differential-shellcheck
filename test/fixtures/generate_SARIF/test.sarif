@@ -26,9 +26,15 @@
                                 ]
                             },
                             "name": "SC2034",
+                            "shortDescription": {
+                                "text": "SC2034"
+                            },
                             "help": {
                                 "text": "Defect reference: https://github.com/koalaman/shellcheck/wiki/SC2034",
                                 "markdown": "Defect reference: [SC2034](https://github.com/koalaman/shellcheck/wiki/SC2034)"
+                            },
+                            "fullDescription": {
+                                "text": "Defect reference: https://github.com/koalaman/shellcheck/wiki/SC2034"
                             }
                         },
                         {
@@ -39,9 +45,15 @@
                                 ]
                             },
                             "name": "SC2115",
+                            "shortDescription": {
+                                "text": "SC2115"
+                            },
                             "help": {
                                 "text": "Defect reference: https://github.com/koalaman/shellcheck/wiki/SC2115",
                                 "markdown": "Defect reference: [SC2115](https://github.com/koalaman/shellcheck/wiki/SC2115)"
+                            },
+                            "fullDescription": {
+                                "text": "Defect reference: https://github.com/koalaman/shellcheck/wiki/SC2115"
                             }
                         }
                     ]
@@ -98,7 +110,10 @@
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    "fingerprints": {
+                        "csdiff/v0": "64c37c2cd555f4d61c6e05ebd224beb8147d77bf"
+                    }
                 },
                 {
                     "ruleId": "SHELLCHECK_WARNING: warning[SC2115]",
@@ -150,7 +165,10 @@
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    "fingerprints": {
+                        "csdiff/v0": "d9a3f3f1027ba2a0ca5dc7eb24d7d8b09dbe2b1d"
+                    }
                 },
                 {
                     "ruleId": "SHELLCHECK_WARNING: warning[SC2115]",
@@ -202,7 +220,10 @@
                                 }
                             ]
                         }
-                    ]
+                    ],
+                    "fingerprints": {
+                        "csdiff/v0": "d9a3f3f1027ba2a0ca5dc7eb24d7d8b09dbe2b1d"
+                    }
                 }
             ]
         }
