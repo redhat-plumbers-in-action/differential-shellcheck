@@ -2,6 +2,8 @@
 
 ## Next release
 
+## v5.3.0
+
 * Add support for different display engines (`csgrep`, `sarif-fmt`)
 * Update `csutils` (`csdiff`) to 3.3.0
   * `csdiff`: match findings by line content without spaces if available
