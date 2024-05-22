@@ -70,6 +70,8 @@ exit_status=0
 if ! is_strict_check_on_push_demanded; then
   execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}head-shellcheck.err"
 
+  # Save the current state of the working directory
+  git stash push --quiet
   # Checkout the base branch/commit
   git checkout --force --quiet -b ci_br_dest "${BASE}" || git checkout --force --quiet "${BASE}"
 
@@ -87,6 +89,8 @@ echo
 
 # Checkout the head branch/commit, it's required in order to correctly display defects in console
 git checkout --force --quiet -
+# Restore the working directory to the state before the checkout
+git stash pop --quiet
 
 evaluate_and_print_defects
 exit_status=$?
