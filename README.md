@@ -318,17 +318,19 @@ Tool used to display the defects and fixes in the console output. Currently supp
 
 ### token
 
-Token used to upload findings in SARIF format to GitHub.
+The token is used to upload findings in SARIF format to GitHub.
 
 * default value: `undefined`
 * requirements: `optional`
 
-Token needs to have the following [characteristics](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
+The token needs to have the following [permissions](https://docs.github.com/en/rest/code-scanning#upload-an-analysis-as-sarif-data):
 
-* Token with the `security_events: write` scope to use this endpoint for private repositories.
-* Token with the `public_repo` scope for **public repositories only**.
+* `security_events: write` - required for **all repositories**.
+* `actions: read` and `contents: read` - required only for **private repositories**.
 
-If the `token` isn't passed, SARIF file can be uploaded manually using [sarif from outputs](#sarif) and [github/codeql-action/upload-sarif](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions) GitHub Action.
+> [!TIP]
+>
+> When the `token` isn't passed, the SARIF file won't be uploaded (the GitHub Security Dashboard won't be updated), but the Action will work as expected. SARIF file can also be uploaded manually using [sarif from outputs](#sarif) and [github/codeql-action/upload-sarif](https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/uploading-a-sarif-file-to-github#uploading-a-code-scanning-analysis-with-github-actions) GitHub Action.
 
 ## Outputs
 
