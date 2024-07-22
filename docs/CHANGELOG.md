@@ -2,6 +2,9 @@
 
 ## Next release
 
+* Update `csutils` (`csdiff`) to 3.4.0
+  * HTML output now uses HTML5 and CSS
+
 ## v5.3.0
 
 * Add support for different display engines (`csgrep`, `sarif-fmt`)
