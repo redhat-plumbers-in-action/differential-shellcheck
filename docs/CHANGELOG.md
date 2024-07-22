@@ -2,6 +2,8 @@
 
 ## Next release
 
+## v5.3.1
+
 * Update `csutils` (`csdiff`) to 3.4.0
   * HTML output now uses HTML5 and CSS
 
