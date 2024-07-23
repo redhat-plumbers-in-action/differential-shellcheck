@@ -187,7 +187,7 @@ Action currently accepts following options:
 
 ### triggering-event
 
-The name of the event that triggered the workflow run. Supported values are: `pull_request`, `push` and `manual`.
+The name of the event that triggered the workflow run. Supported values are: `merge_group`, `pull_request`, `push` and `manual`.
 
 * default value: `${{ github.event_name }}`
 * requirements: `optional`
@@ -204,6 +204,20 @@ The name of the event that triggered the workflow run. Supported values are: `pu
 `SHA1` of the commit which refers to the `HEAD` of changes. Input is used only when `triggering-event` is set to `manual`.
 
 * default value: `undefined`
+* requirements: `optional`
+
+### merge-group-base
+
+`SHA1` of the merge group's parent commit. Input is used when `triggering-event` is set to `merge_group`.
+
+* default value: `${{ github.event.merge_group.base_sha }}`
+* requirements: `optional`
+
+### merge-group-head
+
+`SHA1` of the merge group commit. Input is used when `triggering-event` is set to `merge_group`.
+
+* default value: `${{ github.event.merge_group.head_sha }}`
 * requirements: `optional`
 
 ### pull-request-base
@@ -242,6 +256,7 @@ Default types of scans based on `triggering-event` input:
 
 | `triggering-event` | type of scan               |
 |--------------------|----------------------------|
+| `merge_group`      | differential               |
 | `pull_request`     | differential               |
 | `push`             | full                       |
 | `manual`           | based on `diff-scan` input |

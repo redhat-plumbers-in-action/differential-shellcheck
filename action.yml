@@ -10,7 +10,7 @@ branding:
 
 inputs:
   triggering-event:
-    description: The name of the event that triggered the workflow run. Supported values are (pull_request | push | manual).
+    description: The name of the event that triggered the workflow run. Supported values are (merge_group | pull_request | push | manual).
     required: false
     default: ${{ github.event_name }}
 
@@ -22,6 +22,15 @@ inputs:
     description: Hash of head commit. This input is used when triggering-event is set to "manual".
     required: false
     default: ""
+
+  merge-group-base:
+    description: Hash of the merge group's parent commit. This input is used when triggering-event is set to "merge_group".
+    required: false
+    default: ${{ github.event.merge_group.base_sha }}
+  merge-group-head:
+    description: Hash of the merge group commit. This input is used when triggering-event is set to "merge_group".
+    required: false
+    default: ${{ github.event.merge_group.head_sha }}
 
   pull-request-base:
     description: Hash of top commit on base branch. This input is used when triggering-event is set to "pull_request".
@@ -96,6 +105,8 @@ runs:
   image: docker://ghcr.io/redhat-plumbers-in-action/differential-shellcheck:v5.3.1
   env:
     INPUT_TRIGGERING_EVENT: ${{ inputs.triggering-event }}
+    INPUT_MERGE_GROUP_BASE: ${{ inputs.merge-group-base }}
+    INPUT_MERGE_GROUP_HEAD: ${{ inputs.merge-group-head }}
     INPUT_PULL_REQUEST_BASE: ${{ inputs.pull-request-base }}
     INPUT_PULL_REQUEST_HEAD: ${{ inputs.pull-request-head }}
     INPUT_PUSH_EVENT_BASE: ${{ inputs.push-event-base }}

@@ -11,6 +11,10 @@
 # $? - return value - 0 on success
 is_full_scan_demanded () {
   case "${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}}" in
+    "merge_group")
+      return 1
+      ;;
+
     "push")
       return 0
       ;;
@@ -44,6 +48,12 @@ is_strict_check_on_push_demanded () {
 # $? - return value - 0 on success
 pick_base_and_head_hash () {
   case ${INPUT_TRIGGERING_EVENT-${GITHUB_EVENT_NAME}} in
+    "merge_group")
+      export BASE=${INPUT_MERGE_GROUP_BASE:-}
+      export HEAD=${INPUT_MERGE_GROUP_HEAD:-}
+      is_unit_tests && echo "BASE:\"${BASE}\" ; HEAD:\"${HEAD}\""
+      ;;
+
     "push")
       export BASE=${INPUT_PUSH_EVENT_BASE:-}
       export HEAD=${INPUT_PUSH_EVENT_HEAD:-}
@@ -63,7 +73,7 @@ pick_base_and_head_hash () {
     ;;
 
     *)
-      echo -e "❓ ${RED}Value of required variable INPUT_TRIGGERING_EVENT isn't set or contains unsupported value. Supported values are: (pull_request | push | manual).${NOCOLOR}"
+      echo -e "❓ ${RED}Value of required variable INPUT_TRIGGERING_EVENT isn't set or contains unsupported value. Supported values are: (merge_group | pull_request | push | manual).${NOCOLOR}"
       return 1
   esac
 
@@ -96,7 +106,7 @@ get_scripts_for_scanning () {
     has_shebang "${file}" && scripts_for_scanning+=("./${file}")
   done
 
-  eval $output=\("${scripts_for_scanning[*]@Q}"\)
+  eval "${output}"=\("${scripts_for_scanning[*]@Q}"\)
   is_unit_tests && eval echo "\${${output}[@]@Q}"
 }
 
