@@ -351,7 +351,7 @@ The token needs to have the following [permissions](https://docs.github.com/en/r
 
 Differential ShellCheck exposes following [outputs](https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs).
 
-### sarif
+### `sarif`
 
 Relative path to the SARIF file containing detected defects. Example of how to use `sarif` output within the workflow:
 
@@ -378,7 +378,7 @@ Relative path to the SARIF file containing detected defects. Example of how to u
 >
 > `sarif` output can be used together with tools like [`microsoft/sarif-tools`](https://github.com/microsoft/sarif-tools?tab=readme-ov-file#sarif-tools) to convert SARIF to other formats like `codeclimate`, `csv`, `docx` and more. [Example of use](https://github.com/microsoft/sarif-tools?tab=readme-ov-file#suggested-usage-in-ci-pipelines).
 
-### html
+### `html`
 
 Relative path to the HTML file containing detected defects. Example of how to use `html` output within the workflow:
 
@@ -409,14 +409,14 @@ _Code scanning is available for all public repositories on GitHub.com. Code scan
 
 ## Using with Visual Studio Code
 
-Differential ShellCheck doesn't have a VS Code plugin, but results can be accessed by using [SARIF Viewer](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer) VS Code extension provided by Microsoft. Once installed, you have to connect your GitHub account with VS Code. Then, if you open a repository that uses Differential ShellCheck, you will see reported defects directly in your VS Code IDE.
+Differential ShellCheck doesn't have a Visual Studio Code plugin, but results can be accessed by using [SARIF Viewer](https://marketplace.visualstudio.com/items?itemName=MS-SarifVSCode.sarif-viewer) Visual Studio Code extension provided by Microsoft. Once installed, you have to connect your GitHub account with Visual Studio Code. Then, if you open a repository that uses Differential ShellCheck, you will see reported defects directly in your Visual Studio Code IDE.
 
 <p align="center">
-  <img src="docs/images/vs-code-sarif-connect-dark.png" width="450" alt="VS Code SARIF connect" />
+  <img src="docs/images/vs-code-sarif-connect-dark.png" width="450" alt="Visual Studio Code SARIF connect" />
 </p>
 
 <p align="center">
-  <img src="docs/images/vs-code-sarif-results-dark.png" width="550" alt="VS Code SARIF results" />
+  <img src="docs/images/vs-code-sarif-results-dark.png" width="550" alt="Visual Studio Code SARIF results" />
 </p>
 
 ## Limitations
