@@ -10,6 +10,15 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
+@test "is_full_scan_demanded() - trigger event = merge_group" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+
+  INPUT_TRIGGERING_EVENT="merge_group"
+
+  run is_full_scan_demanded
+  assert_failure 1
+}
+
 @test "is_full_scan_demanded() - trigger event = push" {
   source "${PROJECT_ROOT}/src/functions.sh"
 

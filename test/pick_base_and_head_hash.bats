@@ -10,6 +10,36 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
+@test "pick_base_and_head_hash() - trigger event = merge_group" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+
+  INPUT_TRIGGERING_EVENT="merge_group"
+
+  run pick_base_and_head_hash
+  assert_failure 2
+
+  INPUT_MERGE_GROUP_BASE=""
+
+  run pick_base_and_head_hash
+  assert_failure 2
+
+  INPUT_MERGE_GROUP_HEAD=""
+
+  run pick_base_and_head_hash
+  assert_failure 2
+
+  UNIT_TESTS="true"
+  INPUT_MERGE_GROUP_BASE="abcdef123456"
+  INPUT_MERGE_GROUP_HEAD="ghijkl789012"
+
+  run pick_base_and_head_hash
+  assert_success
+  assert_output "BASE:\"${INPUT_MERGE_GROUP_BASE}\" ; HEAD:\"${INPUT_MERGE_GROUP_HEAD}\""
+  # TODO: Doesn't work, don't know why...
+  # assert_equal "\"${BASE}\"" "\"${INPUT_MERGE_GROUP_BASE}\""
+  # assert_equal "\"${HEAD}\"" "\"${INPUT_MERGE_GROUP_HEAD}\""
+}
+
 @test "pick_base_and_head_hash() - trigger event = push" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
@@ -123,6 +153,8 @@ teardown () {
   export \
     INPUT_TRIGGERING_EVENT="" \
     GITHUB_EVENT_NAME="" \
+    INPUT_MERGE_GROUP_BASE="" \
+    INPUT_MERGE_GROUP_HEAD="" \
     INPUT_PUSH_EVENT_BASE="" \
     INPUT_PUSH_EVENT_HEAD="" \
     INPUT_PULL_REQUEST_BASE="" \
