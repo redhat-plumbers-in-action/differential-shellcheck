@@ -6,15 +6,14 @@ on:
   pull_request:
     branches: [ main ]
   merge_group:
-    branches:
-      - main
+    types: [ checks_requested ]
 
 permissions:
   contents: read
 
 jobs:
   lint:
-    name: Test latest changes
+    name: Differential ShellCheck - test current changes
     runs-on: ubuntu-latest
 
     permissions:
@@ -46,9 +45,6 @@ jobs:
             src/**.{zsh,osh}
           display-engine: sarif-fmt
           token: ${{ secrets.GITHUB_TOKEN }}
-          triggering-event: ${{ github.event_name == 'merge_group' && 'manual' || github.event_name }}
-          base: ${{ github.event.merge_group.base_sha }}
-          head: ${{ github.event.merge_group.head_sha }}
 
       - if: always()
         name: Upload artifact with defects in SARIF format

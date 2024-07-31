@@ -2,6 +2,8 @@
 
 ## Next release
 
+* Native support for `merge_group` trigger event
+
 ## v5.3.1
 
 * Update `csutils` (`csdiff`) to 3.4.0
