@@ -2,6 +2,8 @@
 
 ## Next release
 
+## v5.4.0
+
 * Native support for `merge_group` trigger event
 
 ## v5.3.1
