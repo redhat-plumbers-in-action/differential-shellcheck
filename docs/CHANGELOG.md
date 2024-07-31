@@ -227,7 +227,7 @@
 
 * Bugfixes:
   * Make directory /github/workspace git-save
-  * Remove double quotes to avoid git empty pathspec warnings
+  * Remove double quotes to avoid `git` empty pathspec warnings
 * Make GA tests ran on current version of repo/fork
 * Bump actions/checkout from 2 to 3
 
