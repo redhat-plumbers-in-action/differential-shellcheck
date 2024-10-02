@@ -17,5 +17,5 @@ setup () {
   assert_success
   assert_output \
 "ShellCheck: 0.9.0
-csutils: 3.4.0"
+csutils: 3.5.0"
 }
