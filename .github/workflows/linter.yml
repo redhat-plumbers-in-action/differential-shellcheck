@@ -34,4 +34,5 @@ jobs:
           VALIDATE_JSCPD: false
           VALIDATE_SHELL_SHFMT: false
           VALIDATE_YAML_PRETTIER: false
+          VALIDATE_MARKDOWN_PRETTIER: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
