@@ -65,7 +65,7 @@ jobs:
             bats test/*.bats
 
       - name: Codecov - 1st attempt
-        uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
         id: upload_code_coverage_report
         continue-on-error: true
         with:
@@ -79,7 +79,7 @@ jobs:
 
       - name: Codecov - 2nd attempt
         if: steps.upload_code_coverage_report.outcome == 'failure'
-        uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0
+        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
@@ -110,7 +110,7 @@ jobs:
       # There is some issue with code coverage inside the container
       # TODO: Try to finger out how to run kcov inside container and retrieve coverage results
       # - name: Codecov - 1st attempt
-      #   uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0
+      #   uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
       #   id: upload_code_coverage_report
       #   continue-on-error: true
       #   with:
@@ -124,7 +124,7 @@ jobs:
 
       # - name: Codecov - 2nd attempt
       #   if: steps.upload_code_coverage_report.outcome == 'failure'
-      #   uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0
+      #   uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4.6.0
       #   with:
       #     token: ${{ secrets.CODECOV_TOKEN }}
       #     fail_ci_if_error: true
