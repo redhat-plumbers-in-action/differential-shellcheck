@@ -41,7 +41,10 @@ if ! [[ ${FULL_SCAN} -eq 0 ]] || ! is_strict_check_on_push_demanded; then
   # https://github.com/actions/runner/issues/342
   # Get the names of files from range of commits (excluding deleted files)
   # BASE and HEAD are always set, it is checked inside pick_base_and_head_hash function
-  git diff --name-only -z --diff-filter=db "${BASE}".."${HEAD}" > "${WORK_DIR}changed-files.txt"
+  if ! git diff --name-only -z --diff-filter=db "${BASE}".."${HEAD}" > "${WORK_DIR}changed-files.txt"; then
+    echo "::warning:: Please check if the repository was cloned with \`fetch-depth: 0\`. Differential ShellCheck needs the entire history to work correctly."
+     exit 1
+  fi
 
   only_changed_scripts=()
   get_scripts_for_scanning "${WORK_DIR}changed-files.txt" "only_changed_scripts"

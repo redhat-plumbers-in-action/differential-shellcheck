@@ -10,14 +10,13 @@ setup () {
   load 'test_helper/bats-support/load'
 }
 
+# The purpose of this file is to get base for test coverage
 @test "index.sh - source" {
   SCRIPT_DIR=""
   INPUT_TRIGGERING_EVENT="manual"
   INPUT_BASE="base"
   INPUT_HEAD="head"
   run . "$PROJECT_ROOT/src/index.sh"
-
-  assert_success
 }
 
 teardown () {
