@@ -86,5 +86,5 @@ teardown () {
   export \
     INPUT_DISPLAY_ENGINE="" \
     UNIT_TESTS=""
-  rm -f tmp.sarif
+  rm -f tmp.sarif full.sarif
 }
