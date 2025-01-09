@@ -341,7 +341,11 @@ generate_SARIF () {
     --set-scan-prop='tool:ShellCheck' \
     --set-scan-prop="tool-version:${shellcheck_version}" \
     --set-scan-prop='tool-url:https://www.shellcheck.net/wiki/' \
-    "${defects}" > "${output}"
+    "${defects}" > full.sarif
+
+  # Make the SARIF report compact to allow for more efficient uploading to GitHub
+  # It also allows to upload more defects in a single request (GitHub limit is 10MB)
+  jq --compact-output < full.sarif > "${output}"
 }
 
 # Function to upload the SARIF report to GitHub

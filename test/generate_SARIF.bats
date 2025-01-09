@@ -36,5 +36,5 @@ setup () {
 }
 
 teardown () {
-  rm -f test.sarif
+  rm -f test.sarif full.sarif
 }
