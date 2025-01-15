@@ -360,7 +360,7 @@ uploadSARIF () {
   local curl_args=(
     "${verbose:---silent}"
     -X PUT
-    -f "https://api.github.com/repos/${GITHUB_REPOSITORY}/code-scanning/analysis"
+    -f "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/code-scanning/analysis"
     -H "Authorization: token ${INPUT_TOKEN}"
     -H "Accept: application/vnd.github.v3+json"
     -d "@payload.json"
