@@ -66,12 +66,18 @@ echo
 
 if [[ ${FULL_SCAN} -eq 0 ]]; then
   execute_shellcheck "${all_scripts[@]}" > "${WORK_DIR}full-shellcheck.err"
+
+  echo "shellcheck-full=${WORK_DIR}full-shellcheck.err" >> "${GITHUB_OUTPUT}"
+  is_debug && cat "${WORK_DIR}full-shellcheck.err"
 fi
 
 exit_status=0
 
 if ! is_strict_check_on_push_demanded; then
   execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}head-shellcheck.err"
+
+  echo "shellcheck-head=${WORK_DIR}head-shellcheck.err" >> "${GITHUB_OUTPUT}"
+  is_debug && cat "${WORK_DIR}head-shellcheck.err"
 
   # Save the current state of the working directory
   git stash push --quiet
@@ -81,6 +87,10 @@ if ! is_strict_check_on_push_demanded; then
   execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}base-shellcheck.err"
 
   get_fixes "${WORK_DIR}base-shellcheck.err" "${WORK_DIR}head-shellcheck.err"
+
+  echo "shellcheck-base=${WORK_DIR}base-shellcheck.err" >> "${GITHUB_OUTPUT}"
+  is_debug && cat "${WORK_DIR}base-shellcheck.err"
+
   evaluate_and_print_fixes
 
   get_defects "${WORK_DIR}head-shellcheck.err" "${WORK_DIR}base-shellcheck.err"

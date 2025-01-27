@@ -401,6 +401,18 @@ Relative path to the HTML file containing detected defects. Example of how to us
   <img src="docs/images/html-output-exmple.png" width="800" alt="HTML output example" />
 </p>
 
+### `shellcheck-full`
+
+ShellCheck JSON output when Full scan is requested. Useful when debugging.
+
+### `shellcheck-head`
+
+ShellCheck JSON output for HEAD commit. Useful when debugging.
+
+### `shellcheck-base`
+
+ShellCheck JSON output for BASE commit. Useful when debugging.
+
 ## Using with Private repositories
 
 Differential ShellCheck GitHub Action could be used in private repositories by any user. But code scanning-related features are available only for GitHub Enterprise users, as mentioned in [GitHub Documentation](https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/about-code-scanning):
