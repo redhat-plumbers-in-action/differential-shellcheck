@@ -2,6 +2,12 @@
 
 ## Next release
 
+## v5.5.0
+
+* Fail when running in a shallow git repository
+* Make SARIF file more compact to allow for more findings to be uploaded to GitHub
+* Improve debugging of Differential ShellCheck
+* Use Fedora 41 as base image & update ShellCheck to 0.10.0
 * Update `csutils` (`csdiff`) to 3.5.0
 
 ## v5.4.0
