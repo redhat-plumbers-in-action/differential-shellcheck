@@ -2,6 +2,11 @@
 
 ## Next release
 
+## v5.5.1
+
+* Include git-lfs in image to avoid issues with projects using it
+* Improve debugging of Differential ShellCheck
+
 ## v5.5.0
 
 * Fail when running in a shallow git repository
