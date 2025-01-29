@@ -144,15 +144,15 @@ jobs:
 
 ### Real life examples of usage
 
-* [`rbenv/rbenv`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/rbenv/rbenv%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/rbenv/rbenv?style=social)](https://github.com/rbenv/rbenv)
+* `rbenv/rbenv` [![GitHub Repo stars](https://img.shields.io/github/stars/rbenv/rbenv?style=social)](https://github.com/rbenv/rbenv)
 
-* [`systemd/systemd`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/systemd/systemd%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/systemd?style=social)](https://github.com/systemd/systemd)
+* `systemd/systemd` [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/systemd?style=social)](https://github.com/systemd/systemd)
 
-* [`cockpit-project/cockpit`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/cockpit-project/cockpit%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/cockpit-project/cockpit?style=social)](https://github.com/cockpit-project/cockpit)
+* `cockpit-project/cockpit` [![GitHub Repo stars](https://img.shields.io/github/stars/cockpit-project/cockpit?style=social)](https://github.com/cockpit-project/cockpit)
 
-* [`89luca89/distrobox`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/89luca89/distrobox%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/89luca89/distrobox?style=social)](https://github.com/89luca89/distrobox)
+* `89luca89/distrobox` [![GitHub Repo stars](https://img.shields.io/github/stars/89luca89/distrobox?style=social)](https://github.com/89luca89/distrobox)
 
-* [`flatpak/flatpak`](https://sourcegraph.com/search?q=context:global+repo:%5Egithub%5C.com/flatpak/flatpak%24+file:%5E%5C.github/workflows+redhat-plumbers-in-action/differential-shellcheck&patternType=literal) [![GitHub Repo stars](https://img.shields.io/github/stars/flatpak/flatpak?style=social)](https://github.com/flatpak/flatpak)
+* `flatpak/flatpak` [![GitHub Repo stars](https://img.shields.io/github/stars/flatpak/flatpak?style=social)](https://github.com/flatpak/flatpak)
 
 * more examples - [here](https://github.com/redhat-plumbers-in-action/differential-shellcheck/network/dependents?package_id=UGFja2FnZS0yOTkzNjMxNzI2)
 
