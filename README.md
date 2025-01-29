@@ -144,15 +144,17 @@ jobs:
 
 ### Real life examples of usage
 
-* `rbenv/rbenv` [![GitHub Repo stars](https://img.shields.io/github/stars/rbenv/rbenv?style=social)](https://github.com/rbenv/rbenv)
+* [`rbenv/rbenv` ![GitHub Repo stars](https://img.shields.io/github/stars/rbenv/rbenv?style=social)](https://github.com/rbenv/rbenv)
 
-* `systemd/systemd` [![GitHub Repo stars](https://img.shields.io/github/stars/systemd/systemd?style=social)](https://github.com/systemd/systemd)
+* [`Bash-it/bash-it` ![GitHub Repo stars](https://img.shields.io/github/stars/Bash-it/bash-it?style=social)](https://github.com/Bash-it/bash-it)
 
-* `cockpit-project/cockpit` [![GitHub Repo stars](https://img.shields.io/github/stars/cockpit-project/cockpit?style=social)](https://github.com/cockpit-project/cockpit)
+* [`scylladb/scylladb` ![GitHub Repo stars](https://img.shields.io/github/stars/scylladb/scylladb?style=social)](https://github.com/scylladb/scylladb)
 
-* `89luca89/distrobox` [![GitHub Repo stars](https://img.shields.io/github/stars/89luca89/distrobox?style=social)](https://github.com/89luca89/distrobox)
+* [`systemd/systemd` ![GitHub Repo stars](https://img.shields.io/github/stars/systemd/systemd?style=social)](https://github.com/systemd/systemd)
 
-* `flatpak/flatpak` [![GitHub Repo stars](https://img.shields.io/github/stars/flatpak/flatpak?style=social)](https://github.com/flatpak/flatpak)
+* [`cockpit-project/cockpit` ![GitHub Repo stars](https://img.shields.io/github/stars/cockpit-project/cockpit?style=social)](https://github.com/cockpit-project/cockpit)
+
+* [`89luca89/distrobox` ![GitHub Repo stars](https://img.shields.io/github/stars/89luca89/distrobox?style=social)](https://github.com/89luca89/distrobox)
 
 * more examples - [here](https://github.com/redhat-plumbers-in-action/differential-shellcheck/network/dependents?package_id=UGFja2FnZS0yOTkzNjMxNzI2)
 
