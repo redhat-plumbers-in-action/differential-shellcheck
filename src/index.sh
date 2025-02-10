@@ -19,6 +19,12 @@ git config --global --add safe.directory "${GITHUB_WORKSPACE:-}"
 # Chose correct BASE and HEAD commit for scan
 pick_base_and_head_hash || exit 1
 
+# Check if Base sha exists
+if [[ "${BASE}" = "0000000000000000000000000000000000000000" ]]; then
+  echo "::warning:: git: base SHA1 (${BASE}) doesn't exist. Make sure that the base branch is up-to-date."
+  exit 1
+fi
+
 # Make sure we have correct BASE even when force-push was used
 # source: https://stackoverflow.com/a/69893210/10221282
 # !FIXME: It doesn't seems to work. Seems like action/checkout doesn't fetch all commits, so if we want to support force-pushes we probaly need to do it manually
