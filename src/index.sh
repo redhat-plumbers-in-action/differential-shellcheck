@@ -22,7 +22,7 @@ pick_base_and_head_hash || exit 1
 # Check if Base sha exists
 if [[ "${BASE}" = "0000000000000000000000000000000000000000" ]]; then
   echo "::warning:: git: base SHA1 (${BASE}) doesn't exist. Make sure that the base branch is up-to-date."
-  exit 1
+  exit 0
 fi
 
 # Make sure we have correct BASE even when force-push was used
