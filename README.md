@@ -70,6 +70,8 @@ permissions:
 
 jobs:
   lint:
+    # TODO: Update repository name to match your upstream repository
+    if: github.event.repository == 'redhat-plumbers-in-action/differential-shellcheck'
     runs-on: ubuntu-latest
 
     permissions:
