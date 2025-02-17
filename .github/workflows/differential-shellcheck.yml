@@ -47,7 +47,7 @@ jobs:
           display-engine: sarif-fmt
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - if: always()
+      - if: ${{ runner.debug == '1' && !cancelled() }}
         name: Upload artifact with defects in SARIF format
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
@@ -55,7 +55,7 @@ jobs:
           path: ${{ steps.ShellCheck.outputs.sarif }}
           retention-days: 7
 
-      - if: always()
+      - if: ${{ !cancelled() }}
         name: Upload artifact with defects in XHTML format
         uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
         with:
