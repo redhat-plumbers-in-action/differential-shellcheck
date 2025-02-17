@@ -70,8 +70,6 @@ permissions:
 
 jobs:
   lint:
-    # TODO: Update repository name to match your upstream repository
-    if: github.event.repository == 'redhat-plumbers-in-action/differential-shellcheck'
     runs-on: ubuntu-latest
 
     permissions:
@@ -106,6 +104,10 @@ jobs:
 > [!IMPORTANT]
 >
 > _`fetch-depth: 0` is required to run `differential-shellcheck` successfully. It fetches all git history._
+
+> [!TIP]
+>
+> You can limit execution of `differential-shellcheck` to upstream repository by using `if: github.event.repository == 'your_org/your_repo'` before `runs-on: ubuntu-latest`.
 
 <details>
   <summary>Console output example</summary>
