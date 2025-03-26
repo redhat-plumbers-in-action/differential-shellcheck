@@ -70,6 +70,25 @@ setup () {
   # assert_equal "\"${HEAD}\"" "\"${INPUT_PUSH_EVENT_HEAD}\""
 }
 
+@test "pick_base_and_head_hash() - trigger event = push - first commit/new branch" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+
+  INPUT_TRIGGERING_EVENT="push"
+
+  UNIT_TESTS=0
+  INPUT_PUSH_EVENT_BASE="0000000000000000000000000000000000000000"
+  INPUT_PUSH_EVENT_HEAD="ghijkl789012"
+
+  run pick_base_and_head_hash
+  assert_success
+  assert_output \
+"first commit on new branch detected
+BASE:\"${TRUE_BASE}\" ; HEAD:\"${INPUT_PUSH_EVENT_HEAD}\""
+  # TODO: Doesn't work, don't know why...
+  # assert_equal "\"${BASE}\"" "\"${TRUE_BASE}\""
+  # assert_equal "\"${HEAD}\"" "\"${INPUT_PUSH_EVENT_HEAD}\""
+}
+
 @test "pick_base_and_head_hash() - trigger event = pull_request" {
   source "${PROJECT_ROOT}/src/functions.sh"
 
