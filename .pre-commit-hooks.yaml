@@ -1,0 +1,7 @@
+- id: differential-shellcheck
+  name: Differential ShellCheck
+  description: Static analysis tool for changed shell scripts
+  language: docker
+  entry: /action/pre-commit.sh
+  types: [shell]
+  verbose: true
