@@ -118,3 +118,5 @@ runs:
     INPUT_EXCLUDE_PATH: ${{ inputs.exclude-path }}
     INPUT_INCLUDE_PATH: ${{ inputs.include-path }}
     INPUT_DISPLAY_ENGINE: ${{ inputs.display-engine }}
+    INPUT_BASE: ${{ inputs.base }}
+    INPUT_HEAD: ${{ inputs.head }}
