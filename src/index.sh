@@ -108,7 +108,7 @@ if ! is_strict_check_on_push_demanded; then
 
   get_defects "${WORK_DIR}head-shellcheck.err" "${WORK_DIR}base-shellcheck.err"
 else
-  mv "${WORK_DIR}full-shellcheck.err" "${WORK_DIR}defects.log"
+  get_defects "${WORK_DIR}full-shellcheck.err" /dev/null  # csdiff --fixed swaps arguments
 fi
 
 echo
@@ -122,12 +122,7 @@ git stash pop --quiet
 evaluate_and_print_defects
 exit_status=$?
 
-# Upload all defects when Full scan was requested
-if [[ ${FULL_SCAN} -eq 0 ]]; then
-  cp "${WORK_DIR}full-shellcheck.err" "${WORK_DIR}sarif-defects.log"
-else
-  cp "${WORK_DIR}defects.log" "${WORK_DIR}sarif-defects.log"
-fi
+cp "${WORK_DIR}defects.log" "${WORK_DIR}sarif-defects.log"
 
 generate_SARIF "${WORK_DIR}sarif-defects.log" "output.sarif"
 
