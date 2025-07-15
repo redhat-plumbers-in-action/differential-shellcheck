@@ -71,7 +71,8 @@ echo
 # ------------ #
 
 if [[ ${FULL_SCAN} -eq 0 ]]; then
-  execute_shellcheck "${all_scripts[@]}" > "${WORK_DIR}full-shellcheck.err"
+  execute_shellcheck "${all_scripts[@]}" > "${WORK_DIR}full-shellcheck-raw.err"
+  csgrep --mode=json --embed-context 4 "${WORK_DIR}full-shellcheck-raw.err" > "${WORK_DIR}full-shellcheck.err"
 
   echo "shellcheck-full=${WORK_DIR}full-shellcheck.err" >> "${GITHUB_OUTPUT}"
   is_debug \
@@ -82,7 +83,8 @@ fi
 exit_status=0
 
 if ! is_strict_check_on_push_demanded; then
-  execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}head-shellcheck.err"
+  execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}head-shellcheck-raw.err"
+  csgrep --mode=json --embed-context 4 "${WORK_DIR}head-shellcheck-raw.err" > "${WORK_DIR}head-shellcheck.err"
 
   echo "shellcheck-head=${WORK_DIR}head-shellcheck.err" >> "${GITHUB_OUTPUT}"
   is_debug \
@@ -95,7 +97,8 @@ if ! is_strict_check_on_push_demanded; then
   is_debug && echo "checkout HEAD"
   git checkout --force --quiet -b ci_br_dest "${BASE}" || git checkout --force --quiet "${BASE}" || echo "failed to checkout HEAD"
 
-  execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}base-shellcheck.err"
+  execute_shellcheck "${only_changed_scripts[@]}" > "${WORK_DIR}base-shellcheck-raw.err"
+  csgrep --mode=json --embed-context 4 "${WORK_DIR}base-shellcheck-raw.err" > "${WORK_DIR}base-shellcheck.err"
 
   get_fixes "${WORK_DIR}base-shellcheck.err" "${WORK_DIR}head-shellcheck.err"
 
