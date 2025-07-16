@@ -7,7 +7,7 @@ FROM fedora:42
 ARG fedora="42"
 ARG arch="x86_64"
 
-ARG version_csdiff="3.5.4-1"
+ARG version_csdiff="3.5.5-1"
 ARG version_shellcheck="0.10.0-4"
 
 ARG rpm_csdiff="csdiff-${version_csdiff}.fc${fedora}.${arch}.rpm"
