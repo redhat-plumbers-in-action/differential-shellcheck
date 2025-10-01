@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint Code Base
-        uses: super-linter/super-linter@12150456a73e248bdc94d0794898f94e23127c88 # v7.4.0
+        uses: super-linter/super-linter@7bba2eeb89d01dc9bfd93c497477a57e72c83240 # v8.2.0
         env:
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false
@@ -35,4 +35,8 @@ jobs:
           VALIDATE_SHELL_SHFMT: false
           VALIDATE_YAML_PRETTIER: false
           VALIDATE_MARKDOWN_PRETTIER: false
+          VALIDATE_BIOME_FORMAT: false
+          VALIDATE_BIOME_LINT: false
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+          VALIDATE_TRIVY: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
