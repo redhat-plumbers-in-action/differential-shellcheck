@@ -162,6 +162,65 @@ jobs:
 
 * more examples - [here](https://github.com/redhat-plumbers-in-action/differential-shellcheck/network/dependents?package_id=UGFja2FnZS0yOTkzNjMxNzI2)
 
+## CLI Usage
+
+Differential ShellCheck can also be used as a standalone command-line tool outside of GitHub Actions.
+
+### Installation
+
+**Fedora:**
+
+```bash
+dnf install differential-shellcheck
+```
+
+**From source:**
+
+```bash
+git clone https://github.com/redhat-plumbers-in-action/differential-shellcheck.git
+cd differential-shellcheck
+sudo make install
+```
+
+### Dependencies
+
+`shellcheck`, `csdiff` (provides `csgrep`, `cshtml`), `jq`, `git`
+
+Optional: `sarif-fmt` (alternative display engine)
+
+### Quick Start
+
+```bash
+# Scan changes not yet in upstream (auto-detects remote)
+differential-shellcheck
+
+# Scan changes between two commits
+differential-shellcheck --base main --head feature-branch
+
+# Scan only warnings and errors
+differential-shellcheck --severity warning
+
+# Full scan of specific files
+differential-shellcheck --full-scan myscript.sh
+
+# Use with pre-commit (files passed as arguments)
+differential-shellcheck script1.sh script2.sh
+```
+
+### Pre-commit Integration
+
+Add to your `.pre-commit-config.yaml`:
+
+```yaml
+repos:
+- repo: https://github.com/redhat-plumbers-in-action/differential-shellcheck
+  rev: v5.6.0
+  hooks:
+  - id: differential-shellcheck
+```
+
+For the full list of CLI options, run `differential-shellcheck --help` or see `man differential-shellcheck`.
+
 ## Configuration options
 
 Action currently accepts following options:

@@ -1,0 +1,8 @@
+- id: differential-shellcheck
+  name: Differential ShellCheck
+  description: Differential static analysis for shell scripts
+  entry: src/cli.sh
+  language: script
+  types: [shell]
+  require_serial: true
+  verbose: true

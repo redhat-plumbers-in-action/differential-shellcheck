@@ -2,3 +2,6 @@ coverage
 .vscode
 
 *.sarif
+
+# Generated man page (built from .md via pandoc)
+docs/differential-shellcheck.1
