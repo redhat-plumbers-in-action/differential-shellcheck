@@ -12,6 +12,7 @@ setup () {
 
 @test "evaluate_and_print_defects() - some defects" {
   source "${PROJECT_ROOT}/src/functions.sh"
+  WHITE="" NOCOLOR="" GREEN="" YELLOW="" RED="" ORANGE="" BLUE=""
   source "${PROJECT_ROOT}/src/validation.sh"
 
   GITHUB_ACTIONS="1"
@@ -32,6 +33,7 @@ Style or Note: 0
 
 @test "evaluate_and_print_defects() - no defects" {
   source "${PROJECT_ROOT}/src/functions.sh"
+  WHITE="" NOCOLOR="" GREEN="" YELLOW="" RED="" ORANGE="" BLUE=""
   source "${PROJECT_ROOT}/src/validation.sh"
 
   echo -e \

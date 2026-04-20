@@ -56,13 +56,13 @@ Usage: differential-shellcheck [OPTIONS] [--] [FILE ...]
 
 Perform differential ShellCheck scans on shell scripts.
 
-When run without FILE arguments in a git repository, scans changes between
+When run without FILE arguments in a Git repository, scans changes between
 a base commit (auto-detected from upstream/origin remote) and HEAD.
 
 When FILE arguments are provided, performs a differential scan of those files
 against their git-stashed versions (useful as a pre-commit hook).
 
-Differential scan (default in a git repo):
+Differential scan (default in a Git repo):
   --base SHA              Base commit (default: auto-detect from upstream remote)
   --head SHA              Head commit (default: HEAD)
   --upstream REMOTE       Remote to diff against (default: "upstream", fallback: "origin")
@@ -204,7 +204,9 @@ ${2}"
         shift
         ;;
       --version)
-        echo "differential-shellcheck $(resolve_version)"
+        local ver
+        ver="$(resolve_version)" || true
+        echo "differential-shellcheck ${ver}"
         exit 0
         ;;
       --help)
@@ -247,7 +249,7 @@ ${2}"
 
     if [[ -z "${user_set_head}" ]]; then
       INPUT_HEAD="$(git rev-parse HEAD 2>/dev/null)" || {
-        echo "ERROR: Cannot resolve HEAD. Are you in a git repository?" >&2
+        echo "ERROR: Cannot resolve HEAD. Are you in a Git repository?" >&2
         return 2
       }
     fi

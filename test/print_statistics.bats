@@ -12,6 +12,7 @@ setup () {
 
 @test "print_statistics() - severity=style" {
   source "${PROJECT_ROOT}/src/functions.sh"
+  WHITE="" NOCOLOR=""
   source "${PROJECT_ROOT}/src/validation.sh"
 
   GITHUB_ACTIONS="1"
@@ -29,6 +30,7 @@ Style or Note: 0
 
 @test "print_statistics() - severity=warning" {
   source "${PROJECT_ROOT}/src/functions.sh"
+  WHITE="" NOCOLOR=""
   source "${PROJECT_ROOT}/src/validation.sh"
 
   GITHUB_ACTIONS="1"
@@ -45,6 +47,7 @@ Warning: 3
 
 @test "print_statistics() - CLI mode output" {
   source "${PROJECT_ROOT}/src/functions.sh"
+  WHITE="" NOCOLOR=""
   source "${PROJECT_ROOT}/src/validation.sh"
 
   GITHUB_ACTIONS=""

@@ -17,14 +17,14 @@ differential-shellcheck - differential static analysis for shell scripts
 # DESCRIPTION
 
 **differential-shellcheck** performs differential ShellCheck scans on shell
-scripts in a git repository. It identifies new defects introduced by recent
+scripts in a Git repository. It identifies new defects introduced by recent
 changes and fixes that were resolved, making it easy to focus on newly
 introduced issues without being overwhelmed by pre-existing problems.
 
-When run without *FILE* arguments in a git repository, it scans changes
+When run without *FILE* arguments in a Git repository, it scans changes
 between a base commit (auto-detected from the upstream or origin remote)
 and HEAD. When *FILE* arguments are provided, it performs a differential
-scan of those files against their git-stashed versions, making it suitable
+scan of those files against their Git-stashed versions, making it suitable
 as a **pre-commit** hook.
 
 The tool can also be used as a GitHub Action. See the project documentation
@@ -36,7 +36,7 @@ for details.
 
 **--base** *SHA*
 :   Base commit for differential scan. Default: auto-detected from the upstream
-    remote using **git merge-base**.
+    remote using **git-merge-base**(1).
 
 **--head** *SHA*
 :   Head commit for differential scan. Default: HEAD.
@@ -112,7 +112,7 @@ changed between two commits and performs a differential ShellCheck scan:
 ## Working-tree differential scan
 
 When *FILE* arguments are provided without **--full-scan**, the tool performs
-a differential scan using **git stash** to compare the current working tree
+a differential scan using **git-stash**(1) to compare the current working tree
 against the stashed (base) version:
 
     differential-shellcheck script.sh lib.sh

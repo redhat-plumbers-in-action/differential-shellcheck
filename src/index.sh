@@ -44,8 +44,7 @@ if [[ ${FULL_SCAN} -eq 0 ]]; then
   if [[ ${#CLI_FILES[@]} -gt 0 ]]; then
     all_scripts=("${CLI_FILES[@]}")
   else
-    local scan_ref="${GITHUB_REF_NAME:-HEAD}"
-    git ls-tree -r --name-only -z "${scan_ref}" > "${WORK_DIR}files.txt"
+    git ls-tree -r --name-only -z "${GITHUB_REF_NAME:-HEAD}" > "${WORK_DIR}files.txt"
 
     all_scripts=()
     get_scripts_for_scanning "${WORK_DIR}files.txt" "all_scripts"
@@ -156,7 +155,6 @@ if is_github_actions && [[ -n "${INPUT_TOKEN:-}" ]]; then
   uploadSARIF
 fi
 
-local summary_text
 summary_text="$(summary)"
 emit_summary "${summary_text}"
 
