@@ -1,0 +1,45 @@
+---
+
+name: CLI Integration Tests
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  merge_group:
+    types: [ checks_requested ]
+
+permissions:
+  contents: read
+
+jobs:
+  cli-smoke-test:
+    name: CLI smoke tests
+    runs-on: ubuntu-latest
+
+    container: ghcr.io/redhat-plumbers-in-action/differential-shellcheck/test:latest
+
+    permissions:
+      packages: read
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Test --help
+        run: ./src/cli.sh --help
+
+      - name: Test --version
+        run: ./src/cli.sh --version
+
+      - name: Test differential scan with explicit commits
+        run: ./src/cli.sh --base HEAD~2 --head HEAD || true
+
+      - name: Test full scan with file arguments
+        run: ./src/cli.sh --full-scan src/index.sh || true
+
+      - name: Test --severity and --display-engine options
+        run: ./src/cli.sh --severity warning --display-engine csgrep --base HEAD~1 --head HEAD || true

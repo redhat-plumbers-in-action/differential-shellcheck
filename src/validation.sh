@@ -88,11 +88,11 @@ evaluate_and_print_defects () {
 # Function to print statistics of defects
 # it requires gather_statistics to be called first
 print_statistics () {
-  echo -e "::group::📊 ${WHITE}Statistics of defects${NOCOLOR}"
+  emit_group_start "📊 ${WHITE}Statistics of defects${NOCOLOR}"
     [[ -n ${stat_error} ]] && echo -e "Error: ${stat_error}"
     [[ -n ${stat_warning} ]] && echo -e "Warning: ${stat_warning}"
     [[ -n ${stat_info} ]] && echo -e "Style or Note: ${stat_info}"
-  echo "::endgroup::"
+  emit_group_end
   echo
 }
 

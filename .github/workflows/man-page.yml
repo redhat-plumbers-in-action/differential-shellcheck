@@ -1,0 +1,38 @@
+---
+
+name: Man Page Build
+on:
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'docs/differential-shellcheck.1.md'
+      - 'Makefile'
+  push:
+    branches: [ main ]
+    paths:
+      - 'docs/differential-shellcheck.1.md'
+      - 'Makefile'
+
+permissions:
+  contents: read
+
+jobs:
+  build-man-page:
+    name: Build man page from Markdown
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Install pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+
+      - name: Build man page
+        run: make man
+
+      - name: Verify man page was generated
+        run: test -f docs/differential-shellcheck.1
+
+      - name: Display rendered man page
+        run: man -l docs/differential-shellcheck.1

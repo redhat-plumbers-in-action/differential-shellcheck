@@ -11,8 +11,11 @@ setup () {
 }
 
 @test "evaluate_and_print_defects() - some defects" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+  WHITE="" NOCOLOR="" GREEN="" YELLOW="" RED="" ORANGE="" BLUE=""
   source "${PROJECT_ROOT}/src/validation.sh"
 
+  GITHUB_ACTIONS="1"
   INPUT_SEVERITY="style"
   cp ./test/fixtures/evaluate_and_print_defects/defects.log ../defects.log
 
@@ -29,6 +32,8 @@ Style or Note: 0
 }
 
 @test "evaluate_and_print_defects() - no defects" {
+  source "${PROJECT_ROOT}/src/functions.sh"
+  WHITE="" NOCOLOR="" GREEN="" YELLOW="" RED="" ORANGE="" BLUE=""
   source "${PROJECT_ROOT}/src/validation.sh"
 
   echo -e \
@@ -43,4 +48,5 @@ Style or Note: 0
 
 teardown () {
   rm -f ../defects.log
+  export GITHUB_ACTIONS=""
 }
