@@ -188,7 +188,7 @@ is_directory () {
   return 2
 }
 
-# Function to test if given file path is listed in the privided input list
+# Function to test if given file path is listed in the provided input list
 # https://unix.stackexchange.com/a/165981/509101
 # $1 - <string> file path
 # $2 - <string> input list of files
@@ -313,14 +313,64 @@ is_debug () {
 # GITHUB_ACTIONS is set when Differential ShellCheck is running in GitHub Actions
 # https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables
 is_github_actions () {
-  [[ -z "${GITHUB_ACTIONS}" ]] && return 1
+  [[ -z "${GITHUB_ACTIONS:-}" ]] && return 1
   return 0
 }
 
 # Function to check if the script is run in unit tests environment
 is_unit_tests () {
-  [[ -z "${UNIT_TESTS}" ]] && return 1
+  [[ -z "${UNIT_TESTS:-}" ]] && return 1
   return 0
+}
+
+# --- Output abstraction layer ---
+# These functions abstract GitHub Actions-specific I/O so the code
+# works both in GitHub Actions and as a standalone CLI.
+
+# Write a key=value pair to GitHub Actions output
+emit_output () {
+  [[ $# -le 1 ]] && return 1
+  is_github_actions || return 0
+  # shellcheck disable=SC2154
+  echo "${1}=${2}" >> "${GITHUB_OUTPUT}"
+}
+
+# Write summary text to GitHub Actions step summary or stdout
+emit_summary () {
+  [[ $# -le 0 ]] && return 1
+  if is_github_actions; then
+    # shellcheck disable=SC2154
+    echo -e "${1}" >> "${GITHUB_STEP_SUMMARY}"
+  else
+    echo -e "${1}"
+  fi
+}
+
+# Start a collapsible group in GitHub Actions or print a header on CLI
+emit_group_start () {
+  [[ $# -le 0 ]] && return 1
+  if is_github_actions; then
+    echo -e "::group::${1}"
+  else
+    echo -e "--- ${1} ---"
+  fi
+}
+
+# End a collapsible group in GitHub Actions
+emit_group_end () {
+  if is_github_actions; then
+    echo "::endgroup::"
+  fi
+}
+
+# Emit a warning via GitHub Actions annotation or stderr
+emit_warning () {
+  [[ $# -le 0 ]] && return 1
+  if is_github_actions; then
+    echo "::warning:: ${1}"
+  else
+    echo "WARNING: ${1}" >&2
+  fi
 }
 
 # Function to generate SARIF report

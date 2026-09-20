@@ -2,6 +2,12 @@
 
 ## Next release
 
+* Add standalone CLI interface for running outside GitHub Actions
+* Add pre-commit hook support
+* Add man page (`man differential-shellcheck`)
+* Add RPM spec file for Fedora packaging
+* Add `make install` target for system-wide installation
+
 ## v5.5.1
 
 * Include git-lfs in image to avoid issues with projects using it

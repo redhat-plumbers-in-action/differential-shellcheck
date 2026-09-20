@@ -1,0 +1,2 @@
+# Man page source uses # headings as required by pandoc man page format
+docs/differential-shellcheck.1.md
